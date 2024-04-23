@@ -23,16 +23,6 @@ function SidebarAdmin() {
                                         Ecommerce Dashboard
                                     </a>
                                 </li>
-                                <li>
-                                    <a className="nav-link" href="/chart">
-                                        Chart
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="nav-link" href="/barChart">
-                                        Bar Chart
-                                    </a>
-                                </li>
                             </ul>
                         </li>
 
@@ -47,21 +37,6 @@ function SidebarAdmin() {
                                         Genres
                                     </a>
                                 </li>
-                                {/* <li>
-                                    <a className="nav-link" href="/seats">
-                                        Seats
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="nav-link" href="/favorite">
-                                        Favorite
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="nav-link" href="/galleryMovie">
-                                        GalleryMovie
-                                    </a>
-                                </li> */}
                                 <li>
                                     <a className="nav-link" href="/movies">
                                         Movie
@@ -167,28 +142,18 @@ function SidebarAdmin() {
                             </a>
                             <ul className="dropdown-menu">
                                 <li>
-                                    <a className="nav-link" href="/movie">
-                                        Card
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="nav-link" href="/booking">
-                                        ContactInfo
-                                    </a>
-                                </li>
-                                <li>
                                     <a className="nav-link" href="/feedback">
                                         Feedback
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="nav-link" href="/feedback">
-                                        Map
+                                    <a className="nav-link" href="/calendar">
+                                        Calendar
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="nav-link" href="/feedback">
-                                        Payments
+                                    <a className="nav-link" href="/calendars">
+                                        Calendars
                                     </a>
                                 </li>
                                 <li>
@@ -209,8 +174,13 @@ function SidebarAdmin() {
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="nav-link" href="/users">
-                                        Users
+                                    <a className="nav-link" href="/customers">
+                                        Customers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="nav-link" href="/admins">
+                                        Admins
                                     </a>
                                 </li>
                             </ul>
