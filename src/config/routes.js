@@ -1,6 +1,8 @@
 const routes = {
     admin: '/',
     barChart: '/barChart',
+    calendar: '/calendar',
+    calendars: '/calendars',
 
     profile: '/profile/:id',
     error_404: '/error_404',
@@ -65,8 +67,13 @@ const routes = {
     ticketEdit: '/ticket/edit/:id',
 
     //      Users
-    users: '/users',
-    createUsers: '/users/create',
+    customers: '/customers',
+    createCustomers: '/customers/create',
+    editCustomers: '/customers/edit/:id',
+
+    admins: '/admins',
+    createAdmins: '/admins/create',
+    editAdmins: '/admins/edit/:id',
 };
 
 export default routes;
