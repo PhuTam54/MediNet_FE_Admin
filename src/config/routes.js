@@ -1,19 +1,16 @@
 const routes = {
     admin: '/',
     barChart: '/barChart',
-    calendar: '/calendar',
-    calendars: '/calendars',
+    doughnutChart: '/doughnutChart',
+    lineChart: '/lineChart',
+    pieChart: '/pieChart',
 
-    profile: '/profile/:id',
-    error_404: '/error_404',
 
     //      Account
     login: '/login',
     register: '/register',
     forgotpassword: '/forgotpassword',
     resetpassword: '/resetpassword',
-
-    invoice: '/invoice',
 
     //      Shop
     category: '/category',
@@ -66,6 +63,13 @@ const routes = {
     ticketCreate: '/ticket/create',
     ticketEdit: '/ticket/edit/:id',
 
+    //      Manager
+
+    invoice: '/invoice',
+    calendar: '/calendar',
+    calendars: '/calendars',
+    error_404: '/error_404',
+
     //      Users
     customers: '/customers',
     createCustomers: '/customers/create',
@@ -74,6 +78,8 @@ const routes = {
     admins: '/admins',
     createAdmins: '/admins/create',
     editAdmins: '/admins/edit/:id',
+
+    profile: '/profile',
 };
 
 export default routes;

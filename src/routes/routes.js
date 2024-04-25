@@ -5,10 +5,12 @@ import AdminLayout from '~/layouts/AdminLayouts/AdminLayout';
 
 // Pages
 import HomeAdmin from '~/pages/Home';
-// import Chart from '~/pages/Home/chart';
 import BarChart from '~/pages/Home/barChart';
-import Calendar from '~/pages/Calendar/index';
-import Calendars from '~/pages/Calendars/index';
+import DoughnutChart from '~/pages/Home/doughnutChart';
+import LineChart from '~/pages/Home/lineChart';
+import PieChart from '~/pages/Home/pieChart';
+
+
 
 import Error_404 from '~/pages/Error';
 
@@ -60,8 +62,9 @@ import EditShops from '~/pages/Shop/Shop/edit';
 
 //      Manager
 import Booking from '~/pages/Magager/Booking/index';
-import Profile from '~/pages/Magager/Profile';
 import Invoice from '~/pages/Magager/Invoice';
+import Calendar from '~/pages/Calendar/index';
+import Calendars from '~/pages/Calendars/index';
 
 //      Users
 import Customers from '~/pages/Users/Customer/index';
@@ -72,12 +75,18 @@ import Admin from '~/pages/Users/Admin/index';
 import CreateAdmin from '~/pages/Users/Admin/create';
 import EditAdmin from '~/pages/Users/Admin/edit';
 
+import Profile from '~/pages/Users/Profile/index';
+
 // Public routes
 export const publicRoutes = [
     //      Home
     { path: config.routes.admin, component: HomeAdmin, layout: AdminLayout },
-    { path: config.routes.calendar, component: Calendar, layout: AdminLayout },
-    // { path: config.routes.calendars, component: Calendars, layout: AdminLayout },
+    { path: config.routes.barChart, component: BarChart, layout: AdminLayout },
+    { path: config.routes.doughnutChart, component: DoughnutChart, layout: AdminLayout },
+    { path: config.routes.lineChart, component: LineChart, layout: AdminLayout },
+    { path: config.routes.pieChart, component: PieChart, layout: AdminLayout },
+
+   
 
     //      Movie
     { path: config.routes.movies, component: Movies, layout: AdminLayout },
@@ -121,6 +130,8 @@ export const publicRoutes = [
 
     //      Manager
     { path: config.routes.booking, component: Booking, layout: AdminLayout },
+    { path: config.routes.calendar, component: Calendar, layout: AdminLayout },
+    // { path: config.routes.calendars, component: Calendars, layout: AdminLayout },
 
     //      Account
     { path: config.routes.login, component: Login, layout: null },
@@ -142,6 +153,8 @@ export const publicRoutes = [
     { path: config.routes.admins, component: Admin, layout: AdminLayout },
     { path: config.routes.createAdmins, component: CreateAdmin, layout: AdminLayout },
     { path: config.routes.editAdmins, component: EditAdmin, layout: AdminLayout },
+
+    { path: config.routes.profile, component: Profile, layout: AdminLayout },
 ];
 
 // Private routes

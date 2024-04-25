@@ -110,7 +110,6 @@ function Orders() {
                             <div className="card-header">
                                 <h4>All Orders</h4>
                             </div>
-
                             <div className="card-body">
                                 {loading ? (
                                     <div>Loading...</div>

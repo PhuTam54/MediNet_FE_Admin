@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale);
 
@@ -66,9 +67,32 @@ const BarChart = () => {
     };
 
     return (
-        <div>
-            <Bar data={data} height={300} width={200} options={options} />
-        </div>
+        <section className="section">
+            <div className="section-header">
+                <h1>BarChart</h1>
+                <div className="section-header-breadcrumb">
+                    <div className="breadcrumb-item active">
+                        <Link to="/">Dashboard</Link>
+                    </div>
+                    <div className="breadcrumb-item">
+                        <Link to="#">BarChart</Link>
+                    </div>
+                    <div className="breadcrumb-item">All BarChart</div>
+                </div>
+            </div>
+            <div className="col-lg-8">
+                <div className="card">
+                    <div className="card-header">
+                        <h4>BarChart</h4>
+                    </div>
+                    <div className="card-body">
+                        <div>
+                            <Bar data={data} height={400} options={options} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 };
 

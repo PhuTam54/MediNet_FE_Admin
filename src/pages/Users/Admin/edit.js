@@ -112,7 +112,7 @@ function EditAdmins() {
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="text"
+                                                type="email"
                                                 className="form-control"
                                                 value={data.email}
                                                 onChange={(e) => setData({ ...data, email: e.target.value })}

@@ -65,7 +65,7 @@ const Calendar = () => {
                     <div className="control-wrapper">
                         <ScheduleComponent
                             cssClass="resource"
-                            selectedDate={new Date(2024, 4, 11)}
+                            selectedDate={new Date(2021, 4, 11)}
                             width={1100}
                             height={600}
                             ref={scheduleObj}

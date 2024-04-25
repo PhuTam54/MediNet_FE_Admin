@@ -10,6 +10,7 @@
         "@fortawesome/react-fontawesome": "^0.1.17",
         "@syncfusion/ej2-buttons": "^25.1.39",
         "@syncfusion/ej2-react-buttons": "^25.1.39",
+        "@syncfusion/ej2-react-popups": "^25.1.41",
         "@syncfusion/ej2-react-schedule": "^25.1.41",
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^13.4.0",
@@ -26,10 +27,12 @@
         "react-bootstrap": "^2.10.2",
         "react-chartjs-2": "^5.2.0",
         "react-dom": "^18.2.0",
+        "react-icons": "^5.1.0",
         "react-paginate": "^8.2.0",
         "react-router-dom": "^6.22.3",
         "react-scripts": "5.0.1",
         "react-toastify": "^10.0.5",
+        "reactstrap": "^9.2.2",
         "web-vitals": "^2.1.4"
     },
     "devDependencies": {

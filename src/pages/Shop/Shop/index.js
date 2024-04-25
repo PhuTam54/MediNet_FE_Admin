@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import { getShops, deleteShops } from '~/services/Shop/shopService';
+import { Link } from "react-router-dom";
 
 function Shops() {
     const [loading, setLoading] = useState(true);
@@ -89,16 +90,16 @@ function Shops() {
             <div className="section-header">
                 <h1>Shops</h1>
                 <div className="section-header-button">
-                    <a href="/shops/create" className="btn btn-primary">
+                    <Link to="/shops/create" className="btn btn-primary">
                         Add New
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Shops</a>
+                        <Link to="#">Shops</Link>
                     </div>
                     <div className="breadcrumb-item">All Shops</div>
                 </div>
@@ -159,13 +160,13 @@ function Shops() {
                                                             <td>{item.address}</td>
                                                             <td>{item.description}</td>
                                                             <td colSpan={2}>
-                                                                <a
-                                                                    href={`/shops/edit/${item.id}`}
+                                                                <Link
+                                                                    to={`/shops/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"

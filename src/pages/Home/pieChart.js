@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,7 +23,6 @@ const PieChart = () => {
         };
         fetchChartData();
     }, []);
-
 
     if (!chartData || chartData.length === 0) {
         return <div>Loading...</div>;
@@ -66,9 +66,32 @@ const PieChart = () => {
     };
 
     return (
-        <div>
-            <Pie data={data} height={400} options={options} />
+        <section className="section">
+        <div className="section-header">
+            <h1>PieChart</h1>
+            <div className="section-header-breadcrumb">
+                <div className="breadcrumb-item active">
+                    <Link to="/">Dashboard</Link>
+                </div>
+                <div className="breadcrumb-item">
+                    <Link to="/">PieChart</Link>
+                </div>
+                <div className="breadcrumb-item">All PieChart</div>
+            </div>
         </div>
+        <div className="col-lg-8">
+            <div className="card">
+                <div className="card-header">
+                    <h4>PieChart</h4>
+                </div>
+                <div className="card-body">
+                    <div>
+                        <Pie data={data} height={400} options={options} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     );
 };
 

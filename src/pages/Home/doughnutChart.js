@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -65,9 +66,32 @@ const DoughnutChart = () => {
     };
 
     return (
-        <div>
-            <Doughnut data={data} height={400} options={options} />
+        <section className="section">
+        <div className="section-header">
+            <h1>DoughnutChart</h1>
+            <div className="section-header-breadcrumb">
+                <div className="breadcrumb-item active">
+                    <Link to="/">Dashboard</Link>
+                </div>
+                <div className="breadcrumb-item">
+                    <Link to="#">DoughnutChart</Link>
+                </div>
+                <div className="breadcrumb-item">All DoughnutChart</div>
+            </div>
         </div>
+        <div className="col-lg-8">
+            <div className="card">
+                <div className="card-header">
+                    <h4>DoughnutChart</h4>
+                </div>
+                <div className="card-body">
+                    <div>
+                        <Doughnut data={data} height={400} options={options} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     );
 };
 

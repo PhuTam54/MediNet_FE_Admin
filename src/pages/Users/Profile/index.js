@@ -1,6 +1,54 @@
 import avatar from '~/assets/img/avatar/avatar-1.png';
+import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { updateAdmins, editAdmins } from '~/services/Users/adminService';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Profile() {
+    const [data, setData] = useState({
+        editId: '',
+        username: '',
+        email: '',
+        password: '',
+        role: '',
+        status: '',
+    });
+
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const adminData = await editAdmins(id);
+                setData({
+                    editId: adminData.id,
+                    email: adminData.email,
+                    username: adminData.username,
+                    password: adminData.password,
+                    role: adminData.role,
+                    status: adminData.status,
+                });
+            } catch (error) {
+                console.error('Error fetching Admin data:', error);
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
+    const handleUpdate = async (event) => {
+        event.preventDefault();
+
+        try {
+            await updateAdmins(data.editId, data.email, data.username, data.password, data.role, data.status);
+            toast.success('Admin updated successfully');
+            navigate('/Admins');
+        } catch (error) {
+            toast.error('Failed to update Admin');
+        }
+    };
     return (
         <section className="section">
             <div className="section-header">
@@ -13,7 +61,9 @@ function Profile() {
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Hi, Ujang!</h2>
+                <h2 className="section-title " value={data.username}>
+                    Hi, {data.username}
+                </h2>
                 <p className="section-lead">Change information about yourself on this page.</p>
                 <div className="row mt-sm-4">
                     <div className="col-12 col-md-12 col-lg-5">
@@ -63,61 +113,60 @@ function Profile() {
                     </div>
                     <div className="col-12 col-md-12 col-lg-7">
                         <div className="card">
-                            <form method="post" className="needs-validation" noValidate="">
+                            <form onSubmit={handleUpdate} className="needs-validation">
                                 <div className="card-header">
                                     <h4>Edit Profile</h4>
                                 </div>
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="form-group col-md-6 col-12">
-                                            <label>First Name</label>
+                                            <label>UserName</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                defaultValue="Ujang"
-                                                required=""
+                                                value={data.username}
+                                                required
+                                                onChange={(e) => setData({ ...data, username: e.target.value })}
                                             />
-                                            <div className="invalid-feedback">Please fill in the first name</div>
+                                            <div className="invalid-feedback">Please fill in the UserName</div>
                                         </div>
                                         <div className="form-group col-md-6 col-12">
-                                            <label>Last Name</label>
+                                            <label>Email</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                defaultValue="Maman"
-                                                required=""
+                                                value={data.email}
+                                                required
+                                                onChange={(e) => setData({ ...data, email: e.target.value })}
                                             />
-                                            <div className="invalid-feedback">Please fill in the last name</div>
+                                            <div className="invalid-feedback">Please fill in the Email</div>
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <div className="form-group col-md-7 col-12">
-                                            <label>Email</label>
+                                        <div className="form-group col-md-6 col-12">
+                                            <label>Role</label>
                                             <input
-                                                type="email"
+                                                type="number"
                                                 className="form-control"
-                                                defaultValue="ujang@maman.com"
-                                                required=""
+                                                required
+                                                value={data.role}
+                                                onChange={(e) => setData({ ...data, role: e.target.value })}
                                             />
-                                            <div className="invalid-feedback">Please fill in the email</div>
+                                            <div className="invalid-feedback">Please fill in the Role</div>
                                         </div>
-                                        <div className="form-group col-md-5 col-12">
-                                            <label>Phone</label>
-                                            <input type="tel" className="form-control" defaultValue="" />
+                                        <div className="form-group col-md-6 col-12">
+                                            <label>Status</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                required
+                                                value={data.status}
+                                                onChange={(e) => setData({ ...data, status: e.target.value })}
+                                            />
+                                            <div className="invalid-feedback">Please fill in the Status</div>
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="form-group col-12">
-                                            <label>Bio</label>
-                                            <textarea
-                                                className="form-control summernote-simple"
-                                                defaultValue={
-                                                    "Ujang maman is a superhero name in <b>Indonesia</b>, especially in my family. He is not a fictional character but an original hero in my family, a hero for his children and for his wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with <b>'John Doe'</b>."
-                                                }
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row">
+                                    {/* <div className="row">
                                         <div className="form-group mb-0 col-12">
                                             <div className="custom-control custom-checkbox">
                                                 <input
@@ -134,10 +183,12 @@ function Profile() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="card-footer text-right">
-                                    <button className="btn btn-primary">Save Changes</button>
+                                    <button type="submit" className="btn btn-primary">
+                                        Update Profile
+                                    </button>
                                 </div>
                             </form>
                         </div>

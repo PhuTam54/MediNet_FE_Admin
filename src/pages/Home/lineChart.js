@@ -9,7 +9,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-
+import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -75,9 +75,32 @@ const LineChart = () => {
     };
 
     return (
-        <div>
-            <Line data={data} height={400} options={options} />
-        </div>
+        <section className="section">
+            <div className="section-header">
+                <h1>Line</h1>
+                <div className="section-header-breadcrumb">
+                    <div className="breadcrumb-item active">
+                        <Link to="/">Dashboard</Link>
+                    </div>
+                    <div className="breadcrumb-item">
+                        <Link to="#">Line</Link>
+                    </div>
+                    <div className="breadcrumb-item">All Line</div>
+                </div>
+            </div>
+            <div className="col-lg-8">
+                <div className="card">
+                    <div className="card-header">
+                        <h4>LineChart</h4>
+                    </div>
+                    <div className="card-body">
+                        <div>
+                            <Line data={data} height={400} options={options} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 };
 
