@@ -8,7 +8,7 @@ import {
     Agenda,
     ScheduleComponent,
     ResourcesDirective,
-    ResourceDirective,
+    ResourceDirective,  
     Inject,
     Resize,
     DragAndDrop,

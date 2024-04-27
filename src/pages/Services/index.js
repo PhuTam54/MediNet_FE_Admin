@@ -4,9 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getOrders, deleteOrders } from '~/services/Orders/orderService';
+import { getServices, deleteServices } from '~/services/service';
+import { Link } from 'react-router-dom';
 
-function Orders() {
+function Services() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
@@ -16,7 +17,7 @@ function Orders() {
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
     useEffect(() => {
-        const filteredData = data.filter((item) => item.email.toString().toLowerCase().includes(search.toLowerCase()));
+        const filteredData = data.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
         setSearchedData(filteredData);
     }, [search, data]);
 
@@ -49,7 +50,7 @@ function Orders() {
     }, []);
 
     const getData = () => {
-        getOrders()
+        getServices()
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -67,14 +68,14 @@ function Orders() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteOrders(deleteId)
+        deleteServices(deleteId)
             .then(() => {
-                toast.success('Orders has been deleted');
+                toast.success('Services has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Orders', error);
+                toast.error('Failed to delete Services', error);
             });
     };
 
@@ -87,20 +88,20 @@ function Orders() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Orders</h1>
+                <h1>Services</h1>
                 <div className="section-header-button">
-                    <a href="/orders/create" className="btn btn-primary">
+                    <Link to="/Services/create" className="btn btn-primary">
                         Add New
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Orders</a>
+                        <Link to="#">Services</Link>
                     </div>
-                    <div className="breadcrumb-item">All Orders</div>
+                    <div className="breadcrumb-item">All Services</div>
                 </div>
             </div>
             <div className="section-body">
@@ -108,8 +109,9 @@ function Orders() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Orders</h4>
+                                <h4>All Services</h4>
                             </div>
+
                             <div className="card-body">
                                 {loading ? (
                                     <div>Loading...</div>
@@ -128,16 +130,9 @@ function Orders() {
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>TelePhone</th>
-                                                        <th>Address</th>
-                                                        <th>Shipping_method</th>
-                                                        <th>Payment_Method</th>
-                                                        <th>Is_Paid</th>
-                                                        <th>OrderDate</th>
-                                                        <th>Status</th>
-                                                        <th>UserId</th>
-                                                        <th>CartIds</th>
+                                                        <th>Description</th>
+                                                        <th>Price</th>
+                                                        <th>Clinics Id</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -146,25 +141,17 @@ function Orders() {
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>{item.name}</td>
-                                                            <td>{item.email}</td>
-                                                            <td>{item.tel}</td>
-                                                            <td>{item.address}</td>
-                                                            <td>{item.shipping_method}</td>
-                                                            <td>{item.payment_Method}</td>
-                                                            <td>{item.is_Paid}</td>
-                                                            <td>{item.orderDate}</td>
-                                                            <td>{item.status}</td>
-                                                            <td>{item.userId}</td>
-                                                            <td>{item.cartIds}</td>
-
+                                                            <td>{item.description}</td>
+                                                            <td>{item.price}</td>
+                                                            <td>{item.clinicId}</td>
                                                             <td colSpan={2}>
-                                                                <a
-                                                                    href={`/Orders/edit/${item.id}`}
+                                                                <Link
+                                                                    to={`/Services/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"
@@ -198,7 +185,7 @@ function Orders() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Orders?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this Services?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -214,4 +201,4 @@ function Orders() {
     );
 }
 
-export default Orders;
+export default Services;
