@@ -5,12 +5,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import {
-    getCategoryData,
+    getCategory,
     createCategory,
-    editCategoryData,
+    editCategory,
     updateCategory,
     deleteCategory,
 } from '~/services/Shop/categoryService';
+import { Link } from "react-router-dom";
 
 function Category() {
     const [loading, setLoading] = useState(true);
@@ -62,7 +63,7 @@ function Category() {
     }, []);
 
     const getData = () => {
-        getCategoryData()
+        getCategory()
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -79,7 +80,7 @@ function Category() {
     };
 
     const handleSaveConfirm = () => {
-        createCategory(name, slug)
+        createCategory(name)
             .then(() => {
                 getData();
                 clear();
@@ -93,17 +94,17 @@ function Category() {
 
     const handleEdit = (id) => {
         handleEditShow();
-        editCategoryData(id)
+        editCategory(id)
             .then((data) => {
                 setEditId(id);
                 setEditName(data.name);
-                setEditSlug(data.slug);
+                // setEditSlug(data.slug);
             })
             .catch((error) => console.error('Error fetching category data:', error));
     };
 
     const handleUpdate = () => {
-        updateCategory(editId, editName, editSlug)
+        updateCategory(editId, editName)
             .then(() => {
                 handleClose();
                 getData();
@@ -134,10 +135,10 @@ function Category() {
 
     const clear = () => {
         setName('');
-        setSlug('');
+        // setSlug('');
         setEditId('');
         setEditName('');
-        setEditSlug('');
+        // setEditSlug('');
     };
 
     const handleClose = () => {
@@ -156,10 +157,10 @@ function Category() {
                 <h1>Categories</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Categories</a>
+                        <Link to="#">Categories</Link>
                     </div>
                     <div className="breadcrumb-item">All Categories</div>
                 </div>
@@ -195,7 +196,7 @@ function Category() {
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>Name</th>
-                                                        <th>Slug</th>
+                                                        {/* <th>Slug</th> */}
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -204,7 +205,7 @@ function Category() {
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>{item.name}</td>
-                                                            <td>{item.slug}</td>
+                                                            {/* <td>{item.slug}</td> */}
                                                             <td colSpan={2}>
                                                                 <button
                                                                     className="btn btn-primary"

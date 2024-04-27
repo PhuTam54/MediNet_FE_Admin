@@ -51,60 +51,6 @@ function SidebarAdmin() {
                         <li className="menu-header">Pages</li>
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
-                                <i className="fas fa-video"></i> <span>Movie</span>
-                            </Link>
-                            <ul className="dropdown-menu">
-                                <li>
-                                    <Link className="nav-link" to="/genres">
-                                        Genres
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/movies">
-                                        Movie
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/rooms">
-                                        Room
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/shows">
-                                        Show
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <Link to="#" className="nav-link has-dropdown">
-                                <i className="fas fa-video"></i> <span>Seats</span>
-                            </Link>
-                            <ul className="dropdown-menu">
-                                <li>
-                                    <Link className="nav-link" to="/seats">
-                                        Seats
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/seatPricings">
-                                        SeatPricings
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/seatReservations">
-                                        SeatReservations
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/SeatTypes">
-                                        SeatTypes
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <Link to="#" className="nav-link has-dropdown">
                                 <i className="fas fa-cart-plus"></i> <span>Orders</span>
                             </Link>
                             <ul className="dropdown-menu">

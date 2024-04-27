@@ -22,30 +22,6 @@ const routes = {
     createShops: '/shops/create',
     editShops: `shops/edit/:id`,
 
-    //      Booking
-    booking: '/booking',
-    createBooking: '/booking/create',
-
-    //      Movie
-    movies: '/movies',
-    createMovies: '/movies/create',
-    editMovies: '/movies/edit/:id',
-
-    genres: '/genres',
-    shows: '/shows',
-    createShows: 'shows/create',
-    editShows: 'shows/edit/:id',
-    rooms: '/rooms',
-
-    //      Seats
-    seats: '/seats',
-    createSeats: '/seats/create',
-    editSeats: '/seats/edit/:id',
-
-    seatPricings: '/seatPricings',
-    seatReservations: '/seatReservations',
-    seatTypes: '/seatTypes',
-
     //      Orders
     foods: '/foods',
     createFoods: '/foods/create',
@@ -64,7 +40,6 @@ const routes = {
     ticketEdit: '/ticket/edit/:id',
 
     //      Manager
-
     invoice: '/invoice',
     calendar: '/calendar',
     calendars: '/calendars',

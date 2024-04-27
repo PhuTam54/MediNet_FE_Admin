@@ -1,6 +1,6 @@
 import { get, post, put, del } from '~/utils/httpRequest';
 
-export const getCategoryData = async () => {
+export const getCategory = async () => {
     try {
         const response = await get('/Categories/');
         return response;
@@ -10,9 +10,9 @@ export const getCategoryData = async () => {
     }
 };
 
-export const createCategory = async (name, slug) => {
+export const createCategory = async (name,) => {
     try {
-        const newData = { name, slug };
+        const newData = { name, };
         await post('/Categories', newData);
     } catch (error) {
         console.error('Failed to create category', error);
@@ -20,7 +20,7 @@ export const createCategory = async (name, slug) => {
     }
 };
 
-export const editCategoryData = async (id) => {
+export const editCategory = async (id) => {
     try {
         const response = await get(`/Categories/id?id=${id}`);
         return response;
@@ -30,9 +30,9 @@ export const editCategoryData = async (id) => {
     }
 };
 
-export const updateCategory = async (id, name, slug) => {
+export const updateCategory = async (id, name,) => {
     try {
-        const updatedData = { id, name, slug };
+        const updatedData = { id, name, };
         await put(`/Categories/id?id=${id}`, updatedData);
     } catch (error) {
         console.error('Failed to update category', error);

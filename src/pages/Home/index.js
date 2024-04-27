@@ -1,13 +1,7 @@
-import BarChart from './barChart';
-import LineChart from './lineChart';
-import PieChart from './pieChart';
-import DoughnutChart from './doughnutChart';
-import Showing from './Showing';
 import Order from './Order';
 
 function HomeAdmin() {
     return (
-        
         <section className="section">
             <div className="row">
                 <div className="col-lg-4 col-md-4 col-sm-12">
@@ -98,7 +92,6 @@ function HomeAdmin() {
                     </div>
                 </div>
             </div>
-            <Showing />
             <Order />
         </section>
     );
