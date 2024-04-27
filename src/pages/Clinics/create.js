@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createClinics } from '~/Clinics/clinicService';
+import { createClinics } from '~/services/clinicService';
 import { useNavigate, Link } from 'react-router-dom';
 
 function CreateClinics() {
@@ -21,7 +21,7 @@ function CreateClinics() {
         try {
             await createClinics(data.name, data.phone, data.email, data.address);
             toast.success('service created successfully');
-            navigate('/service');
+            navigate('/clinics');
         } catch (error) {
             toast.error('Failed to create service');
         }

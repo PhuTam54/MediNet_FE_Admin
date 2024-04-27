@@ -20,7 +20,7 @@ function CreateServices() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const clinicsData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Clinics');
+                const clinicsData = await fetch('https://localhost:7121/api/Clinics');
                 const clinicsJson = await clinicsData.json();
                 setClinics(clinicsJson);
             } catch (error) {
@@ -35,9 +35,9 @@ function CreateServices() {
         event.preventDefault();
 
         try {
-            await createServices(data.name, data.price, data.description, data.clinicId);
+            await createServices(data.name, data.description, data.price, data.clinicId);
             toast.success('service created successfully');
-            navigate('/service');
+            navigate('/services');
         } catch (error) {
             toast.error('Failed to create service');
         }
@@ -105,7 +105,7 @@ function CreateServices() {
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 className="form-control"
                                                 value={data.price}
                                                 onChange={(e) => setData({ ...data, price: e.target.value })}

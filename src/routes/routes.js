@@ -11,7 +11,18 @@ import LineChart from '~/pages/Home/lineChart';
 import PieChart from '~/pages/Home/pieChart';
 
 
-import Error_404 from '~/pages/Error';
+//      Cart
+import Cart from '~/pages/Cart/index';
+import CreateCart from '~/pages/Cart/create';
+import EditCart from '~/pages/Cart/edit';
+
+import Clinics from '~/pages/Clinics/index';
+import CreateClinics from '~/pages/Clinics/create';
+import EditClinics from '~/pages/Clinics/edit';
+
+import Service from '~/pages/Services/index';
+import CreateService from '~/pages/Services/create';
+import EditService from '~/pages/Services/edit';
 
 //      Account
 import Login from '~/pages/Account/login';
@@ -30,6 +41,10 @@ import Tickets from '~/pages/Orders/Ticket/index';
 
 //      Shops
 import Category from '~/pages/Shop/Category/index';
+import CategoryChilds from '~/pages/Shop/CategoryChilds/index';
+import CreateCategoryChilds from '~/pages/Shop/CategoryChilds/create';
+import EditCategoryChilds from '~/pages/Shop/CategoryChilds/edit';
+
 import Product from '~/pages/Shop/Product/index';
 import CreateProduct from '~/pages/Shop/Product/create';
 import EditProduct from '~/pages/Shop/Product/edit';
@@ -42,6 +57,7 @@ import EditShops from '~/pages/Shop/Shop/edit';
 import Invoice from '~/pages/Magager/Invoice';
 import Calendar from '~/pages/Calendar/index';
 import Calendars from '~/pages/Calendars/index';
+import Error_404 from '~/pages/Error';
 
 //      Users
 import Customers from '~/pages/Users/Customer/index';
@@ -63,6 +79,19 @@ export const publicRoutes = [
     { path: config.routes.lineChart, component: LineChart, layout: AdminLayout },
     { path: config.routes.pieChart, component: PieChart, layout: AdminLayout },
 
+    //      Cart
+    { path: config.routes.cart, component: Cart, layout: AdminLayout },
+    { path: config.routes.createCart, component: CreateCart, layout: AdminLayout },
+    { path: config.routes.editCart, component: EditCart, layout: AdminLayout },
+
+    { path: config.routes.clinics, component: Clinics, layout: AdminLayout },
+    { path: config.routes.createClinics, component: CreateClinics, layout: AdminLayout },
+    { path: config.routes.editClinics, component: EditClinics, layout: AdminLayout },
+
+    { path: config.routes.services, component: Service, layout: AdminLayout },
+    { path: config.routes.createServices, component: CreateService, layout: AdminLayout },
+    { path: config.routes.editServices, component: EditService, layout: AdminLayout },
+
 
     //      Orders
     { path: config.routes.foods, component: Foods, layout: AdminLayout },
@@ -75,6 +104,11 @@ export const publicRoutes = [
 
     //      Shop
     { path: config.routes.category, component: Category, layout: AdminLayout },
+
+    { path: config.routes.categoryChilds, component: CategoryChilds, layout: AdminLayout },
+    { path: config.routes.createCategoryChilds, component: CreateCategoryChilds, layout: AdminLayout },
+    { path: config.routes.editCategoryChilds, component: EditCategoryChilds, layout: AdminLayout },
+
     { path: config.routes.product, component: Product, layout: AdminLayout },
     { path: config.routes.createProduct, component: CreateProduct, layout: AdminLayout },
     { path: config.routes.editProduct, component: EditProduct, layout: AdminLayout },

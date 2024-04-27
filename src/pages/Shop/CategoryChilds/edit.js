@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateCategoryChilds, editCategoryChilds } from '~/services/Shop/categoryChildService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditCategoryChilds() {
     const [categories, setCategories] = useState([]);
@@ -26,7 +26,7 @@ function EditCategoryChilds() {
                     editCategoryId: categoryChildsData.categoryId,
                 });
 
-                const categoryData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Categories');
+                const categoryData = await fetch('https://localhost:7121/api/Categories');
                 const categoryJson = await categoryData.json();
                 setCategories(categoryJson);
             } catch (error) {
@@ -39,38 +39,29 @@ function EditCategoryChilds() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            await updateProduct(
-                data.editId,
-                data.editCategoryId,
-                data.editName,
-            );
+            await updateCategoryChilds(data.editId, data.editName, data.editCategoryId);
             toast.success('Shop updated successfully');
-            navigate('/product');
+            navigate('/CategoryChilds');
         } catch (error) {
             toast.error('Failed to update Shop');
         }
-    };
-
-    const handleImageChange = (event) => {
-        const image = event.target.files[0];
-        setData({ ...data, editImg: image });
     };
 
     return (
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/CategoryChilds" className="btn btn-icon">
+                    <Link to="/categoryChilds" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
                 <h1>Edit CategoryChilds</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">CategoryChildss</a>
+                        <Link to="#">CategoryChilds</Link>
                     </div>
                     <div className="breadcrumb-item">Edit CategoryChilds</div>
                 </div>

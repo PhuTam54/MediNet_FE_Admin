@@ -5,10 +5,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import { getCarts, deleteCarts } from '~/services/cartService';
+import { Link } from 'react-router-dom';
 
 function Carts() {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);a
+    const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
 
@@ -89,16 +90,16 @@ function Carts() {
             <div className="section-header">
                 <h1>Carts</h1>
                 <div className="section-header-button">
-                    <a href="/Carts/create" className="btn btn-primary">
-                        Add New
-                    </a>
+                    <Link to="/carts/create" className="btn btn-primary">
+                        Add New 
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Carts</a>
+                        <Link to="#">Carts</Link>
                     </div>
                     <div className="breadcrumb-item">All Carts</div>
                 </div>

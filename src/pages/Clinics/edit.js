@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateClinics, editClinics } from '~/Clinics/clinicService';
+import { updateClinics, editClinics } from '~/services/clinicService';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditClinics() {
@@ -85,9 +85,9 @@ function EditClinics() {
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.editId}
+                                                value={data.id} 
                                                 disabled
-                                                onChange={(e) => setData({ ...data, editId: e.target.value })}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
                                             />
                                         </div>
                                     </div>

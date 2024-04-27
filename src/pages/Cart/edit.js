@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateCarts, editCarts } from '~/services/cartService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditCarts() {
     const [products, setProducts] = useState([]);
@@ -46,7 +46,7 @@ function EditCarts() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            await updateProduct(data.id, data.productID, data.qtyCart);
+            await updateCarts(data.id, data.productID, data.qtyCart);
             toast.success('Shop updated successfully');
             navigate('/product');
         } catch (error) {
@@ -56,19 +56,19 @@ function EditCarts() {
 
     return (
         <section className="section">
-            <div className="section-header">
+          <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/Carts" className="btn btn-icon">
+                    <Link to="/Carts" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
                 <h1>Edit Carts</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Cartss</a>
+                        <Link to="#">Carts</Link>
                     </div>
                     <div className="breadcrumb-item">Edit Carts</div>
                 </div>

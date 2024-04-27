@@ -205,7 +205,7 @@ function Category() {
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>{item.name}</td>
-                                                            {/* <td>{item.slug}</td> */}
+                                                            {/* <td>{item.categoryChilds}</td> */}
                                                             <td colSpan={2}>
                                                                 <button
                                                                     className="btn btn-primary"

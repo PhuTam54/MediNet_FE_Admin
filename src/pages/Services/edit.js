@@ -29,7 +29,7 @@ function EditServices() {
                     price: serviceData.price,
                     clinicId: serviceData.clinicId,
                 });
-                const clinicsData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Clinics');
+                const clinicsData = await fetch('https://localhost:7121/api/Clinics');
                 const clinicsJson = await clinicsData.json();
                 setClinics(clinicsJson);
             } catch (error) {
@@ -96,9 +96,9 @@ function EditServices() {
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.editId}
+                                                value={data.id}
                                                 disabled
-                                                onChange={(e) => setData({ ...data, editId: e.target.value })}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
                                             />
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@ function EditServices() {
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 className="form-control"
                                                 value={data.price}
                                                 onChange={(e) => setData({ ...data, price: e.target.value })}

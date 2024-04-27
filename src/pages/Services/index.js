@@ -52,6 +52,7 @@ function Services() {
     const getData = () => {
         getServices()
             .then((data) => {
+                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);

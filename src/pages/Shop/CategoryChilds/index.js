@@ -5,10 +5,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import { getCategoryChilds, deleteCategoryChilds } from '~/services/Shop/categoryChildService';
+import { Link } from 'react-router-dom';
 
 function CategoryChilds() {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);a
+    const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
 
@@ -89,16 +90,16 @@ function CategoryChilds() {
             <div className="section-header">
                 <h1>CategoryChilds</h1>
                 <div className="section-header-button">
-                    <a href="/CategoryChilds/create" className="btn btn-primary">
+                    <Link to="/categoryChilds/create" className="btn btn-primary">
                         Add New
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">CategoryChilds</a>
+                        <Link to="#">CategoryChilds</Link>
                     </div>
                     <div className="breadcrumb-item">All CategoryChilds</div>
                 </div>
@@ -140,13 +141,13 @@ function CategoryChilds() {
                                                             <td>{item.name}</td>
                                                             <td>{item.categoryId}</td>
                                                             <td colSpan={2}>
-                                                                <a
-                                                                    href={`/CategoryChilds/edit/${item.id}`}
+                                                                <Link
+                                                                    to={`/CategoryChilds/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"

@@ -5,6 +5,17 @@ const routes = {
     lineChart: '/lineChart',
     pieChart: '/pieChart',
 
+    cart: '/carts',
+    createCart: '/carts/create',
+    editCart: '/carts/edit/:id',
+    
+    clinics: '/clinics',
+    createClinics: '/clinics/create',
+    editClinics: '/clinics/edit/:id',
+    
+    services: '/services',
+    createServices: '/services/create',
+    editServices: '/services/edit/:id',
 
     //      Account
     login: '/login',
@@ -14,6 +25,11 @@ const routes = {
 
     //      Shop
     category: '/category',
+
+    categoryChilds: '/categoryChilds',
+    createCategoryChilds: '/CategoryChilds/create',
+    editCategoryChilds: '/CategoryChilds/edit/:id',
+            
     product: '/product',
     createProduct: '/product/create',
     editProduct: '/product/edit/:id',

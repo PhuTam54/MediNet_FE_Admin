@@ -10,9 +10,9 @@ export const getCategory = async () => {
     }
 };
 
-export const createCategory = async (name,) => {
+export const createCategory = async (name, categoryChilds) => {
     try {
-        const newData = { name, };
+        const newData = { name, categoryChilds };
         await post('/Categories', newData);
     } catch (error) {
         console.error('Failed to create category', error);
@@ -30,9 +30,9 @@ export const editCategory = async (id) => {
     }
 };
 
-export const updateCategory = async (id, name,) => {
+export const updateCategory = async (id, name, categoryChilds) => {
     try {
-        const updatedData = { id, name, };
+        const updatedData = { id, name, categoryChilds };
         await put(`/Categories/id?id=${id}`, updatedData);
     } catch (error) {
         console.error('Failed to update category', error);

@@ -55,6 +55,29 @@ function SidebarAdmin() {
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>
+                                    <Link className="nav-link" to="/carts">
+                                        Carts
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/clinics">
+                                        Clinics
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/services">
+                                        Services
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li className="dropdown">
+                            <Link to="#" className="nav-link has-dropdown">
+                                <i className="fas fa-cart-plus"></i> <span>Orders</span>
+                            </Link>
+                            <ul className="dropdown-menu">
+                                <li>
                                     <Link className="nav-link" to="/foods">
                                         Foods
                                     </Link>
@@ -84,6 +107,11 @@ function SidebarAdmin() {
                                 <li>
                                     <Link className="nav-link" to="/category">
                                         Category
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/CategoryChilds">
+                                        CategoryChilds
                                     </Link>
                                 </li>
                                 <li>

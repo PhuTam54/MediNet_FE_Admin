@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createCategoryChilds } from '~/services/Shop/categoryChildService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function CreateCategoryChilds() {
     const [categories, setCategories] = useState([]);
@@ -17,7 +17,7 @@ function CreateCategoryChilds() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const categoryData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Categories');
+                const categoryData = await fetch('https://localhost:7121/api/Categories');
                 const categoryJson = await categoryData.json();
                 setCategories(categoryJson);
             } catch (error) {
@@ -31,7 +31,7 @@ function CreateCategoryChilds() {
     const handleCreate = async (event) => {
         event.preventDefault();
         try {
-            await createCategoryChilds(data.categoryId, data.name);
+            await createCategoryChilds( data.name, data.categoryId);
             toast.success('Shop created successfully');
             navigate('/CategoryChilds');
         } catch (error) {

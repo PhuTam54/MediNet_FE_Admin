@@ -90,7 +90,7 @@ function Clinics() {
             <div className="section-header">
                 <h1>Clinics</h1>
                 <div className="section-header-button">
-                    <Link to="/Clinics/create" className="btn btn-primary">
+                    <Link to="/clinics/create" className="btn btn-primary">
                         Add New
                     </Link>
                 </div>
