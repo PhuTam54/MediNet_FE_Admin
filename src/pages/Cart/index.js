@@ -4,10 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getShops, deleteShops } from '~/services/Shop/shopService';
-import { Link } from "react-router-dom";
+import { getCarts, deleteCarts } from '~/services/cartService';
+import { Link } from 'react-router-dom';
 
-function Shops() {
+function Carts() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
@@ -50,7 +50,7 @@ function Shops() {
     }, []);
 
     const getData = () => {
-        getShops()
+        getCarts()
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -68,14 +68,14 @@ function Shops() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteShops(deleteId)
+        deleteCarts(deleteId)
             .then(() => {
-                toast.success('Shops has been deleted');
+                toast.success('Carts has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Shops', error);
+                toast.error('Failed to delete Carts', error);
             });
     };
 
@@ -88,10 +88,10 @@ function Shops() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Shops</h1>
+                <h1>Carts</h1>
                 <div className="section-header-button">
-                    <Link to="/shops/create" className="btn btn-primary">
-                        Add New
+                    <Link to="/carts/create" className="btn btn-primary">
+                        Add New 
                     </Link>
                 </div>
                 <div className="section-header-breadcrumb">
@@ -99,9 +99,9 @@ function Shops() {
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Shops</Link>
+                        <Link to="#">Carts</Link>
                     </div>
-                    <div className="breadcrumb-item">All Shops</div>
+                    <div className="breadcrumb-item">All Carts</div>
                 </div>
             </div>
             <div className="section-body">
@@ -109,7 +109,7 @@ function Shops() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Shops</h4>
+                                <h4>All Carts</h4>
                             </div>
 
                             <div className="card-body">
@@ -129,13 +129,9 @@ function Shops() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Floors Id</th>
-                                                        <th>Category Id</th>
-                                                        <th>Name</th>
-                                                        <th>Img</th>
-                                                        <th>Phone</th>
-                                                        <th>Address</th>
-                                                        <th>Description</th>
+                                                        <th>Qty Cart</th>
+                                                        <th>Product ID</th>
+                                                        <th>User ID</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -143,30 +139,17 @@ function Shops() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.floor_Id}</td>
-                                                            <td>{item.category_Id}</td>
-                                                            <td>{item.name}</td>
-                                                            <td>
-                                                                <img
-                                                                    src={
-                                                                        'https://rmallbe20240413154509.azurewebsites.net/api/v1/Shops/' +
-                                                                        item.image
-                                                                    }
-                                                                    style={{ width: '100px', height: 'auto' }}
-                                                                    alt={item.image}
-                                                                />
-                                                            </td>
-                                                            <td>{item.phone_Number}</td>
-                                                            <td>{item.address}</td>
-                                                            <td>{item.description}</td>
+                                                            <td>{item.qtyCart}</td>
+                                                            <td>{item.productID}</td>
+                                                            <td>{item.userID}</td>
                                                             <td colSpan={2}>
-                                                                <Link
-                                                                    to={`/shops/edit/${item.id}`}
+                                                                <a
+                                                                    href={`/Carts/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </Link>
+                                                                </a>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"
@@ -200,7 +183,7 @@ function Shops() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Shops?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this Carts?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -216,4 +199,4 @@ function Shops() {
     );
 }
 
-export default Shops;
+export default Carts;

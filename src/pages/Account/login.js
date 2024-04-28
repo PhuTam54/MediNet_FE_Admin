@@ -18,7 +18,7 @@ function Login() {
         if (validate()) {
             try {
                 const response = await httpRequest.post(
-                    'https://localhost:7168/api/v1/LoginRegister/Login',
+                    'https://rmallbe20240413154509.azurewebsites.net/api/v1/LoginRegister/Login',
                     {
                         email: email,
                         password: password,
@@ -29,9 +29,7 @@ function Login() {
                     localStorage.setItem('email', email);
                     toast.success('Login successful!');
                     navigate('/');
-                    toast.success('Login successful!');
                     window.location.reload();
-                    toast.success('Login successful!');
                 } else {
                     toast.error('Invalid response from server');
                 }
@@ -39,7 +37,7 @@ function Login() {
                 toast.error('Failed to login. Please try again.');
             }
         }
-    };
+    };    
 
     const validate = () => {
         if (!email.trim()) {

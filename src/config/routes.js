@@ -1,11 +1,21 @@
 const routes = {
     admin: '/',
     barChart: '/barChart',
-    calendar: '/calendar',
-    calendars: '/calendars',
+    doughnutChart: '/doughnutChart',
+    lineChart: '/lineChart',
+    pieChart: '/pieChart',
 
-    profile: '/profile/:id',
-    error_404: '/error_404',
+    cart: '/carts',
+    createCart: '/carts/create',
+    editCart: '/carts/edit/:id',
+    
+    clinics: '/clinics',
+    createClinics: '/clinics/create',
+    editClinics: '/clinics/edit/:id',
+    
+    services: '/services',
+    createServices: '/services/create',
+    editServices: '/services/edit/:id',
 
     //      Account
     login: '/login',
@@ -13,10 +23,13 @@ const routes = {
     forgotpassword: '/forgotpassword',
     resetpassword: '/resetpassword',
 
-    invoice: '/invoice',
-
     //      Shop
     category: '/category',
+
+    categoryChilds: '/categoryChilds',
+    createCategoryChilds: '/CategoryChilds/create',
+    editCategoryChilds: '/CategoryChilds/edit/:id',
+            
     product: '/product',
     createProduct: '/product/create',
     editProduct: '/product/edit/:id',
@@ -24,30 +37,6 @@ const routes = {
     shops: '/shops',
     createShops: '/shops/create',
     editShops: `shops/edit/:id`,
-
-    //      Booking
-    booking: '/booking',
-    createBooking: '/booking/create',
-
-    //      Movie
-    movies: '/movies',
-    createMovies: '/movies/create',
-    editMovies: '/movies/edit/:id',
-
-    genres: '/genres',
-    shows: '/shows',
-    createShows: 'shows/create',
-    editShows: 'shows/edit/:id',
-    rooms: '/rooms',
-
-    //      Seats
-    seats: '/seats',
-    createSeats: '/seats/create',
-    editSeats: '/seats/edit/:id',
-
-    seatPricings: '/seatPricings',
-    seatReservations: '/seatReservations',
-    seatTypes: '/seatTypes',
 
     //      Orders
     foods: '/foods',
@@ -66,6 +55,12 @@ const routes = {
     ticketCreate: '/ticket/create',
     ticketEdit: '/ticket/edit/:id',
 
+    //      Manager
+    invoice: '/invoice',
+    calendar: '/calendar',
+    calendars: '/calendars',
+    error_404: '/error_404',
+
     //      Users
     customers: '/customers',
     createCustomers: '/customers/create',
@@ -74,6 +69,8 @@ const routes = {
     admins: '/admins',
     createAdmins: '/admins/create',
     editAdmins: '/admins/edit/:id',
+
+    profile: '/profile',
 };
 
 export default routes;

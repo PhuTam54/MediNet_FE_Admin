@@ -16,7 +16,7 @@ function Orders() {
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
     useEffect(() => {
-        const filteredData = data.filter((item) => item.total.toString().toLowerCase().includes(search.toLowerCase()));
+        const filteredData = data.filter((item) => item.email.toString().toLowerCase().includes(search.toLowerCase()));
         setSearchedData(filteredData);
     }, [search, data]);
 
@@ -110,7 +110,6 @@ function Orders() {
                             <div className="card-header">
                                 <h4>All Orders</h4>
                             </div>
-
                             <div className="card-body">
                                 {loading ? (
                                     <div>Loading...</div>
@@ -128,19 +127,17 @@ function Orders() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Order_Code</th>
-                                                        <th>Total</th>
-                                                        <th>Detailsiscount_Amount</th>
-                                                        <th>Discount_Code</th>
-                                                        <th>Final_Total</th>
-                                                        <th>Status</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>TelePhone</th>
+                                                        <th>Address</th>
+                                                        <th>Shipping_method</th>
                                                         <th>Payment_Method</th>
                                                         <th>Is_Paid</th>
-                                                        <th>QR Code</th>
-                                                        <th>User_Id</th>
-                                                        <th>Show_Id</th>
-                                                        <th>OrderFoods</th>
-                                                        <th>Tickets</th>
+                                                        <th>OrderDate</th>
+                                                        <th>Status</th>
+                                                        <th>UserId</th>
+                                                        <th>CartIds</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -148,19 +145,17 @@ function Orders() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.order_Code}</td>
-                                                            <td>{item.total}</td>
-                                                            <td>{item.discount_Amount}</td>
-                                                            <td>{item.discount_Code}</td>
-                                                            <td>{item.final_Total}</td>
-                                                            <td>{item.status}</td>
+                                                            <td>{item.name}</td>
+                                                            <td>{item.email}</td>
+                                                            <td>{item.tel}</td>
+                                                            <td>{item.address}</td>
+                                                            <td>{item.shipping_method}</td>
                                                             <td>{item.payment_Method}</td>
                                                             <td>{item.is_Paid}</td>
-                                                            <td>{item.qR_Code}</td>
-                                                            <td>{item.user_Id}</td>
-                                                            <td>{item.show_Id}</td>
-                                                            <td>{item.orderFoods}</td>
-                                                            <td>{item.tickets}</td>
+                                                            <td>{item.orderDate}</td>
+                                                            <td>{item.status}</td>
+                                                            <td>{item.userId}</td>
+                                                            <td>{item.cartIds}</td>
 
                                                             <td colSpan={2}>
                                                                 <a

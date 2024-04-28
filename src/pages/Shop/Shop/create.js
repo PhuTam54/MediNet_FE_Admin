@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createShops } from '~/services/Shop/shopService';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function CreateShops() {
     const [categories, setCategories] = useState([]);
@@ -67,17 +68,17 @@ function CreateShops() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/shops" className="btn btn-icon">
+                    <Link to="/shops" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
                 <h1>Create Shop</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Shops</a>
+                        <Link to="#">Shops</Link>
                     </div>
                     <div className="breadcrumb-item">Create Shop</div>
                 </div>

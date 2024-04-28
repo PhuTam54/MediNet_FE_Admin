@@ -1,4 +1,4 @@
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Route,Link } from 'react-router-dom';
 import images from '~/assets/img/';
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -7,11 +7,15 @@ import React, { useState, useEffect } from 'react';
 function HeaderAdmin() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
+    const [id, setId] = useState('');
 
     useEffect(() => {
         const storedEmail = localStorage.getItem('email');
+        const storedId = localStorage.getItem('id');
+
         if (storedEmail) {
             setEmail(storedEmail);
+            setId(storedId);
         } else {
             navigate('/login');
         }
@@ -19,6 +23,8 @@ function HeaderAdmin() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
+        localStorage.removeItem('id');
+
         navigate('/login');
         toast.success('Logout Success');
     };
@@ -63,7 +69,7 @@ function HeaderAdmin() {
                     </div>
                 </form>
                 <ul className="navbar-nav navbar-right">
-                    {/* <li className="dropdown dropdown-list-toggle">
+                    <li className="dropdown dropdown-list-toggle">
                         <a href="#" data-toggle="dropdown" className="nav-link nav-link-lg message-toggle beep">
                             <i className="far fa-envelope" />
                         </a>
@@ -93,8 +99,8 @@ function HeaderAdmin() {
                                 </a>
                             </div>
                         </div>
-                    </li> */}
-                    {/* <li className="dropdown dropdown-list-toggle">
+                    </li>
+                    <li className="dropdown dropdown-list-toggle">
                         <a href="#" data-toggle="dropdown" className="nav-link notification-toggle nav-link-lg beep">
                             <i className="far fa-bell" />
                         </a>
@@ -131,7 +137,7 @@ function HeaderAdmin() {
                                 </a>
                             </div>
                         </div>
-                    </li> */}
+                    </li>
                     <li className="dropdown">
                         <a
                             href="#"
@@ -143,9 +149,11 @@ function HeaderAdmin() {
                         </a>
                         <div className="dropdown-menu dropdown-menu-right">
                             <div className="dropdown-title">Logged in 5 min ago</div>
-                            <a href="/profile" className="dropdown-item has-icon">
-                                <i className="far fa-user" /> Profile
-                            </a>
+
+                            <Link to={`/user/edit/${id}`} className="dropdown-item has-icon">
+                                <i className="far fa-user" /> Edit Users
+                            </Link>
+
                             <div className="dropdown-divider" />
                             <NavDropdown.Item
                                 onClick={() => handleLogout()}

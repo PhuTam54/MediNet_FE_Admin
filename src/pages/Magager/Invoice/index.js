@@ -1,5 +1,3 @@
-import p50 from '~/assets/img/p-50.png';
-import product from '~/assets/img/products/product-3-50.png';
 
 function Invoice() {
     return (

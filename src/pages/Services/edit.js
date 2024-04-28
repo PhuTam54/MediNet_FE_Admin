@@ -1,51 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createOrders } from '~/services/Orders/orderService';
-import { useNavigate, Link } from 'react-router-dom';
+import { updateServices, editServices } from '~/services/service';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
-function CreateOrders() {
-    const [users, setUsers] = useState([]);
-    const [carts, setCarts] = useState([]);
+function EditServices() {
+    const [clinics, setClinics] = useState([]);
 
     const [data, setData] = useState({
+        id: '',
         name: '',
-        email: '',
-        tel: '',
-        address: '',
-        userId: '',
-        cartIds: '',
+        description: '',
+        price: '',
+        clinicId: '',
     });
 
+    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const usersData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Users');
-                const usersJson = await usersData.json();
-                setUsers(usersJson);
-
-                const cartsData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Carts');
-                const cartsJson = await cartsData.json();
-                setCarts(cartsJson);
+                const serviceData = await editServices(id);
+                setData({
+                    id: serviceData.id,
+                    name: serviceData.name,
+                    description: serviceData.description,
+                    price: serviceData.price,
+                    clinicId: serviceData.clinicId,
+                });
+                const clinicsData = await fetch('https://localhost:7121/api/Clinics');
+                const clinicsJson = await clinicsData.json();
+                setClinics(clinicsJson);
             } catch (error) {
-                console.error('Error fetching Show data:', error);
+                console.error('Error fetching Services data:', error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [id]);
 
-    const handleCreate = async (event) => {
+    const handleUpdate = async (event) => {
         event.preventDefault();
 
         try {
-            await createOrders(data.name, data.email, data.tel, data.address, data.userId, data.cartIds);
-            toast.success('Show created successfully');
-            navigate('/Orders');
+            await updateServices(
+                data.id,
+                data.name,
+                data.description,
+                data.price,
+                data.clinicId,
+            );
+            toast.success('Services updated successfully');
+            navigate('/Services');
         } catch (error) {
-            toast.error('Failed to create Show');
+            toast.error('Failed to update Services');
         }
     };
 
@@ -53,41 +62,54 @@ function CreateOrders() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <Link to="/Orders" className="btn btn-icon">
+                    <Link to="/Services" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
                     </Link>
                 </div>
-                <h1>Create Orders</h1>
+                <h1>Edit Services</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Orders</Link>
+                        <Link to="#">Services</Link>
                     </div>
-                    <div className="breadcrumb-item">Create Orders</div>
+                    <div className="breadcrumb-item">Edit Services</div>
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Create Show</h2>
-                <p className="section-lead">On this page you can create a new Show and fill in all fields.</p>
+                <h2 className="section-title">Edit Services</h2>
+                <p className="section-lead">On this page you can edit Services details.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Write Your Show</h4>
+                                <h4>Edit Services Details</h4>
                             </div>
                             <div className="card-body">
-                                <form onSubmit={handleCreate}>
+                                <form onSubmit={handleUpdate}>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Show Code
+                                            Id
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                placeholder="Enter Show Code"
+                                                value={data.id}
+                                                disabled
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Name
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
                                                 value={data.name}
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
@@ -95,51 +117,44 @@ function CreateOrders() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Start Date
+                                            Description
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="date"
+                                                type="text"
                                                 className="form-control"
-                                                placeholder="Enter Start Date"
-                                                value={data.email}
-                                                onChange={(e) => setData({ ...data, email: e.target.value })}
+                                                value={data.description}
+                                                onChange={(e) => setData({ ...data, description: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            users Id
+                                            Price
                                         </label>
                                         <div className="col-sm-12 col-md-7">
-                                            <select
-                                                className="form-control selectric"
-                                                value={data.address}
-                                                onChange={(e) => setData({ ...data, address: e.target.value })}
-                                            >
-                                                <option>Select users</option>
-                                                {users.map((room) => (
-                                                    <option key={room.id} value={room.id}>
-                                                        {room.name}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                value={data.price}
+                                                onChange={(e) => setData({ ...data, price: e.target.value })}
+                                            />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            carts Id
+                                            Clinic Id
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
                                                 className="form-control selectric"
-                                                value={data.tel}
-                                                onChange={(e) => setData({ ...data, tel: e.target.value })}
+                                                value={data.clinicId}
+                                                onChange={(e) => setData({ ...data, clinicId: e.target.value })}
                                             >
-                                                <option>Select carts</option>
-                                                {carts.map((movie) => (
-                                                    <option key={movie.id} value={movie.id}>
-                                                        {movie.title}
+                                                <option>Select clinic</option>
+                                                {clinics.map((clinic) => (
+                                                    <option key={clinic.id} value={clinic.id}>
+                                                        {clinic.name}
                                                     </option>
                                                 ))}
                                             </select>
@@ -148,7 +163,7 @@ function CreateOrders() {
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Create Show
+                                                Update Services
                                             </button>
                                         </div>
                                     </div>
@@ -163,4 +178,4 @@ function CreateOrders() {
     );
 }
 
-export default CreateOrders;
+export default EditServices;
