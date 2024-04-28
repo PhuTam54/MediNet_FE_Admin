@@ -31,7 +31,7 @@ const Order = () => {
     };
 
     const truncateOrderCode = (orderCode) => {
-        if (orderCode.length > 7) {
+        if (orderCode && orderCode.length > 7) {
             return orderCode.substring(0, 7) + '...';
         } else {
             return orderCode;
@@ -71,10 +71,9 @@ const Order = () => {
                                                     </a>
                                                 </td>
                                                 <td className="font-weight-600">{item.final_Total}</td>
-                                                <td className="font-weight-600">{item.status}</td>
+                                                <td className="font-weight-600"><div class="badge badge-warning">{item.status}</div></td>
                                                 <td className="font-weight-600">{item.user_Id}</td>
                                                 <td className="font-weight-600">{item.show_Id}</td>
-
                                                 <td>
                                                     <a href="#" className="btn btn-primary">
                                                         Detail

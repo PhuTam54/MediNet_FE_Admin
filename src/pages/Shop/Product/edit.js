@@ -2,18 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateProduct, editProductData } from '~/services/Shop/productService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditProduct() {
-    const [shops, setShops] = useState([]);
+    const [categoryChilds, setCategoryChild] = useState([]);
+    const [clinics, setClinics] = useState([]);
 
     const [data, setData] = useState({
-        editId: '',
-        editShopId: '',
-        editName: '',
-        editImg: '',
-        editPrice: '',
-        editDescription: '',
+        id: '',
+        categoryChildId: '',
+        clinicId: '',
+        name: '',
+        image: '',
+        description: '',
+        price: '',
+        stockQuantity: '',
+        manufacturer: '',
+        manufacturerDate: '',
+        expiryDate: '',
+        imageFile: '',
     });
 
     const { id } = useParams();
@@ -24,17 +31,27 @@ function EditProduct() {
             try {
                 const productData = await editProductData(id);
                 setData({
-                    editId: productData.id,
-                    editShopId: productData.shop_Id,
-                    editName: productData.name,
-                    editImg: productData.image,
-                    editPrice: productData.price,
-                    editDescription: productData.description,
+                    id: productData.id,
+                    categoryChildId: productData.categoryChildId,
+                    clinicId: productData.clinicId,
+                    name: productData.name,
+                    image: productData.image,
+                    description: productData.description,
+                    price: productData.price,
+                    stockQuantity: productData.stockQuantity,
+                    manufacturer: productData.manufacturer,
+                    manufacturerDate: productData.manufacturerDate,
+                    expiryDate: productData.expiryDate,
+                    imageFile: productData.imageFile,
                 });
 
-                const shopsData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Shops');
-                const shopJson = await shopsData.json();
-                setShops(shopJson);
+                const clinicData = await fetch('https://localhost:7121/api/v1/Clinics');
+                const clinicJson = await clinicData.json();
+                setClinics(clinicJson);
+
+                const categoryChildData = await fetch('https://localhost:7121/api/v1/categoryChilds');
+                const categoryChildJson = await categoryChildData.json();
+                setCategoryChild(categoryChildJson);
             } catch (error) {
                 console.error('Error fetching Shop data:', error);
             }
@@ -46,12 +63,18 @@ function EditProduct() {
         event.preventDefault();
         try {
             await updateProduct(
-                data.editId,
-                data.editShopId,
-                data.editName,
-                data.editImg,
-                data.editPrice,
-                data.editDescription,
+                data.id,
+                data.categoryChildId,
+                data.clinicId,
+                data.name,
+                data.image,
+                data.description,
+                data.price,
+                data.stockQuantity,
+                data.manufacturer,
+                data.manufacturerDate,
+                data.expiryDate,
+                data.imageFile,
             );
             toast.success('Shop updated successfully');
             navigate('/product');
@@ -62,26 +85,26 @@ function EditProduct() {
 
     const handleImageChange = (event) => {
         const image = event.target.files[0];
-        setData({ ...data, editImg: image });
+        setData({ ...data, imageFile: image });
     };
 
     return (
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/product" className="btn btn-icon">
+                    <Link to="/Product" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
-                <h1>Edit Product</h1>
+                <h1>Edit Products</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Products</a>
+                        <Link to="#">Products</Link>
                     </div>
-                    <div className="breadcrumb-item">Edit Product</div>
+                    <div className="breadcrumb-item">Edit Products</div>
                 </div>
             </div>
             <div className="section-body">
@@ -95,100 +118,144 @@ function EditProduct() {
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleUpdate}>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Id
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Id</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.editId}
+                                                value={data.id}
                                                 disabled
-                                                onChange={(e) => setData({ ...data, editId: e.target.value })}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
                                             />
-                                        </div>
-                                    </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Name
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+                                        </div>      
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ImageFile</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.editName}
-                                                onChange={(e) => setData({ ...data, editName: e.target.value })}
+                                                value={data.imageFile}
+                                                onChange={(e) => setData({ ...data, imageFile: e.target.value })}
                                             />
                                         </div>
                                     </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Shop Id
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">CategoryChildId</label>
                                             <select
                                                 className="form-control selectric"
-                                                value={data.editShopId}
-                                                onChange={(e) => setData({ ...data, editShopId: e.target.value })}
+                                                value={data.categoryChildId}
+                                                onChange={(e) => setData({ ...data, categoryChildId: e.target.value })}
                                             >
-                                                <option>Select Shops</option>
-                                                {shops.map((shop) => (
-                                                    <option key={shop.id} value={shop.id}>
-                                                        {shop.name}
+                                                <option>Select CategoryChildId</option>
+                                                {categoryChilds.map((categoryChild) => (
+                                                    <option key={categoryChild.id} value={categoryChild.id}>
+                                                        {categoryChild.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ClinicId</label>
+                                            <select
+                                                className="form-control"
+                                                value={data.clinicId}
+                                                onChange={(e) => setData({ ...data, clinicId: e.target.value })}
+                                            >
+                                                <option>Select ClinicId</option>
+                                                {clinics.map((clinic) => (
+                                                    <option key={clinic.id} value={clinic.id}>
+                                                        {clinic.name}
                                                     </option>
                                                 ))}
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Thumbnail
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
-                                            <div id="image-preview" className="image-preview">
-                                                <label htmlFor="image-upload" id="image-label">
-                                                    Choose File
-                                                </label>
-                                                <input
-                                                    type="file"
-                                                    name="image"
-                                                    id="image-upload"
-                                                    onChange={handleImageChange}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Price
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Name</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.editPrice}
-                                                onChange={(e) => setData({ ...data, editPrice: e.target.value })}
+                                                value={data.name}
+                                                onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
                                         </div>
-                                    </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Description
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Img</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.editDescription}
-                                                onChange={(e) => setData({ ...data, editDescription: e.target.value })}
+                                                value={data.image}
+                                                onChange={(e) => setData({ ...data, image: e.target.value })}
                                             />
                                         </div>
                                     </div>
-                                    <div className="form-group row mb-4">
-                                        <div className="col-sm-12 col-md-7 offset-md-3">
-                                            <button className="btn btn-primary" type="submit">
-                                                Update Product
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Description</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.description}
+                                                onChange={(e) => setData({ ...data, description: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Price</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                value={data.price}
+                                                onChange={(e) => setData({ ...data, price: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">StockQuantity</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                value={data.stockQuantity}
+                                                onChange={(e) => setData({ ...data, stockQuantity: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Manufacturer</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.manufacturer}
+                                                onChange={(e) => setData({ ...data, manufacturer: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ManufacturerDate</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.manufacturerDate}
+                                                onChange={(e) => setData({ ...data, manufacturerDate: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ExpiryDate</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.expiryDate}
+                                                onChange={(e) => setData({ ...data, expiryDate: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6 offset-md-3">
+                                            <button className="btn btn-primary btn-block" type="submit">
+                                                Create Customers
                                             </button>
                                         </div>
                                     </div>

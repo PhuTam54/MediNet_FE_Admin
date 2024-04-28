@@ -51,7 +51,7 @@ function SidebarAdmin() {
                         <li className="menu-header">Pages</li>
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
-                                <i className="fas fa-cart-plus"></i> <span>Orders</span>
+                                <i className="fas fa-cart-plus"></i> <span>Mall</span>
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>

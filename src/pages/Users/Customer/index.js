@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import { getCustomers, deleteCustomers } from '~/services/Users/customerService';
+import { Link } from 'react-router-dom';
 
 function Customers() {
     const [loading, setLoading] = useState(true);
@@ -89,16 +90,16 @@ function Customers() {
             <div className="section-header">
                 <h1>Customers</h1>
                 <div className="section-header-button">
-                    <a href="/Customers/create" className="btn btn-primary">
+                    <Link to="/Customers/create" className="btn btn-primary">
                         Add New
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard </Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Customers</a>
+                        <Link to="#">Customers </Link>
                     </div>
                     <div className="breadcrumb-item">All Customers</div>
                 </div>
@@ -128,15 +129,18 @@ function Customers() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>FullName</th>
-                                                        <th>UserName</th>
+                                                        <th>Username</th>
                                                         <th>Email</th>
-                                                        <th>BirthDay</th>
+                                                        <th>Date_Of_Birth</th>
                                                         <th>Phone</th>
                                                         <th>Password</th>
                                                         <th>Role</th>
                                                         <th>Status</th>
+                                                        <th>Gender</th>
+                                                        <th>Image</th>
                                                         <th>Address</th>
+                                                        <th>Carts</th>
+                                                        <th>Orders</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -144,23 +148,26 @@ function Customers() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.fullName}</td>
                                                             <td>{item.username}</td>
                                                             <td>{item.email}</td>
-                                                            <td>{item.birthDay}</td>
-                                                            <td>{item.phone_Number}</td>
+                                                            <td>{item.date_Of_Birth}</td>
+                                                            <td>{item.phoneNumber}</td>
                                                             <td>{item.password}</td>
                                                             <td>{item.role}</td>
                                                             <td>{item.status}</td>
+                                                            <td>{item.gender}</td>
+                                                            <td>{item.image}</td>
                                                             <td>{item.address}</td>
+                                                            <td>{item.carts}</td>
+                                                            <td>{item.orders}</td>
                                                             <td colSpan={2}>
-                                                                <a
-                                                                    href={`/Customers/edit/${item.id}`}
+                                                                <Link
+                                                                    to={`/Customers/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"

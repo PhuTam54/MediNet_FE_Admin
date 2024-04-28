@@ -10,10 +10,10 @@ export const getProductData = async () => {
     }
 };
 
-export const createProduct = async (shop_Id, name, image, price, description) => {
+export const createProduct = async (categoryChildId, clinicId, name, image, description, price, stockQuantity, manufacturer, manufacturerDate, expiryDate ,imageFile) => {
     try {
-        const createData = { shop_Id, name, image, price, description };
-        await post(`/Products?shopId=${shop_Id}`, createData);
+        const createData = { categoryChildId, clinicId, name, image, description, price, stockQuantity, manufacturer, manufacturerDate, expiryDate ,imageFile };
+        await post(`/Products`, createData);
     } catch (error) {
         console.error('Failed to create Product', error);
         throw error;
@@ -30,9 +30,9 @@ export const editProductData = async (id) => {
     }
 };
 
-export const updateProduct = async (id, shop_Id, name, image, price, description) => {
+export const updateProduct = async (id, categoryChildId, clinicId, name, image, description, price, stockQuantity, manufacturer, manufacturerDate, expiryDate ,imageFile) => {
     try {
-        const updatedData = { id, shop_Id, name, image, price, description };
+        const updatedData = { id, categoryChildId, clinicId, name, image, description, price, stockQuantity, manufacturer, manufacturerDate, expiryDate ,imageFile };
         await put(`/Products/id?id=${id}`, updatedData);
     } catch (error) {
         console.error('Failed to update Product', error);

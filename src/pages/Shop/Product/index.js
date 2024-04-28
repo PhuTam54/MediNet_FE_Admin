@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import { getProductData, deleteProduct } from '~/services/Shop/productService';
+import { Link } from 'react-router-dom';
 
 function Product() {
     const [loading, setLoading] = useState(true);
@@ -89,16 +90,16 @@ function Product() {
             <div className="section-header">
                 <h1>Product</h1>
                 <div className="section-header-button">
-                    <a href="/product/create" className="btn btn-primary">
+                    <Link to="/product/create" className="btn btn-primary">
                         Add New
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard </Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Product</a>
+                        <Link to="#">Product </Link>
                     </div>
                     <div className="breadcrumb-item">All Product</div>
                 </div>
@@ -128,11 +129,16 @@ function Product() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Shops Id</th>
+                                                        <th>CategoryChildId</th>
+                                                        <th>ClinicId</th>
                                                         <th>Name</th>
                                                         <th>Img</th>
-                                                        <th>Price</th>
                                                         <th>Description</th>
+                                                        <th>Price</th>
+                                                        <th>StockQuantity</th>
+                                                        <th>Manufacturer</th>
+                                                        <th>ManufacturerDate</th>
+                                                        <th>ExpiryDate</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -140,26 +146,30 @@ function Product() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.shop_Id}</td>
+                                                            <td>{item.categoryChildId}</td>
+                                                            <td>{item.clinicId}</td>
                                                             <td>{item.name}</td>
                                                             <td>
-                                                                {/* <img
-                                                                    src={'https://rmallbe20240413154509.azurewebsites.net/api/v1/Product/'+item.image}
+                                                                <img
+                                                                    src={`https://localhost:7121/api/v1/${item.image}`}
                                                                     style={{ width: '100px', height: 'auto' }}
-                                                                    alt={item.name}
-                                                                /> */}
-                                                                {item.image}
+                                                                    alt={item.image}
+                                                                />
                                                             </td>
-                                                            <td>{item.price}</td>
                                                             <td>{item.description}</td>
+                                                            <td>{item.price}</td>
+                                                            <td>{item.stockQuantity}</td>
+                                                            <td>{item.manufacturer}</td>
+                                                            <td>{item.manufacturerDate}</td>
+                                                            <td>{item.expiryDate}</td>
                                                             <td colSpan={2}>
-                                                                <a
-                                                                    href={`/product/edit/${item.id}`}
+                                                                <Link
+                                                                    to={`/product/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"

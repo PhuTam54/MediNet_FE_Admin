@@ -36,6 +36,8 @@ import CreateFoods from '~/pages/Orders/Food/create';
 import EditFoods from '~/pages/Orders/Food/edit';
 
 import Orders from '~/pages/Orders/Order/index';
+import DetailOrders from '~/pages/Orders/Order/detail';
+
 import OrderFoods from '~/pages/Orders/OrderFood/index';
 import Tickets from '~/pages/Orders/Ticket/index';
 
@@ -99,6 +101,8 @@ export const publicRoutes = [
     { path: config.routes.editFoods, component: EditFoods, layout: AdminLayout },
 
     { path: config.routes.orders, component: Orders, layout: AdminLayout },
+    { path: config.routes.orderDetail, component: DetailOrders, layout: AdminLayout },
+
     { path: config.routes.orderFood, component: OrderFoods, layout: AdminLayout },
     { path: config.routes.ticket, component: Tickets, layout: AdminLayout },
 

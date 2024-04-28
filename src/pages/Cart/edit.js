@@ -29,11 +29,11 @@ function EditCarts() {
                     userID: cartsData.userID,
                 });
 
-                const productData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Products');
+                const productData = await fetch('https://localhost:7121/api/v1/Products');
                 const productJson = await productData.json();
                 setProducts(productJson);
 
-                const userData = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Users');
+                const userData = await fetch('https://localhost:7121/api/v1/Customers');
                 const userJson = await userData.json();
                 setUsers(userJson);
             } catch (error) {

@@ -44,8 +44,7 @@ const routes = {
     editFoods: '/foods/edit/:id',
 
     orders: '/orders',
-    orderCreate: '/orders/create',
-    orderEdit: '/orders/edit/:id',
+    orderDetail: '/orders/detail/:id',
 
     orderFood: '/orderFood',
     orderFoodCreate: '/orderFood/create',

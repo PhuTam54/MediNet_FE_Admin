@@ -2,62 +2,68 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createCustomers } from '~/services/Users/customerService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function CreateCustomers() {
     const [data, setData] = useState({
-        fullName: '',
+        address: '',
+        phoneNumber: '',
+        date_Of_Birth: '',
         username: '',
         email: '',
-        birthDay: '',
-        phone_Number: '',
         password: '',
-        role: '',
-        status: '',
-        address: '',
+        gender: '',
+        image: '',
+        imageFile: '',
     });
 
     const navigate = useNavigate();
 
     const handleCreate = async (event) => {
         event.preventDefault();
-
+    
         try {
-            await createCustomers(
-                data.fullName,
-                data.username,
-                data.email,
-                data.birthDay,
-                data.phone_Number,
-                data.password,
-                data.role,
-                data.status,
-                data.address,
-            );
+            // Tạo FormData để chứa dữ liệu của form
+            const formData = new FormData();
+            formData.append('username', data.username);
+            formData.append('email', data.email);
+            formData.append('password', data.password);
+            formData.append('gender', data.gender);
+            formData.append('address', data.address);
+            formData.append('phoneNumber', data.phoneNumber);
+            formData.append('date_Of_Birth', data.date_Of_Birth);
+            formData.append('imageFile', data.imageFile); // Thêm file vào FormData
+    
+            // Gửi FormData lên máy chủ
+            await createCustomers(formData);
             toast.success('Shop created successfully');
             navigate('/Customers');
         } catch (error) {
             toast.error('Failed to create Shop');
         }
     };
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        setData({ ...data, imageFile: file });
+    };
 
     return (
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/Customers" className="btn btn-icon">
+                    <Link to="/Customers" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
-                <h1>Create Shop</h1>
+                <h1>Create Customers</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard </Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Customers</a>
+                        <Link to="#">Customerss </Link>
                     </div>
-                    <div className="breadcrumb-item">Create Shop</div>
+                    <div className="breadcrumb-item">Create Customers</div>
                 </div>
             </div>
             <div className="section-body">
@@ -73,16 +79,36 @@ function CreateCustomers() {
                                 <form onSubmit={handleCreate}>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">FullName</label>
+                                            <label className="col-form-label text-md-right">address</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.fullName}
-                                                onChange={(e) => setData({ ...data, fullName: e.target.value })}
+                                                value={data.address}
+                                                onChange={(e) => setData({ ...data, address: e.target.value })}
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Username</label>
+                                            <label className="col-form-label text-md-right">phoneNumber</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.phoneNumber}
+                                                onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">BirthDay</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.date_Of_Birth}
+                                                onChange={(e) => setData({ ...data, date_Of_Birth: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">username</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -93,7 +119,7 @@ function CreateCustomers() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Email</label>
+                                            <label className="col-form-label text-md-right">email</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -102,27 +128,7 @@ function CreateCustomers() {
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">BirthDay</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.birthDay}
-                                                onChange={(e) => setData({ ...data, birthDay: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Phone</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.phone_Number}
-                                                onChange={(e) => setData({ ...data, phone_Number: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Password</label>
+                                            <label className="col-form-label text-md-right">password</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -133,33 +139,29 @@ function CreateCustomers() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Role</label>
-                                            <input
-                                                type="number"
-                                                className="form-control"
-                                                value={data.role}
-                                                onChange={(e) => setData({ ...data, role: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Status</label>
+                                            <label className="col-form-label text-md-right">gender</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.status}
-                                                onChange={(e) => setData({ ...data, status: e.target.value })}
+                                                value={data.gender}
+                                                onChange={(e) => setData({ ...data, gender: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">image</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.image}
+                                                onChange={(e) => setData({ ...data, image: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Address</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.address}
-                                                onChange={(e) => setData({ ...data, address: e.target.value })}
-                                            />
+                                            <label className="col-form-label text-md-right">imageFile</label>
+                                            <input type="file" className="form-control" onChange={handleImageChange} />
+
                                         </div>
                                     </div>
                                     <div className="row mb-4">
