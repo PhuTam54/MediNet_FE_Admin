@@ -20,7 +20,7 @@ function CreateServices() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const clinicsData = await fetch('https://localhost:7121/api/Clinics');
+                const clinicsData = await fetch('https://localhost:7121/api/v1/Clinics');
                 const clinicsJson = await clinicsData.json();
                 setClinics(clinicsJson);
             } catch (error) {

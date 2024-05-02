@@ -2,20 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateCustomers, editCustomers } from '~/services/Users/customerService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditCustomers() {
     const [data, setData] = useState({
-        editId: '',
-        fullName: '',
+        id: '',
+        address: '',
+        date_Of_Birth: '',
+        gender: '',
+        phoneNumber: '',
         username: '',
+        gender: '',
+        date_Of_Birth: '',
         email: '',
-        birthDay: '',
-        phone_Number: '',
         password: '',
         role: '',
-        status: '',
-        address: '',
+        image: '',
     });
 
     const { id } = useParams();
@@ -26,16 +28,17 @@ function EditCustomers() {
             try {
                 const adminData = await editCustomers(id);
                 setData({
-                    editId: adminData.id,
-                    fullName: adminData.fullName,
-                    email: adminData.email,
+                    id: adminData.id,
+                    address: adminData.address,
+                    date_Of_Birth: adminData.date_Of_Birth,
+                    gender: adminData.gender,
+                    phoneNumber: adminData.phoneNumber,
                     username: adminData.username,
-                    birthDay: adminData.birthDay,
-                    phone_Number: adminData.phone_Number,
+                    email: adminData.email,
                     password: adminData.password,
                     role: adminData.role,
                     status: adminData.status,
-                    address: adminData.address,
+                    image: adminData.image,
                 });
             } catch (error) {
                 console.error('Error fetching Admin data:', error);
@@ -50,16 +53,18 @@ function EditCustomers() {
 
         try {
             await updateCustomers(
-                data.editId,
-                data.fullName,
+                data.id,
+                data.address,
+                data.gender,
+                data.date_Of_Birth,
+                data.phoneNumber,
                 data.username,
                 data.email,
-                data.birthDay,
-                data.phone_Number,
                 data.password,
                 data.role,
                 data.status,
-                data.address,
+                data.image,
+
             );
             toast.success('Admin updated successfully');
             navigate('/Customers');
@@ -72,19 +77,19 @@ function EditCustomers() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/Customers" className="btn btn-icon">
+                    <Link to="/Customers" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
-                <h1>Edit Admin</h1>
+                <h1>Edit Customers</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Customers</a>
+                        <Link to="#">Customers</Link>
                     </div>
-                    <div className="breadcrumb-item">Edit Admin</div>
+                    <div className="breadcrumb-item">Edit Customers</div>
                 </div>
             </div>
             <div className="section-body">
@@ -100,16 +105,47 @@ function EditCustomers() {
                                 <form onSubmit={handleUpdate}>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">FullName</label>
+                                            <label className="col-form-label text-md-right">address</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.fullName}
-                                                onChange={(e) => setData({ ...data, fullName: e.target.value })}
+                                                value={data.address}
+                                                onChange={(e) => setData({ ...data, address: e.target.value })}
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Username</label>
+                                            <label className="col-form-label text-md-right">gender</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.gender}
+                                                onChange={(e) => setData({ ...data, gender: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">date_Of_Birth</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.date_Of_Birth}
+                                                onChange={(e) => setData({ ...data, date_Of_Birth: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">phoneNumber</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.phoneNumber}
+                                                onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">username</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -117,10 +153,8 @@ function EditCustomers() {
                                                 onChange={(e) => setData({ ...data, username: e.target.value })}
                                             />
                                         </div>
-                                    </div>
-                                    <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Email</label>
+                                            <label className="col-form-label text-md-right">email</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -128,48 +162,30 @@ function EditCustomers() {
                                                 onChange={(e) => setData({ ...data, email: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">BirthDay</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.birthDay}
-                                                onChange={(e) => setData({ ...data, birthDay: e.target.value })}
-                                            />
-                                        </div>
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Phone</label>
+                                            <label className="col-form-label text-md-right">password</label>
                                             <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.phone_Number}
-                                                onChange={(e) => setData({ ...data, phone_Number: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Password</label>
-                                            <input
-                                                type="text"
+                                                type="number"
                                                 className="form-control"
                                                 value={data.password}
                                                 onChange={(e) => setData({ ...data, password: e.target.value })}
                                             />
                                         </div>
-                                    </div>
-                                    <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Role</label>
+                                            <label className="col-form-label text-md-right">role</label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 className="form-control"
                                                 value={data.role}
                                                 onChange={(e) => setData({ ...data, role: e.target.value })}
                                             />
                                         </div>
+                                    </div>
+                                    <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Status</label>
+                                            <label className="col-form-label text-md-right">status</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -177,15 +193,13 @@ function EditCustomers() {
                                                 onChange={(e) => setData({ ...data, status: e.target.value })}
                                             />
                                         </div>
-                                    </div>
-                                    <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Address</label>
+                                            <label className="col-form-label text-md-right">image</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.address}
-                                                onChange={(e) => setData({ ...data, address: e.target.value })}
+                                                value={data.image}
+                                                onChange={(e) => setData({ ...data, image: e.target.value })}
                                             />
                                         </div>
                                     </div>

@@ -11,18 +11,28 @@ export const getCustomers = async () => {
 };
 
 export const createCustomers = async (
-    fullName,
     username,
     email,
-    birthDay,
-    phone_Number,
     password,
-    role,
-    status,
+    gender,
+    image,
+    imageFile,
     address,
+    phoneNumber,
+    date_Of_Birth,
 ) => {
     try {
-        const createData = { fullName, username, email, birthDay, phone_Number, password, role, status, address };
+        const createData = {
+            username,
+            email,
+            password,
+            gender,
+            image,
+            imageFile,
+            address,
+            phoneNumber,
+            date_Of_Birth,
+        };
         await post(`/Customers`, createData);
     } catch (error) {
         console.error('Failed to create Customers', error);
@@ -41,19 +51,30 @@ export const editCustomers = async (id) => {
 };
 
 export const updateCustomers = async (
+    address,
+    phoneNumber,
+    date_Of_Birth,
     id,
-    fullName,
     username,
     email,
-    birthDay,
-    phone_Number,
     password,
-    role,
-    status,
-    address,
+    gender,
+    image,
+    imageFile,
 ) => {
     try {
-        const updatedData = { id, fullName, username, email, birthDay, phone_Number, password, role, status, address };
+        const updatedData = {
+            address,
+            phoneNumber,
+            date_Of_Birth,
+            id,
+            username,
+            email,
+            password,
+            gender,
+            image,
+            imageFile,
+        };
         await put(`/Customers/id?id=${id}`, updatedData);
     } catch (error) {
         console.error('Failed to update Customers', error);

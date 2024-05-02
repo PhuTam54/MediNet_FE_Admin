@@ -29,7 +29,7 @@ function EditServices() {
                     price: serviceData.price,
                     clinicId: serviceData.clinicId,
                 });
-                const clinicsData = await fetch('https://localhost:7121/api/Clinics');
+                const clinicsData = await fetch('https://localhost:7121/api/v1/Clinics');
                 const clinicsJson = await clinicsData.json();
                 setClinics(clinicsJson);
             } catch (error) {

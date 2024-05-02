@@ -26,7 +26,7 @@ function EditCategoryChilds() {
                     editCategoryId: categoryChildsData.categoryId,
                 });
 
-                const categoryData = await fetch('https://localhost:7121/api/Categories');
+                const categoryData = await fetch('https://localhost:7121/api/v1/Categories');
                 const categoryJson = await categoryData.json();
                 setCategories(categoryJson);
             } catch (error) {
