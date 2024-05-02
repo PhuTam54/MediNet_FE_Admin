@@ -17,13 +17,10 @@ function Login() {
         event.preventDefault();
         if (validate()) {
             try {
-                const response = await httpRequest.post(
-                    'https://rmallbe20240413154509.azurewebsites.net/api/v1/LoginRegister/Login',
-                    {
-                        email: email,
-                        password: password,
-                    },
-                );
+                const response = await httpRequest.post('https://localhost:7121/api/v1/LoginRegister/Login', {
+                    email: email,
+                    password: password,
+                });
                 if (response && response.data && response.data.token) {
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('email', email);
@@ -37,7 +34,7 @@ function Login() {
                 toast.error('Failed to login. Please try again.');
             }
         }
-    };    
+    };
 
     const validate = () => {
         if (!email.trim()) {

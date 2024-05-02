@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateAdmins, editAdmins } from '~/services/Users/adminService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 function EditAdmins() {
     const [data, setData] = useState({
@@ -10,8 +10,9 @@ function EditAdmins() {
         username: '',
         email: '',
         password: '',
-        role: '',
-        status: '',
+        image: '',
+        imageFile: '',
+        imageSrc: '',
     });
 
     const { id } = useParams();
@@ -26,8 +27,9 @@ function EditAdmins() {
                     email: adminData.email,
                     username: adminData.username,
                     password: adminData.password,
-                    role: adminData.role,
-                    status: adminData.status,
+                    image: adminData.image,
+                    imageFile: adminData.imageFile,
+                    imageSrc: adminData.imageSrc,
                 });
             } catch (error) {
                 console.error('Error fetching Admin data:', error);
@@ -41,7 +43,7 @@ function EditAdmins() {
         event.preventDefault();
 
         try {
-            await updateAdmins(data.editId, data.email, data.username, data.password, data.role, data.status);
+            await updateAdmins(data.editId, data.email, data.username, data.password, data.image, data.imageFile);
             toast.success('Admin updated successfully');
             navigate('/Admins');
         } catch (error) {
@@ -53,17 +55,17 @@ function EditAdmins() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/Admins" className="btn btn-icon">
+                    <Link to="/Admins" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
                 <h1>Edit Admin</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Admins</a>
+                        <Link to="#">Admins</Link>
                     </div>
                     <div className="breadcrumb-item">Edit Admin</div>
                 </div>
@@ -79,20 +81,6 @@ function EditAdmins() {
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleUpdate}>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Id
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.editId}
-                                                disabled
-                                                onChange={(e) => setData({ ...data, editId: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                             UserName
@@ -112,7 +100,7 @@ function EditAdmins() {
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="email"
+                                                type="text"
                                                 className="form-control"
                                                 value={data.email}
                                                 onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -134,34 +122,47 @@ function EditAdmins() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Role
+                                            Image
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.role}
-                                                onChange={(e) => setData({ ...data, role: e.target.value })}
+                                                value={data.image}
+                                                onChange={(e) => setData({ ...data, image: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Status
+                                            ImageFile
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.status}
-                                                onChange={(e) => setData({ ...data, status: e.target.value })}
+                                                value={data.imageFile}
+                                                onChange={(e) => setData({ ...data, imageFile: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            ImageSrc
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.imagesimageSrc}
+                                                onChange={(e) => setData({ ...data, imagesimageSrc: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Update Admin
+                                                Create Admins
                                             </button>
                                         </div>
                                     </div>

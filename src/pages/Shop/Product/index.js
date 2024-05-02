@@ -52,6 +52,7 @@ function Product() {
     const getData = () => {
         getProductData()
             .then((data) => {
+                console.log(data)
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -130,7 +131,7 @@ function Product() {
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>CategoryChildId</th>
-                                                        <th>ClinicId</th>
+                                                        {/* <th>ClinicId</th> */}
                                                         <th>Name</th>
                                                         <th>Img</th>
                                                         <th>Description</th>
@@ -146,12 +147,12 @@ function Product() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.categoryChildId}</td>
-                                                            <td>{item.clinicId}</td>
+                                                            <td>{item.categoryChild.name}</td>
+                                                            {/* <td>{item.clinicId}</td> */}
                                                             <td>{item.name}</td>
                                                             <td>
                                                                 <img
-                                                                    src={`https://localhost:7121/api/v1/${item.image}`}
+                                                                    src={`https://localhost:7121/${item.image}`}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />

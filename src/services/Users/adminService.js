@@ -10,9 +10,9 @@ export const getAdmins = async () => {
     }
 };
 
-export const createAdmins = async (username, email, password, role, status) => {
+export const createAdmins = async (username, email, password, image, imageFile) => {
     try {
-        const createData = { username, email, password, role, status };
+        const createData = { username, email, password, image, imageFile };
         await post(`/Admins`, createData);
     } catch (error) {
         console.error('Failed to create Admins', error);
@@ -30,9 +30,9 @@ export const editAdmins = async (id) => {
     }
 };
 
-export const updateAdmins = async (id, username, email, password, role, status) => {
+export const updateAdmins = async (id, username, email, password, image, imageFile, imageSrc) => {
     try {
-        const updatedData = { id, username, email, password, role, status };
+        const updatedData = { id, username, email, password, image, imageFile, imageSrc };
         await put(`/Admins/id?id=${id}`, updatedData);
     } catch (error) {
         console.error('Failed to update Admins', error);

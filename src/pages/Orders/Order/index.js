@@ -128,8 +128,8 @@ function Orders() {
                                                         <th>TelePhone</th>
                                                         {/* <th>Address</th>
                                                         <th>Shipping_method</th>
-                                                        <th>Payment_Method</th> */}
-                                                        <th>Is_Paid</th>
+                                                        <th>Payment_Method</th>
+                                                        <th>Is_Paid</th> */}
                                                         <th>OrderDate</th>
                                                         <th>Status</th>
                                                         {/* <th>UserId</th>
@@ -146,10 +146,29 @@ function Orders() {
                                                             <td>{item.tel}</td>
                                                             {/* <td>{item.address}</td>
                                                             <td>{item.shipping_method}</td>
-                                                            <td>{item.payment_Method}</td> */}
-                                                            <td>{item.is_Paid}</td>
+                                                            <td>{item.payment_Method}</td>
+                                                            <td>{item.is_Paid}</td> */}
                                                             <td>{item.orderDate}</td>
-                                                            <td>{item.status}</td>
+                                                            <td>
+                                                                {item.status === 0 && (
+                                                                    <div className="badge badge-warning">Pending</div>
+                                                                )}
+                                                                {item.status === 1 && (
+                                                                    <div className="badge badge-secondary">Confirmed</div>
+                                                                )}
+                                                                {item.status === 2 && (
+                                                                    <div className="badge badge-primary">Shipping</div>
+                                                                )}
+                                                                {item.status === 3 && (
+                                                                    <div className="badge badge-info">Shipped</div>
+                                                                )}
+                                                                {item.status === 4 && (
+                                                                    <div className="badge badge-success">Complete</div>
+                                                                )}
+                                                                {item.status === 5 && (
+                                                                    <div className="badge badge-danger">Cancel</div>
+                                                                )}
+                                                            </td>
                                                             {/* <td>{item.userId}</td>
                                                             <td>{item.cartIds}</td> */}
 

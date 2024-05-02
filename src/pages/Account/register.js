@@ -9,12 +9,12 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const navigate = useNavigate(); // Sử dụng hook useNavigate để chuyển hướng
+    const navigate = useNavigate();
 
     const handleSave = (e) => {
         e.preventDefault();
         if (user && email && password && confirmPassword) {
-            const url = 'https://rmallbe20240413154509.azurewebsites.net/api/v1/LoginRegister/Register';
+            const url = 'https://localhost:7121/api/v1/LoginRegister/Register';
             const newData = {
                 userName: user,
                 email: email,
