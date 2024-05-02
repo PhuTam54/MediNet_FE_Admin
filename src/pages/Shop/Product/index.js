@@ -151,7 +151,7 @@ function Product() {
                                                             <td>{item.name}</td>
                                                             <td>
                                                                 <img
-                                                                    src={`https://localhost:7121/api/v1/${item.image}`}
+                                                                    src={`https://localhost:7121/${item.image}`}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />

@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createAdmins } from '~/services/Users/adminService';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CreateAdmins() {
     const [data, setData] = useState({
         username: '',
         email: '',
         password: '',
-        role: '',
-        status: '',
+        image: '',
+        imageFile: '',
+        imageSrc: '',
     });
 
     const navigate = useNavigate();
@@ -19,11 +20,11 @@ function CreateAdmins() {
         event.preventDefault();
 
         try {
-            await createAdmins(data.username, data.email, data.password, data.role, data.status);
-            toast.success('Shop created successfully');
+            await createAdmins(data.username, data.email, data.password, data.image, data.imageFile, data.imageSrc);
+            toast.success('Admins created successfully');
             navigate('/Admins');
         } catch (error) {
-            toast.error('Failed to create Shop');
+            toast.error('Failed to create Admins');
         }
     };
 
@@ -31,29 +32,29 @@ function CreateAdmins() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/Admins" className="btn btn-icon">
+                    <Link to="/Admins" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
-                <h1>Create Shop</h1>
+                <h1>Create Admins</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Admins</a>
+                        <Link to="#">Admins</Link>
                     </div>
-                    <div className="breadcrumb-item">Create Shop</div>
+                    <div className="breadcrumb-item">Create Admins</div>
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Create Shop</h2>
-                <p className="section-lead">On this page you can create a new Shop and fill in all fields.</p>
+                <h2 className="section-title">Create Admins</h2>
+                <p className="section-lead">On this page you can create a new Admins and fill in all fields.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Write Your Shop</h4>
+                                <h4>Write Your Admins</h4>
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleCreate}>
@@ -98,34 +99,47 @@ function CreateAdmins() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Role
+                                            Image
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.role}
-                                                onChange={(e) => setData({ ...data, role: e.target.value })}
+                                                value={data.image}
+                                                onChange={(e) => setData({ ...data, image: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Status
+                                            ImageFile
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.status}
-                                                onChange={(e) => setData({ ...data, status: e.target.value })}
+                                                value={data.imageFile}
+                                                onChange={(e) => setData({ ...data, imageFile: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            ImageSrc
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.imagesimageSrc}
+                                                onChange={(e) => setData({ ...data, imagesimageSrc: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Create Shop
+                                                Create Admins
                                             </button>
                                         </div>
                                     </div>

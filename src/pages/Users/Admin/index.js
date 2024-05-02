@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import { getAdmins, deleteAdmins } from '~/services/Users/adminService';
+import { Link } from 'react-router-dom';
 
 function Admins() {
     const [loading, setLoading] = useState(true);
@@ -89,16 +90,16 @@ function Admins() {
             <div className="section-header">
                 <h1>Admins</h1>
                 <div className="section-header-button">
-                    <a href="/Admins/create" className="btn btn-primary">
+                    <Link to="/Admins/create" className="btn btn-primary">
                         Add New
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Admins</a>
+                        <Link to="#">Admins</Link>
                     </div>
                     <div className="breadcrumb-item">All Admins</div>
                 </div>
@@ -128,11 +129,10 @@ function Admins() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
+                                                        <th>Img</th>
                                                         <th>UserName</th>
                                                         <th>Email</th>
                                                         <th>Password</th>
-                                                        <th>Role</th>
-                                                        <th>Status</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -140,19 +140,24 @@ function Admins() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
+                                                            <td>
+                                                                <img
+                                                                    src={`https://localhost:7121/${item.image}`}
+                                                                    style={{ width: '100px', height: 'auto' }}
+                                                                    alt={item.image}
+                                                                />
+                                                            </td>
                                                             <td>{item.username}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.password}</td>
-                                                            <td>{item.role}</td>
-                                                            <td>{item.status}</td>
                                                             <td colSpan={2}>
-                                                                <a
-                                                                    href={`/Admins/edit/${item.id}`}
+                                                                <Link
+                                                                    to={`/Admins/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"

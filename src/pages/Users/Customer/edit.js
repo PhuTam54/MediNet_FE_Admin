@@ -167,7 +167,7 @@ function EditCustomers() {
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">password</label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 className="form-control"
                                                 value={data.password}
                                                 onChange={(e) => setData({ ...data, password: e.target.value })}

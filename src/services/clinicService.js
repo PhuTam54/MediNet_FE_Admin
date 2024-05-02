@@ -10,9 +10,31 @@ export const getClinics = async () => {
     }
 };
 
-export const createClinics = async ( name, email, phone, address) => {
+export const createClinics = async (
+    name,
+    email,
+    phone,
+    address,
+    openingHours,
+    closingHours,
+    description,
+    imagesClinic,
+    imagesClinicFile,
+    imagesSrc,
+) => {
     try {
-        const newData = {  name, email, phone, address };
+        const newData = {
+            name,
+            email,
+            phone,
+            address,
+            openingHours,
+            closingHours,
+            description,
+            imagesClinic,
+            imagesClinicFile,
+            imagesSrc,
+        };
         await post('/Clinics', newData);
     } catch (error) {
         console.error('Failed to create Clinics', error);
@@ -30,9 +52,33 @@ export const editClinics = async (id) => {
     }
 };
 
-export const updateClinics = async (id, name, email, phone, address) => {
+export const updateClinics = async (
+    id,
+    name,
+    email,
+    phone,
+    address,
+    openingHours,
+    closingHours,
+    description,
+    imagesClinic,
+    imagesClinicFile,
+    imagesSrc,
+) => {
     try {
-        const updatedData = { id, name, email, phone, address };
+        const updatedData = {
+            id,
+            name,
+            email,
+            phone,
+            address,
+            openingHours,
+            closingHours,
+            description,
+            imagesClinic,
+            imagesClinicFile,
+            imagesSrc,
+        };
         await put(`/Clinics/id?id=${id}`, updatedData);
     } catch (error) {
         console.error('Failed to update Clinics', error);

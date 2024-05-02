@@ -129,18 +129,13 @@ function Customers() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
+                                                        <th>Img</th>
                                                         <th>Username</th>
                                                         <th>Email</th>
                                                         <th>Date_Of_Birth</th>
                                                         <th>Phone</th>
                                                         <th>Password</th>
-                                                        <th>Role</th>
-                                                        <th>Status</th>
-                                                        <th>Gender</th>
-                                                        <th>Image</th>
                                                         <th>Address</th>
-                                                        <th>Carts</th>
-                                                        <th>Orders</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -148,18 +143,20 @@ function Customers() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
+                                                            <td>
+                                                                <img
+                                                                src={item.imageSrc}
+                                                                    // src={`https://localhost:7121/${item.image}`}
+                                                                    style={{ width: '100px', height: 'auto' }}
+                                                                    alt={item.image}
+                                                                />
+                                                            </td>
                                                             <td>{item.username}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.date_Of_Birth}</td>
                                                             <td>{item.phoneNumber}</td>
                                                             <td>{item.password}</td>
-                                                            <td>{item.role}</td>
-                                                            <td>{item.status}</td>
-                                                            <td>{item.gender}</td>
-                                                            <td>{item.image}</td>
                                                             <td>{item.address}</td>
-                                                            <td>{item.carts}</td>
-                                                            <td>{item.orders}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Customers/edit/${item.id}`}

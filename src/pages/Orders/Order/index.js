@@ -128,8 +128,8 @@ function Orders() {
                                                         <th>TelePhone</th>
                                                         {/* <th>Address</th>
                                                         <th>Shipping_method</th>
-                                                        <th>Payment_Method</th> */}
-                                                        <th>Is_Paid</th>
+                                                        <th>Payment_Method</th>
+                                                        <th>Is_Paid</th> */}
                                                         <th>OrderDate</th>
                                                         <th>Status</th>
                                                         {/* <th>UserId</th>
@@ -146,8 +146,8 @@ function Orders() {
                                                             <td>{item.tel}</td>
                                                             {/* <td>{item.address}</td>
                                                             <td>{item.shipping_method}</td>
-                                                            <td>{item.payment_Method}</td> */}
-                                                            <td>{item.is_Paid}</td>
+                                                            <td>{item.payment_Method}</td>
+                                                            <td>{item.is_Paid}</td> */}
                                                             <td>{item.orderDate}</td>
                                                             <td>{item.status}</td>
                                                             {/* <td>{item.userId}</td>
