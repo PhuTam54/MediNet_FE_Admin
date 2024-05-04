@@ -11,20 +11,35 @@ function CreateClinics() {
         email: '',
         phone: '',
         address: '',
+        description: '',
+        openingHours : '',
+        closingHours: '',
+        imagesClinicFile: null
     });
 
     const navigate = useNavigate();
 
     const handleCreate = async (event) => {
         event.preventDefault();
-
+        const openingHours = new Date(data.openingHours).toISOString();
+        const closingHours = new Date(data.closingHours).toISOString();
+        
+        await createClinics(data.name, data.email, data.phone, data.address, data.description, openingHours, closingHours, data.imagesClinicFile)
         try {
-            await createClinics(data.name, data.phone, data.email, data.address);
             toast.success('service created successfully');
             navigate('/clinics');
         } catch (error) {
             toast.error('Failed to create service');
         }
+        
+    };
+
+    const handleImagesChange = (event) => {
+        const files = event.target.files;
+        setData({
+            ...data,
+            imagesClinicFile: files
+        });
     };
 
     return (
@@ -109,6 +124,63 @@ function CreateClinics() {
                                             />
                                         </div>
                                     </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Description
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.description}
+                                                onChange={(e) => setData({ ...data, description: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            openingHours
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="datetime-local"
+                                                className="form-control"
+                                                value={data.openingHours}
+                                                onChange={(e) => setData({ ...data, openingHours: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            closingHours
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="datetime-local"
+                                                className="form-control"
+                                                value={data.closingHours}
+                                                onChange={(e) => setData({ ...data, closingHours: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            imagesClinicFile
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="file"
+                                                multiple
+                                                accept="image/*"
+                                                className="form-control"
+                                                onChange={handleImagesChange}
+                                            />
+                                        </div>
+                                    </div>
+
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
