@@ -104,7 +104,7 @@ function SidebarAdmin() {
                                         Orders
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link className="nav-link" to="/OrderProducts">
                                         OrderProducts
                                     </Link>
@@ -118,12 +118,7 @@ function SidebarAdmin() {
                                     <Link className="nav-link" to="/feedbacks">
                                         Feedback
                                     </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/feedbacks">
-                                        Feedback
-                                    </Link>
-                                </li>
+                                </li> */}
                             </ul>
                         </li>
                         <li className="dropdown">
@@ -141,11 +136,11 @@ function SidebarAdmin() {
                                         Calendar
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link className="nav-link" to="/invoice">
                                         Invoice
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link className="nav-link" to="/error_404">
                                         404
