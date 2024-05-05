@@ -52,6 +52,7 @@ function CategoryChilds() {
     const getData = () => {
         getCategoryChilds()
             .then((data) => {
+                console.log(data)
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -139,7 +140,7 @@ function CategoryChilds() {
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>{item.name}</td>
-                                                            <td>{item.categoryId}</td>
+                                                            <td>{item.category.name}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/CategoryChilds/edit/${item.id}`}
