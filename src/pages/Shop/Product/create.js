@@ -6,20 +6,19 @@ import { useNavigate, Link } from 'react-router-dom';
 
 function CreateProduct() {
     const [categoryChilds, setCategoryChild] = useState([]);
-    const [clinics, setClinics] = useState([]);
+    const defaultImage = '/anh-thuoc.jpg';
 
     const [data, setData] = useState({
         categoryChildId: '',
-        clinicId: '',
         name: '',
         image: '',
         description: '',
         price: '',
-        stockQuantity: '',
         manufacturer: '',
         manufacturerDate: '',
         expiryDate: '',
-        imageFile: '',
+        imageSrc: defaultImage,
+        imageFile: null,
     });
 
     const navigate = useNavigate();
@@ -27,10 +26,6 @@ function CreateProduct() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const clinicData = await fetch('https://localhost:7121/api/v1/Clinics');
-                const clinicJson = await clinicData.json();
-                setClinics(clinicJson);
-
                 const categoryChildData = await fetch('https://localhost:7121/api/v1/CategoryChilds');
                 const categoryChildJson = await categoryChildData.json();
                 setCategoryChild(categoryChildJson);
@@ -44,30 +39,37 @@ function CreateProduct() {
 
     const handleCreate = async (event) => {
         event.preventDefault();
+        const manufacturerDate = new Date(data.manufacturerDate).toISOString();
+        const expiryDate = new Date(data.expiryDate).toISOString();
+        
+    await createProduct(data.categoryChildId, data.name, data.description, data.price, data.manufacturer, manufacturerDate, expiryDate, data.imageFile)
         try {
-            await createProduct(
-                data.categoryChildId,
-                data.clinicId,
-                data.name,
-                data.image,
-                data.description,
-                data.price,
-                data.stockQuantity,
-                data.manufacturer,
-                data.manufacturerDate,
-                data.expiryDate,
-                data.imageFile,
-            );
-            toast.success('Shop created successfully');
+            toast.success('Product created successfully');
             navigate('/product');
         } catch (error) {
-            toast.error('Failed to create Shop');
+            toast.error('Failed to create Product');
         }
     };
 
-    const handleImageChange = (event) => {
-        const image = event.target.files[0];
-        setData({ ...data, image: image });
+    const handleImageChange = (e) => {
+        if(e.target.files && e.target.files[0]){
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = x => {
+                setData({
+                    ...data,
+                imageFile,
+                imageSrc: x.target.result
+                })
+            }
+            reader.readAsDataURL(imageFile)
+        }else{
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage
+            })
+        }
     };
 
     return (
@@ -116,21 +118,6 @@ function CreateProduct() {
                                                 ))}
                                             </select>
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">ClinicId</label>
-                                            <select
-                                                className="form-control"
-                                                value={data.clinicId}
-                                                onChange={(e) => setData({ ...data, clinicId: e.target.value })}
-                                            >
-                                                <option>Select ClinicId</option>
-                                                {clinics.map((clinic) => (
-                                                    <option key={clinic.id} value={clinic.id}>
-                                                        {clinic.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
                                     </div>
 
                                     <div className="row mb-4">
@@ -143,16 +130,8 @@ function CreateProduct() {
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Img</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.image}
-                                                onChange={(e) => setData({ ...data, image: e.target.value })}
-                                            />
-                                        </div>
                                     </div>
+                                    
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Description</label>
@@ -175,15 +154,6 @@ function CreateProduct() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">StockQuantity</label>
-                                            <input
-                                                type="number"
-                                                className="form-control"
-                                                value={data.stockQuantity}
-                                                onChange={(e) => setData({ ...data, stockQuantity: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Manufacturer</label>
                                             <input
                                                 type="text"
@@ -197,7 +167,7 @@ function CreateProduct() {
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">ManufacturerDate</label>
                                             <input
-                                                type="text"
+                                                type="datetime-local"
                                                 className="form-control"
                                                 value={data.manufacturerDate}
                                                 onChange={(e) => setData({ ...data, manufacturerDate: e.target.value })}
@@ -206,7 +176,7 @@ function CreateProduct() {
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">ExpiryDate</label>
                                             <input
-                                                type="text"
+                                                type="datetime-local"
                                                 className="form-control"
                                                 value={data.expiryDate}
                                                 onChange={(e) => setData({ ...data, expiryDate: e.target.value })}
@@ -216,14 +186,16 @@ function CreateProduct() {
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">ImageFile</label>
+                                            <div>
+                                            <img src={data.imageSrc} alt="Product" style={{maxWidth: 200, maxHeight: 150, marginBottom: 10}} />
+                                            </div>
                                             <input
-                                                type="text"
+                                                type="file"
                                                 className="form-control"
-                                                multiple
+                                                // multiple
                                                 accept="image/*"
-                                                value={data.imageFile}
-                                                // onChange={handleImageChange}
-                                                onChange={(e) => setData({ ...data, imageFile: e.target.value })}
+                                                // value={data.imageFile}
+                                                onChange={handleImageChange}
                                             />
                                         </div>
                                     </div>

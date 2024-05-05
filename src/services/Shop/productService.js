@@ -10,10 +10,19 @@ export const getProductData = async () => {
     }
 };
 
-export const createProduct = async (categoryChildId, clinicId, name, image, description, price, stockQuantity, manufacturer, manufacturerDate, expiryDate ,imageFile) => {
+export const createProduct = async (categoryChildId, name, description, price, manufacturer, manufacturerDate, expiryDate ,imageFile) => {
     try {
-        const createData = { categoryChildId, clinicId, name, image, description, price, stockQuantity, manufacturer, manufacturerDate, expiryDate ,imageFile };
-        await post(`/Products`, createData);
+        const formData = new FormData();
+            formData.append('categoryChildId', categoryChildId)
+            formData.append('name', name)
+            formData.append('description', description)
+            formData.append('price', price)
+            formData.append('manufacturer', manufacturer)
+            formData.append('manufacturerDate', manufacturerDate)
+            formData.append('expiryDate', expiryDate)
+            formData.append('imageFile', imageFile)
+
+        await post(`/Products`, formData);
     } catch (error) {
         console.error('Failed to create Product', error);
         throw error;
