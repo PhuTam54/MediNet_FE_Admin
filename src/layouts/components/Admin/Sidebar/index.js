@@ -104,7 +104,7 @@ function SidebarAdmin() {
                                         Orders
                                     </Link>
                                 </li>
-                                {/* <li>
+                                <li>
                                     <Link className="nav-link" to="/OrderProducts">
                                         OrderProducts
                                     </Link>
@@ -118,7 +118,12 @@ function SidebarAdmin() {
                                     <Link className="nav-link" to="/feedbacks">
                                         Feedback
                                     </Link>
-                                </li> */}
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/feedbacks">
+                                        Feedback
+                                    </Link>
+                                </li>
                             </ul>
                         </li>
                         <li className="dropdown">

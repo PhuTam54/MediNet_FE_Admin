@@ -10,9 +10,9 @@ export const getAdmins = async () => {
     }
 };
 
-export const createAdmins = async (username, email, password, image, imageFile) => {
+export const createAdmins = async (username, email, password, image, imageFile, imageSrc) => {
     try {
-        const createData = { username, email, password, image, imageFile };
+        const createData = { username, email, password, image, imageFile, imageSrc };
         await post(`/Admins`, createData);
     } catch (error) {
         console.error('Failed to create Admins', error);
