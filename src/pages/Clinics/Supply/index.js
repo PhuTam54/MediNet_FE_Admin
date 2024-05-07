@@ -4,10 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getFoods, deleteFoods } from '~/services/Orders/foodService';
+import { getClinics, deleteClinics } from '~/services/clinicService';
+import { Link } from 'react-router-dom';
 
-
-function Foods() {
+function Clinics() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
@@ -50,7 +50,7 @@ function Foods() {
     }, []);
 
     const getData = () => {
-        getFoods()
+        getClinics()
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -68,14 +68,14 @@ function Foods() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteFoods(deleteId)
+        deleteClinics(deleteId)
             .then(() => {
-                toast.success('Foods has been deleted');
+                toast.success('Clinics has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Foods', error);
+                toast.error('Failed to delete Clinics', error);
             });
     };
 
@@ -88,20 +88,20 @@ function Foods() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Foods</h1>
+                <h1>Clinics</h1>
                 <div className="section-header-button">
-                    <a href="/foods/create" className="btn btn-primary">
+                    <Link to="/clinics/create" className="btn btn-primary">
                         Add New
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Foods</a>
+                        <Link to="#">Clinics</Link>
                     </div>
-                    <div className="breadcrumb-item">All Foods</div>
+                    <div className="breadcrumb-item">All Clinics</div>
                 </div>
             </div>
             <div className="section-body">
@@ -109,7 +109,7 @@ function Foods() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Foods</h4>
+                                <h4>All Clinics</h4>
                             </div>
 
                             <div className="card-body">
@@ -126,12 +126,16 @@ function Foods() {
                                         <div className="clearfix mb-3" />
                                         <div className="table-responsive">
                                             <table className="table table-striped">
-                                            <thead>
+                                                <thead>
                                                     <tr>
                                                         <th>Id</th>
+                                                        <th>Img</th>
                                                         <th>Name</th>
-                                                        <th>Qty</th>
-                                                        <th>Price</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>Address</th>
+                                                        <th>OpeningHours</th>
+                                                        <th>ClosingHours</th>
                                                         <th>Description</th>
                                                         <th>Actions</th>
                                                     </tr>
@@ -140,19 +144,28 @@ function Foods() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
+                                                            <td>
+                                                                <img
+                                                                    src={item.imagesSrc}
+                                                                    style={{ width: '100px', height: 'auto' }}
+                                                                    alt={item.imagesSrc}
+                                                                />
+                                                            </td>
                                                             <td>{item.name}</td>
-                                                            <td>{item.qty}</td>
-                                                            <td>{item.price}</td>
+                                                            <td>{item.email}</td>
+                                                            <td>{item.phone}</td>
+                                                            <td>{item.address}</td>
+                                                            <td>{item.openingHours}</td>
+                                                            <td>{item.closingHours}</td>
                                                             <td>{item.description}</td>
-
                                                             <td colSpan={2}>
-                                                            <a
-                                                                    href={`/Foods/edit/${item.id}`}
+                                                                <Link
+                                                                    to={`/Clinics/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"
@@ -186,7 +199,7 @@ function Foods() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Foods?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this Clinics?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -202,4 +215,4 @@ function Foods() {
     );
 }
 
-export default Foods;
+export default Clinics;

@@ -51,28 +51,6 @@ function SidebarAdmin() {
                         <li className="menu-header">Pages</li>
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
-                                <i className="fas fa-cart-plus"></i> <span>Mall</span>
-                            </Link>
-                            <ul className="dropdown-menu">
-                                {/* <li>
-                                    <Link className="nav-link" to="/carts">
-                                        Carts
-                                    </Link>
-                                </li> */}
-                                <li>
-                                    <Link className="nav-link" to="/clinics">
-                                        Clinics
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/services">
-                                        Services
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <Link to="#" className="nav-link has-dropdown">
                                 <i className="fab fa-shopify"></i> <span>Categories</span>
                             </Link>
                             <ul className="dropdown-menu">
@@ -104,43 +82,30 @@ function SidebarAdmin() {
                                         Orders
                                     </Link>
                                 </li>
-                                {/* <li>
-                                    <Link className="nav-link" to="/OrderProducts">
-                                        OrderProducts
+                                <li>
+                                    <Link className="nav-link" to="/clinics">
+                                        Clinics
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className="nav-link" to="/OrderService">
-                                        OrderService
+                                    <Link className="nav-link" to="/services">
+                                        Services
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link className="nav-link" to="/feedbacks">
-                                        Feedback
-                                    </Link>
-                                </li> */}
                             </ul>
                         </li>
+
+                        <li className="menu-header">Manager</li>
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
                                 <i className="fas fa-tasks"></i> <span>Manager</span>
                             </Link>
                             <ul className="dropdown-menu">
-                                {/* <li>
-                                    <Link className="nav-link" to="/feedback">
-                                        Feedback
-                                    </Link>
-                                </li> */}
                                 <li>
                                     <Link className="nav-link" to="/calendar">
                                         Calendar
                                     </Link>
                                 </li>
-                                {/* <li>
-                                    <Link className="nav-link" to="/invoice">
-                                        Invoice
-                                    </Link>
-                                </li> */}
                                 <li>
                                     <Link className="nav-link" to="/error_404">
                                         404
