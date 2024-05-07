@@ -54,11 +54,11 @@ function SidebarAdmin() {
                                 <i className="fas fa-cart-plus"></i> <span>Mall</span>
                             </Link>
                             <ul className="dropdown-menu">
-                                <li>
+                                {/* <li>
                                     <Link className="nav-link" to="/carts">
                                         Carts
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link className="nav-link" to="/clinics">
                                         Clinics
@@ -71,37 +71,9 @@ function SidebarAdmin() {
                                 </li>
                             </ul>
                         </li>
-
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
-                                <i className="fas fa-cart-plus"></i> <span>Orders</span>
-                            </Link>
-                            <ul className="dropdown-menu">
-                                <li>
-                                    <Link className="nav-link" to="/foods">
-                                        Foods
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/orders">
-                                        Orders
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/orderFood">
-                                        OrderFood
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/ticket">
-                                        Ticket
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <Link to="#" className="nav-link has-dropdown">
-                                <i className="fab fa-shopify"></i> <span>Shop</span>
+                                <i className="fab fa-shopify"></i> <span>Categories</span>
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>
@@ -114,22 +86,39 @@ function SidebarAdmin() {
                                         CategoryChilds
                                     </Link>
                                 </li>
+                            </ul>
+                        </li>
+
+                        <li className="dropdown">
+                            <Link to="#" className="nav-link has-dropdown">
+                                <i className="fas fa-cart-plus"></i> <span>Orders</span>
+                            </Link>
+                            <ul className="dropdown-menu">
                                 <li>
                                     <Link className="nav-link" to="/product">
-                                        Product
+                                        Products
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className="nav-link" to="/floors">
-                                        Floors
+                                    <Link className="nav-link" to="/orders">
+                                        Orders
                                     </Link>
                                 </li>
-
+                                {/* <li>
+                                    <Link className="nav-link" to="/OrderProducts">
+                                        OrderProducts
+                                    </Link>
+                                </li>
                                 <li>
-                                    <Link className="nav-link" to="/shops">
-                                        Shops
+                                    <Link className="nav-link" to="/OrderService">
+                                        OrderService
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link className="nav-link" to="/feedbacks">
+                                        Feedback
+                                    </Link>
+                                </li> */}
                             </ul>
                         </li>
                         <li className="dropdown">
@@ -147,11 +136,11 @@ function SidebarAdmin() {
                                         Calendar
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link className="nav-link" to="/invoice">
                                         Invoice
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link className="nav-link" to="/error_404">
                                         404

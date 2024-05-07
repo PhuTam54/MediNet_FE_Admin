@@ -129,10 +129,14 @@ function Clinics() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
+                                                        <th>Img</th>
                                                         <th>Name</th>
                                                         <th>Email</th>
                                                         <th>Phone</th>
                                                         <th>Address</th>
+                                                        <th>OpeningHours</th>
+                                                        <th>ClosingHours</th>
+                                                        <th>Description</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -140,10 +144,20 @@ function Clinics() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
+                                                            <td>
+                                                                <img
+                                                                    src={item.imagesSrc}
+                                                                    style={{ width: '100px', height: 'auto' }}
+                                                                    alt={item.imagesSrc}
+                                                                />
+                                                            </td>
                                                             <td>{item.name}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.phone}</td>
                                                             <td>{item.address}</td>
+                                                            <td>{item.openingHours}</td>
+                                                            <td>{item.closingHours}</td>
+                                                            <td>{item.description}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Clinics/edit/${item.id}`}

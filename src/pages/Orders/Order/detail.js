@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 function OrderDetails() {
     const [categoryChilds, setCategoryChild] = useState([]);
     const [clinics, setClinics] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [newStatus, setNewStatus] = useState('');
 
     const [data, setData] = useState({
         id: '',
@@ -31,22 +33,27 @@ function OrderDetails() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const productData = await editOrders(id);
+                const orderData = await editOrders(id);
                 setData({
-                    id: productData.id,
-                    name: productData.name,
-                    email: productData.email,
-                    tel: productData.tel,
-                    address: productData.address,
-                    totalAmount: productData.totalAmount,
-                    shipping_method: productData.shipping_method,
-                    payment_method: productData.payment_method,
-                    is_paid: productData.is_paid,
-                    orderDate: productData.orderDate,
-                    status: productData.status,
-                    userId: productData.userId,
-                    cartIds: productData.cartIds,
+                    id: orderData.id,
+                    name: orderData.name,
+                    email: orderData.email,
+                    tel: orderData.tel,
+                    address: orderData.address,
+                    totalAmount: orderData.totalAmount,
+                    shipping_method: orderData.shipping_method,
+                    payment_method: orderData.payment_method,
+                    is_paid: orderData.is_paid,
+                    orderDate: orderData.orderDate,
+                    status: orderData.status,
+                    userId: orderData.userId,
+                    cartIds: orderData.cartIds,
                 });
+
+                console.log(orderData);
+
+                const productData = orderData.orderProducts;
+                setProducts(productData);
 
                 const clinicData = await fetch('https://localhost:7121/api/v1/Clinics');
                 const clinicJson = await clinicData.json();
@@ -62,28 +69,42 @@ function OrderDetails() {
         fetchData();
     }, [id]);
 
+    const handleStatusChange = (event) => {
+        setNewStatus(event.target.value);
+    };
+
+    const handleUpdateStatus = async () => {
+        try {
+            await updateOrders(data.id, { status: newStatus });
+            setData({ ...data, status: newStatus });
+            toast.success('Status updated successfully');
+        } catch (error) {
+            toast.error('Failed to update status');
+        }
+    };
+
     // const handleUpdate = async (event) => {
     //     event.preventDefault();
     //     try {
     //         await updateOrders(
-    //             data.id,
-    //             data.name,
-    //             data.email,
-    //             data.tel,
-    //             data.address,
-    //             data.shipping_method,
-    //             data.payment_method,
-    //             data.is_paid,
-    //             data.orderDate,
+    //             // data.id,
+    //             // data.name,
+    //             // data.email,
+    //             // data.tel,
+    //             // data.address,
+    //             // data.shipping_method,
+    //             // data.payment_method,
+    //             // data.is_paid,
+    //             // data.orderDate,
     //             data.status,
-    //             data.userId,
-    //             data.cartIds,
-    //             data.totalAmount,
+    //             // data.userId,
+    //             // data.cartIds,
+    //             // data.totalAmount,
     //         );
-    //         toast.success('Shop updated successfully');
-    //         navigate('/product');
+    //         toast.success('orders updated successfully');
+    //         navigate('/orders');
     //     } catch (error) {
-    //         toast.error('Failed to update Shop');
+    //         toast.error('Failed to update orders');
     //     }
     // };
 
@@ -155,6 +176,24 @@ function OrderDetails() {
                                 </div>
                             </div>
                         </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <label htmlFor="status">Status:</label>
+                                <select
+                                    className="form-control"
+                                    id="status"
+                                    value={newStatus}
+                                    onChange={handleStatusChange}
+                                >
+                                    <option value={0}>Pending</option>
+                                    <option value={1}>Confirmed</option>
+                                    <option value={2}>Shipping</option>
+                                    <option value={3}>Shipped</option>
+                                    <option value={4}>Complete</option>
+                                    <option value={5}>Cancel</option>
+                                </select>
+                            </div>
+                        </div>
                         <div className="row mt-4">
                             <div className="col-md-12">
                                 <div className="section-title">Order Summary</div>
@@ -168,23 +207,24 @@ function OrderDetails() {
                                                 <th>Name</th>
                                                 <th>Price</th>
                                                 <th>Quantity</th>
-                                                <th>Totals</th>
-
-                                                {/* <th className="text-center">payment_method</th>
-                                                <th className="text-center">Quantity</th>
-                                                <th className="text-right">Totals</th> */}
+                                                <th>Subtotal</th>
                                             </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Img</td>
-                                                <td>Name</td>
-                                                <td>$10.99</td>
-                                                <td>1</td>
-                                                <td>$10.99</td>
-                                                {/* <td className="text-center">$10.99</td>
-                                                <td className="text-center">1</td>
-                                                <td className="text-right">$10.99</td> */}
-                                            </tr>
+                                            {products.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>
+                                                        <img
+                                                            src={`https://localhost:7121/${item.product.image}`}
+                                                            style={{ width: '100px', height: 'auto' }}
+                                                            alt={item.image}
+                                                        />
+                                                    </td>
+                                                    <td>{item.product.name}</td>
+                                                    <td>${item.product.price}</td>
+                                                    <td>{item.quantity}</td>
+                                                    <td>${item.subtotal}</td>
+                                                </tr>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>
@@ -205,12 +245,12 @@ function OrderDetails() {
                                     <div className="col-lg-4 text-right">
                                         <div className="invoice-detail-item">
                                             <div className="invoice-detail-name">Subtotal</div>
-                                            <div className="invoice-detail-value">$670.99</div>
+                                            <div className="invoice-detail-value">${data.totalAmount}</div>
                                         </div>
-                                        <div className="invoice-detail-item">
+                                        {/* <div className="invoice-detail-item">
                                             <div className="invoice-detail-name">Shipping</div>
-                                            <div className="invoice-detail-value">$15</div>
-                                        </div>
+                                            <div className="invoice-detail-value">${data.totalAmount + data.shipping_method}</div>
+                                        </div> */}
                                         <hr className="mt-2 mb-2" />
                                         <div className="invoice-detail-item">
                                             <div className="invoice-detail-name">Total</div>
@@ -234,6 +274,10 @@ function OrderDetails() {
                                 <i className="fas fa-times" /> Cancel
                             </button>
                         </div>
+                        <button className="btn btn-primary" onClick={handleUpdateStatus} disabled={!newStatus}>
+                            Update Status
+                        </button>
+                        &nbsp; &nbsp;
                         <button className="btn btn-warning btn-icon icon-left">
                             <i className="fas fa-print" /> Print
                         </button>

@@ -12,6 +12,7 @@ function Product() {
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
+    const [suppliesQty, setSuppliesQty] = useState('');
 
     //search
     const [search, setSearch] = useState('');
@@ -52,6 +53,13 @@ function Product() {
     const getData = () => {
         getProductData()
             .then((data) => {
+                console.log(data);
+                // const productData = data.supplies;
+                // productData.forEach((element) => {
+                //     productData += element.stockQuantity;
+                //     setSuppliesQty(productData);
+                // });
+
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -130,12 +138,11 @@ function Product() {
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>CategoryChildId</th>
-                                                        <th>ClinicId</th>
                                                         <th>Name</th>
                                                         <th>Img</th>
                                                         <th>Description</th>
                                                         <th>Price</th>
-                                                        <th>StockQuantity</th>
+                                                        {/* <th>Quantity</th> */}
                                                         <th>Manufacturer</th>
                                                         <th>ManufacturerDate</th>
                                                         <th>ExpiryDate</th>
@@ -146,8 +153,7 @@ function Product() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.categoryChildId}</td>
-                                                            <td>{item.clinicId}</td>
+                                                            <td>{item.categoryChild.name}</td>
                                                             <td>{item.name}</td>
                                                             <td>
                                                                 <img
@@ -158,7 +164,11 @@ function Product() {
                                                             </td>
                                                             <td>{item.description}</td>
                                                             <td>{item.price}</td>
-                                                            <td>{item.stockQuantity}</td>
+                                                            {/* <td>
+                                                                {item.supplies.map(
+                                                                    (qty, index) => qty.stockQuantity
+                                                                )}
+                                                            </td> */}
                                                             <td>{item.manufacturer}</td>
                                                             <td>{item.manufacturerDate}</td>
                                                             <td>{item.expiryDate}</td>
