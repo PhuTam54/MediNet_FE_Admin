@@ -56,28 +56,49 @@ const Order = () => {
                                 <table className="table table-striped">
                                     <tbody>
                                         <tr>
-                                            <th>Order_Code</th>
-                                            <th>Final_Total</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>TelePhone</th>
+                                            <th>OrderDate</th>
                                             <th>Status</th>
-                                            <th>User</th>
-                                            <th>Show</th>
                                             <th>Actions</th>
                                         </tr>
                                         {orders.map((item, index) => (
                                             <tr key={item.id}>
+                                                <td>{index + 1}</td>
+                                                <td>{item.name}</td>
+                                                <td>{item.email}</td>
+                                                <td>{item.tel}</td>
+                                                <td>{item.orderDate}</td>
+                                                <td>{item.orderDate}</td>
                                                 <td>
-                                                    <a href="#" title={item.order_Code}>
-                                                        {truncateOrderCode(item.order_Code)}
-                                                    </a>
+                                                    {item.status === 0 && (
+                                                        <div className="badge badge-warning">Pending</div>
+                                                    )}
+                                                    {item.status === 1 && (
+                                                        <div className="badge badge-secondary">Confirmed</div>
+                                                    )}
+                                                    {item.status === 2 && (
+                                                        <div className="badge badge-primary">Shipping</div>
+                                                    )}
+                                                    {item.status === 3 && (
+                                                        <div className="badge badge-info">Shipped</div>
+                                                    )}
+                                                    {item.status === 4 && (
+                                                        <div className="badge badge-success">Complete</div>
+                                                    )}
+                                                    {item.status === 5 && (
+                                                        <div className="badge badge-danger">Cancel</div>
+                                                    )}
                                                 </td>
-                                                <td className="font-weight-600">{item.final_Total}</td>
-                                                <td className="font-weight-600"><div class="badge badge-warning">{item.status}</div></td>
-                                                <td className="font-weight-600">{item.user_Id}</td>
-                                                <td className="font-weight-600">{item.show_Id}</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary">
-                                                        Detail
-                                                    </a>
+                                                <td colSpan={2}>
+                                                    <Link
+                                                        to={`/Orders/detail/${item.id}`}
+                                                        className="btn btn-primary"
+                                                        title="Details"
+                                                    >
+                                                        <i class="far fa-eye"></i>
+                                                    </Link>
                                                 </td>
                                             </tr>
                                         ))}

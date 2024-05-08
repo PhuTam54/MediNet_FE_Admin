@@ -11,7 +11,7 @@ import {
     updateCategory,
     deleteCategory,
 } from '~/services/Shop/categoryService';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Category() {
     const [loading, setLoading] = useState(true);
@@ -211,16 +211,16 @@ function Category() {
                                                                     className="btn btn-primary"
                                                                     onClick={() => handleEdit(item.id)}
                                                                     title="Edit"
-                                                                    >
-                                                                        <i class="fas fa-pencil-alt"></i>
-                                                                    </button>
-                                                                    &nbsp;
-                                                                    <button
-                                                                        className="btn btn-danger"
-                                                                        onClick={() => handleDelete(item.id)}
-                                                                        title="Delete"
-                                                                    >
-                                                                        <i class="fas fa-trash"></i>
+                                                                >
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                </button>
+                                                                &nbsp;
+                                                                <button
+                                                                    className="btn btn-danger"
+                                                                    onClick={() => handleDelete(item.id)}
+                                                                    title="Delete"
+                                                                >
+                                                                    <i class="fas fa-trash"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>

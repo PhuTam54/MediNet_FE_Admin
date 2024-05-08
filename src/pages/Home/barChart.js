@@ -11,7 +11,7 @@ const BarChart = () => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Rooms');
+                const response = await fetch('https://localhost:7121/api/v1/Orders');
                 if (!response.ok) {
                     throw new Error('Failed to fetch chart data');
                 }
@@ -30,11 +30,11 @@ const BarChart = () => {
     }
 
     const data = {
-        labels: chartData.map((item) => item.name),
+        labels: chartData.map((item) => item.id),
         datasets: [
             {
                 label: `${chartData.length} Rooms Available`,
-                data: chartData.map((item) => item.columns),
+                data: chartData.map((item) => item.name),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

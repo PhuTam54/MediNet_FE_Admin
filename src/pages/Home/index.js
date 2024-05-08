@@ -1,6 +1,40 @@
 import Order from './Order';
+import React, { useState, useEffect } from 'react';
+import { getOrders } from '~/services/Orders/orderService';
+import { getProductData } from '~/services/Shop/productService';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 function HomeAdmin() {
+    const [orders, setOrders] = useState([]);
+    const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
+    useEffect(() => {
+        getOrderData();
+        getProductData();
+    }, []);
+
+    const getOrderData = () => {
+        getOrders()
+            .then((data) => {
+                const firstTenData = data.slice(0, 5);
+                setOrders(firstTenData);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    };
+    // const getProductData = () => {
+    //     getProductData()
+    //         .then((data) => {
+    //             const firstTenData = data.slice(0, 5);
+    //             setProducts(firstTenData);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error fetching data:', error);
+    //         });
+    // };
     return (
         <section className="section">
             <div className="row">
@@ -35,15 +69,21 @@ function HomeAdmin() {
                             </div>
                             <div className="card-stats-items">
                                 <div className="card-stats-item">
-                                    <div className="card-stats-item-count">24</div>
+                                    <div className="card-stats-item-count">
+                                        {orders.filter((order) => order.status === 0).length}
+                                    </div>
                                     <div className="card-stats-item-label">Pending</div>
                                 </div>
                                 <div className="card-stats-item">
-                                    <div className="card-stats-item-count">12</div>
-                                    <div className="card-stats-item-label">Shipping</div>
+                                    <div className="card-stats-item-count">
+                                        {orders.filter((order) => order.status === 2).length}
+                                    </div>
+                                    <div className="card-stats-item-label"> </div>
                                 </div>
                                 <div className="card-stats-item">
-                                    <div className="card-stats-item-count">23</div>
+                                    <div className="card-stats-item-count">
+                                        {orders.filter((order) => order.status === 4).length}
+                                    </div>
                                     <div className="card-stats-item-label">Completed</div>
                                 </div>
                             </div>
@@ -55,7 +95,7 @@ function HomeAdmin() {
                             <div className="card-header">
                                 <h4>Total Orders</h4>
                             </div>
-                            <div className="card-body">59</div>
+                            <div className="card-body">{orders.length}</div>
                         </div>
                     </div>
                 </div>

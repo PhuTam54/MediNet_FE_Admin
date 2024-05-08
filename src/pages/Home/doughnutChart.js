@@ -11,7 +11,7 @@ const DoughnutChart = () => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await fetch('https://rmallbe20240413154509.azurewebsites.net/api/v1/Rooms');
+                const response = await fetch('https://localhost:7121/api/v1/Orders');
                 if (!response.ok) {
                     throw new Error('Failed to fetch chart data');
                 }
@@ -29,11 +29,11 @@ const DoughnutChart = () => {
     }
 
     const data = {
-        labels: chartData.map((room) => room.name),
+        labels: chartData.map((order) => order.name),
         datasets: [
             {
-                label: `${chartData.length} Rooms Available`,
-                data: chartData.map((room) => room.columns),
+                label: `${chartData.length} Orders Available`,
+                data: chartData.map((order) => order.email),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -67,31 +67,31 @@ const DoughnutChart = () => {
 
     return (
         <section className="section">
-        <div className="section-header">
-            <h1>DoughnutChart</h1>
-            <div className="section-header-breadcrumb">
-                <div className="breadcrumb-item active">
-                    <Link to="/">Dashboard</Link>
+            <div className="section-header">
+                <h1>DoughnutChart</h1>
+                <div className="section-header-breadcrumb">
+                    <div className="breadcrumb-item active">
+                        <Link to="/">Dashboard</Link>
+                    </div>
+                    <div className="breadcrumb-item">
+                        <Link to="#">DoughnutChart</Link>
+                    </div>
+                    <div className="breadcrumb-item">All DoughnutChart</div>
                 </div>
-                <div className="breadcrumb-item">
-                    <Link to="#">DoughnutChart</Link>
-                </div>
-                <div className="breadcrumb-item">All DoughnutChart</div>
             </div>
-        </div>
-        <div className="col-lg-8">
-            <div className="card">
-                <div className="card-header">
-                    <h4>DoughnutChart</h4>
-                </div>
-                <div className="card-body">
-                    <div>
-                        <Doughnut data={data} height={400} options={options} />
+            <div className="col-lg-8">
+                <div className="card">
+                    <div className="card-header">
+                        <h4>DoughnutChart</h4>
+                    </div>
+                    <div className="card-body">
+                        <div>
+                            <Doughnut data={data} height={400} options={options} />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     );
 };
 
