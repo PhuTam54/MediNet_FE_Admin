@@ -126,14 +126,8 @@ function Orders() {
                                                         <th>Name</th>
                                                         <th>Email</th>
                                                         <th>TelePhone</th>
-                                                        {/* <th>Address</th>
-                                                        <th>Shipping_method</th>
-                                                        <th>Payment_Method</th>
-                                                        <th>Is_Paid</th> */}
                                                         <th>OrderDate</th>
                                                         <th>Status</th>
-                                                        {/* <th>UserId</th>
-                                                        <th>CartIds</th> */}
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -144,10 +138,6 @@ function Orders() {
                                                             <td>{item.name}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.tel}</td>
-                                                            {/* <td>{item.address}</td>
-                                                            <td>{item.shipping_method}</td>
-                                                            <td>{item.payment_Method}</td>
-                                                            <td>{item.is_Paid}</td> */}
                                                             <td>{item.orderDate}</td>
                                                             <td>
                                                                 {item.status === 0 && (

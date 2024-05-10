@@ -1,4 +1,5 @@
 import { get, post, put, del } from '~/utils/httpRequest';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const getOrders = async () => {
     try {
@@ -54,36 +55,11 @@ export const editOrders = async (id) => {
     }
 };
 
-export const updateOrders = async (
-    id,
-    name,
-    email,
-    tel,
-    address,
-    shipping_method,
-    payment_method,
-    is_paid,
-    orderDate,
-    status,
-    userId,
-    cartIds,
-) => {
+export const updateOrders = async (id, status) => {
     try {
-        const updatedData = {
-            id,
-            name,
-            email,
-            tel,
-            address,
-            shipping_method,
-            payment_method,
-            is_paid,
-            orderDate,
-            status,
-            userId,
-            cartIds,
-        };
-        await put(`/Orders/id?id=${id}`, updatedData);
+        const updatedData = { id, status };
+        const response = await put(`/Orders/id?id=${id}&status=${status}`, updatedData);
+        console.log(response);
     } catch (error) {
         console.error('Failed to update Orders', error);
         throw error;

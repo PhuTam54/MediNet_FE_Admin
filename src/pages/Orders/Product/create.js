@@ -41,8 +41,17 @@ function CreateProduct() {
         event.preventDefault();
         const manufacturerDate = new Date(data.manufacturerDate).toISOString();
         const expiryDate = new Date(data.expiryDate).toISOString();
-        
-    await createProduct(data.categoryChildId, data.name, data.description, data.price, data.manufacturer, manufacturerDate, expiryDate, data.imageFile)
+
+        await createProduct(
+            data.categoryChildId,
+            data.name,
+            data.description,
+            data.price,
+            data.manufacturer,
+            manufacturerDate,
+            expiryDate,
+            data.imageFile,
+        );
         try {
             toast.success('Product created successfully');
             navigate('/product');
@@ -52,23 +61,23 @@ function CreateProduct() {
     };
 
     const handleImageChange = (e) => {
-        if(e.target.files && e.target.files[0]){
+        if (e.target.files && e.target.files[0]) {
             let imageFile = e.target.files[0];
             const reader = new FileReader();
-            reader.onload = x => {
+            reader.onload = (x) => {
                 setData({
                     ...data,
-                imageFile,
-                imageSrc: x.target.result
-                })
-            }
-            reader.readAsDataURL(imageFile)
-        }else{
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
             setData({
                 ...data,
                 imageFile: null,
-                imageSrc: defaultImage
-            })
+                imageSrc: defaultImage,
+            });
         }
     };
 
@@ -104,6 +113,15 @@ function CreateProduct() {
                                 <form onSubmit={handleCreate}>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Name</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.name}
+                                                onChange={(e) => setData({ ...data, name: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">CategoryChildId</label>
                                             <select
                                                 className="form-control selectric"
@@ -120,18 +138,6 @@ function CreateProduct() {
                                         </div>
                                     </div>
 
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Name</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.name}
-                                                onChange={(e) => setData({ ...data, name: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Description</label>
@@ -187,7 +193,11 @@ function CreateProduct() {
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">ImageFile</label>
                                             <div>
-                                            <img src={data.imageSrc} alt="Product" style={{maxWidth: 200, maxHeight: 150, marginBottom: 10}} />
+                                                <img
+                                                    src={data.imageSrc}
+                                                    alt="Product"
+                                                    style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
+                                                />
                                             </div>
                                             <input
                                                 type="file"

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function OrderDetails() {
+function Invoice() {
     const [products, setProducts] = useState([]);
 
     const [data, setData] = useState({
@@ -19,7 +19,7 @@ function OrderDetails() {
         payment_method: '',
         is_paid: '',
         orderDate: '',
-        status: 0,
+        status: '',
         userId: '',
         cartIds: '',
     });
@@ -31,7 +31,6 @@ function OrderDetails() {
         const fetchData = async () => {
             try {
                 const orderData = await editOrders(id);
-                console.log(orderData.status);
                 setData({
                     id: orderData.id,
                     name: orderData.name,
@@ -58,37 +57,8 @@ function OrderDetails() {
         };
         fetchData();
     }, [id]);
-
-    const handleUpdate = async (event) => {
-        event.preventDefault();
-        try {
-            await updateOrders(data.id, data.status);
-            toast.success('orders updated successfully');
-            navigate('/orders');
-        } catch (error) {
-            toast.error('Failed to update orders');
-        }
-    };
-
     return (
         <section className="section">
-            <div className="section-header">
-                <div className="section-header-back">
-                    <Link to="/Orders" className="btn btn-icon">
-                        <i className="fas fa-arrow-left" />
-                    </Link>
-                </div>
-                <h1>Orders Details</h1>
-                <div className="section-header-breadcrumb">
-                    <div className="breadcrumb-item active">
-                        <Link to="#">Dashboard</Link>
-                    </div>
-                    <div className="breadcrumb-item">
-                        <Link to="#">Orders</Link>
-                    </div>
-                    <div className="breadcrumb-item">Orders Details</div>
-                </div>
-            </div>
             <div className="section-body">
                 <div className="invoice">
                     <div className="invoice-print">
@@ -138,34 +108,6 @@ function OrderDetails() {
                                 </div>
                             </div>
                         </div>
-                        <form onSubmit={handleUpdate}>
-                            <div className="row mb-4">
-                                <div className="col-md-2">
-                                    <select
-                                        className="form-control"
-                                        id="status"
-                                        value={data.status}
-                                        onChange={(e) => {
-                                            console.log(e.target.value);
-                                            setData({ ...data, status: parseInt(e.target.value, 10) });
-                                        }}
-                                    >
-                                        <option value={0}>Pending</option>
-                                        <option value={1}>Confirmed</option>
-                                        <option value={2}>Shipping</option>
-                                        <option value={3}>Shipped</option>
-                                        <option value={4}>Complete</option>
-                                        <option value={5}>Cancel</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-6">
-                                    <button className="btn btn-primary" type="submit">
-                                        Update Status
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-
                         <div className="row mt-4">
                             <div className="col-md-12">
                                 <div className="section-title">Order Summary</div>
@@ -237,8 +179,12 @@ function OrderDetails() {
                     </div>
                     <hr />
                     <div className="text-md-right">
-                        <Link to={`/orders/invoice/${id}`} className="btn btn-primary me-1">
-                            <i class="fa-solid fa-download"></i> Invoice
+                        <Link to="javascript:window.print()" class="btn btn-success">
+                            <i class="ri-printer-line align-bottom me-1"></i> Invoice
+                        </Link>
+                        &nbsp; &nbsp;
+                        <Link to="javascript:window.print()" class="btn btn-success">
+                            <i class="ri-printer-line align-bottom me-1"></i> Download
                         </Link>
                     </div>
                 </div>
@@ -247,4 +193,4 @@ function OrderDetails() {
     );
 }
 
-export default OrderDetails;
+export default Invoice;

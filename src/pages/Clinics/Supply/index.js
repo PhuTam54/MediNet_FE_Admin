@@ -4,9 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getOrderFood, deleteOrderFood } from '~/services/Orders/orderFoodService';
+import { getSupplies, deleteSupplies } from '~/services/Clinics/supplyService';
+import { Link } from 'react-router-dom';
 
-function OrderFood() {
+function Supplies() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
@@ -16,7 +17,9 @@ function OrderFood() {
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
     useEffect(() => {
-        const filteredData = data.filter((item) => item.qty.toString().toLowerCase().includes(search.toLowerCase()));
+        const filteredData = data.filter((item) =>
+            item.clinicId.toString().toLowerCase().includes(search.toLowerCase()),
+        );
         setSearchedData(filteredData);
     }, [search, data]);
 
@@ -49,8 +52,9 @@ function OrderFood() {
     }, []);
 
     const getData = () => {
-        getOrderFood()
+        getSupplies()
             .then((data) => {
+                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -67,14 +71,14 @@ function OrderFood() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteOrderFood(deleteId)
+        deleteSupplies(deleteId)
             .then(() => {
-                toast.success('OrderFood has been deleted');
+                toast.success('Supplies has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete OrderFood', error);
+                toast.error('Failed to delete Supplies', error);
             });
     };
 
@@ -87,20 +91,20 @@ function OrderFood() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Order Food</h1>
+                <h1>Supplies</h1>
                 <div className="section-header-button">
-                    <a href="/orderFood/create" className="btn btn-primary">
+                    <Link to="/Supplies/create" className="btn btn-primary">
                         Add New
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Order Food</a>
+                        <Link to="#">Supplies</Link>
                     </div>
-                    <div className="breadcrumb-item">All Order Food</div>
+                    <div className="breadcrumb-item">All Supplies</div>
                 </div>
             </div>
             <div className="section-body">
@@ -108,7 +112,7 @@ function OrderFood() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Order Food</h4>
+                                <h4>All Supplies</h4>
                             </div>
 
                             <div className="card-body">
@@ -128,9 +132,9 @@ function OrderFood() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Quantity</th>
-                                                        <th>Price</th>
-                                                        <th>Food Id</th>
+                                                        <th>Clinics Id</th>
+                                                        <th>Product Id</th>
+                                                        <th>Stock Quantity</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -138,18 +142,17 @@ function OrderFood() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.qty}</td>
-                                                            <td>{item.price}</td>
-                                                            <td>{item.food_Id}</td>
-
+                                                            <td>{item.clinicId}</td>
+                                                            <td>{item.productId}</td>
+                                                            <td>{item.stockQuantity}</td>
                                                             <td colSpan={2}>
-                                                                <a
-                                                                    href={`/OrderFood/edit/${item.id}`}
+                                                                <Link
+                                                                    to={`/supplies/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"
@@ -183,7 +186,7 @@ function OrderFood() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this OrderFood?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this Supplies?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -199,4 +202,4 @@ function OrderFood() {
     );
 }
 
-export default OrderFood;
+export default Supplies;

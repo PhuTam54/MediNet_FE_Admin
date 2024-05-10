@@ -152,6 +152,7 @@ function Product() {
                                                 <tbody>
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
+                                                            {/* <p>Total Products: {records.length}</p> */}
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>{item.categoryChild.name}</td>
                                                             <td>{item.name}</td>
