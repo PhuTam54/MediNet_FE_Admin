@@ -202,9 +202,7 @@ function CreateProduct() {
                                             <input
                                                 type="file"
                                                 className="form-control"
-                                                // multiple
                                                 accept="image/*"
-                                                // value={data.imageFile}
                                                 onChange={handleImageChange}
                                             />
                                         </div>

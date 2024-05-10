@@ -4,6 +4,7 @@ import { editOrders, updateOrders } from '~/services/Orders/orderService';
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './detail.css';
 
 function OrderDetails() {
     const [products, setProducts] = useState([]);
@@ -19,7 +20,7 @@ function OrderDetails() {
         payment_method: '',
         is_paid: '',
         orderDate: '',
-        status: 0,
+        status: '',
         userId: '',
         cartIds: '',
     });
@@ -101,38 +102,30 @@ function OrderDetails() {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <address>
-                                            <strong>Billed To:</strong>
-                                            <br />
-                                            User: {data.name}
-                                            <br />
-                                            Email: {data.email}
-                                            <br />
-                                            TelePhone: {data.tel}
-                                            <br />
-                                            <p>Status: {data.status}</p>
+                                            <strong className="fontSize">Billed To:</strong>
+                                            <p className="fontSize"> User: {data.name} </p>
+                                            <p className="fontSize"> Email: {data.email} </p>
+                                            <p className="fontSize"> TelePhone: {data.tel} </p>
+                                            <p className="fontSize">Status: {data.status}</p>
                                         </address>
                                     </div>
                                     <div className="col-md-6 text-md-right">
                                         <address>
-                                            <strong>Shipped To:</strong>
-                                            <br />
-                                            Address: {data.address}
+                                            <strong className="fontSize">Shipped To:</strong>
+                                            <p className="fontSize"> Address: {data.address} </p>
                                         </address>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <address>
-                                            <strong>Payment Method:</strong>
-                                            <br />
-                                            Payment Method: {data.payment_method}
+                                            <p className="fontSize"> Payment Method: {data.payment_method} </p>
                                         </address>
                                     </div>
                                     <div className="col-md-6 text-md-right">
                                         <address>
-                                            <strong>Order Date:</strong>
-                                            <br />
-                                            {data.orderDate}
+                                            <strong className="fontSize">Order Date:</strong>
+                                            <p className="fontSize"> {data.orderDate}</p>
                                         </address>
                                     </div>
                                 </div>
@@ -147,7 +140,7 @@ function OrderDetails() {
                                         value={data.status}
                                         onChange={(e) => {
                                             console.log(e.target.value);
-                                            setData({ ...data, status: parseInt(e.target.value, 10) });
+                                            setData({ ...data, status: e.target.value });
                                         }}
                                     >
                                         <option value={0}>Pending</option>
@@ -155,7 +148,7 @@ function OrderDetails() {
                                         <option value={2}>Shipping</option>
                                         <option value={3}>Shipped</option>
                                         <option value={4}>Complete</option>
-                                        <option value={5}>Cancel</option>
+                                        {/* <option value={5}>Cancel</option> */}
                                     </select>
                                 </div>
                                 <div className="col-md-6">
@@ -207,12 +200,6 @@ function OrderDetails() {
                                             The payment method that we provide is to make it easier for you to pay
                                             invoices.
                                         </p>
-                                        {/* <div className="images">
-                                            <img src={images} alt="visa" />
-                                            <img src={images} alt="jcb" />
-                                            <img src={images} alt="mastercard" />
-                                            <img src={images} alt="paypal" />
-                                        </div> */}
                                     </div>
                                     <div className="col-lg-4 text-right">
                                         <div className="invoice-detail-item">

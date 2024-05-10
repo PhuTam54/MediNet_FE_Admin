@@ -10,17 +10,26 @@ export const getProductData = async () => {
     }
 };
 
-export const createProduct = async (categoryChildId, name, description, price, manufacturer, manufacturerDate, expiryDate ,imageFile) => {
+export const createProduct = async (
+    categoryChildId,
+    name,
+    description,
+    price,
+    manufacturer,
+    manufacturerDate,
+    expiryDate,
+    imageFile,
+) => {
     try {
         const formData = new FormData();
-            formData.append('categoryChildId', categoryChildId)
-            formData.append('name', name)
-            formData.append('description', description)
-            formData.append('price', price)
-            formData.append('manufacturer', manufacturer)
-            formData.append('manufacturerDate', manufacturerDate)
-            formData.append('expiryDate', expiryDate)
-            formData.append('imageFile', imageFile)
+        formData.append('categoryChildId', categoryChildId);
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('price', price);
+        formData.append('manufacturer', manufacturer);
+        formData.append('manufacturerDate', manufacturerDate);
+        formData.append('expiryDate', expiryDate);
+        formData.append('imageFile', imageFile);
 
         await post(`/Products`, formData);
     } catch (error) {
@@ -39,10 +48,29 @@ export const editProductData = async (id) => {
     }
 };
 
-export const updateProduct = async (id, categoryChildId, clinicId, name, image, description, price, stockQuantity, manufacturer, manufacturerDate, expiryDate ,imageFile) => {
+export const updateProduct = async (
+    id,
+    categoryChildId,
+    name,
+    description,
+    price,
+    manufacturer,
+    manufacturerDate,
+    expiryDate,
+    imageFile,
+) => {
     try {
-        const updatedData = { id, categoryChildId, clinicId, name, image, description, price, stockQuantity, manufacturer, manufacturerDate, expiryDate ,imageFile };
-        await put(`/Products/id?id=${id}`, updatedData);
+        const formData = new FormData();
+        formData.append('categoryChildId', categoryChildId);
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('price', price);
+        formData.append('manufacturer', manufacturer);
+        formData.append('manufacturerDate', manufacturerDate);
+        formData.append('expiryDate', expiryDate);
+        formData.append('imageFile', imageFile);
+
+        await put(`/Products/id?id=${id}`, formData);
     } catch (error) {
         console.error('Failed to update Product', error);
         throw error;
