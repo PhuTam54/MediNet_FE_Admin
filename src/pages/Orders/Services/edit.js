@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateServices, editServices } from '~/services/service';
+import { updateServices, editServices } from '~/services/Orders/service';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditServices() {
-    const [clinics, setClinics] = useState([]);
+    const [doctors, setDoctors] = useState([]);
 
     const [data, setData] = useState({
         id: '',
         name: '',
         description: '',
         price: '',
-        clinicId: '',
+        doctorId: '',
     });
 
     const { id } = useParams();
@@ -27,11 +27,11 @@ function EditServices() {
                     name: serviceData.name,
                     description: serviceData.description,
                     price: serviceData.price,
-                    clinicId: serviceData.clinicId,
+                    doctorId: serviceData.doctorId,
                 });
-                const clinicsData = await fetch('https://localhost:7121/api/v1/Clinics');
-                const clinicsJson = await clinicsData.json();
-                setClinics(clinicsJson);
+                const doctorsData = await fetch('https://localhost:7121/api/v1/Doctors');
+                const doctorsJson = await doctorsData.json();
+                setDoctors(doctorsJson);
             } catch (error) {
                 console.error('Error fetching Services data:', error);
             }
@@ -44,13 +44,7 @@ function EditServices() {
         event.preventDefault();
 
         try {
-            await updateServices(
-                data.id,
-                data.name,
-                data.description,
-                data.price,
-                data.clinicId,
-            );
+            await updateServices(data.id, data.name, data.description, data.price, data.doctorId);
             toast.success('Services updated successfully');
             navigate('/Services');
         } catch (error) {
@@ -143,18 +137,18 @@ function EditServices() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Clinic Id
+                                            Doctor Id
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
                                                 className="form-control selectric"
-                                                value={data.clinicId}
-                                                onChange={(e) => setData({ ...data, clinicId: e.target.value })}
+                                                value={data.doctorId}
+                                                onChange={(e) => setData({ ...data, doctorId: e.target.value })}
                                             >
-                                                <option>Select clinic</option>
-                                                {clinics.map((clinic) => (
-                                                    <option key={clinic.id} value={clinic.id}>
-                                                        {clinic.name}
+                                                <option>Select Doctor</option>
+                                                {doctors.map((doctor) => (
+                                                    <option key={doctor.id} value={doctor.id}>
+                                                        {doctor.name}
                                                     </option>
                                                 ))}
                                             </select>

@@ -55,6 +55,11 @@ function SidebarAdmin() {
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>
+                                    <Link className="nav-link" to="/CategoryParents">
+                                        CategoryParents
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link className="nav-link" to="/category">
                                         Category
                                     </Link>

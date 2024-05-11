@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getProductData, deleteProduct } from '~/services/Shop/productService';
+import { getProductData, deleteProduct } from '~/services/Orders/productService';
 import { Link } from 'react-router-dom';
 
 function Product() {

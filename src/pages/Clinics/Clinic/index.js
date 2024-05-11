@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getClinics, deleteClinics } from '~/services/clinicService';
+import { getClinics, deleteClinics } from '~/services/Clinics/clinicService';
 import { Link } from 'react-router-dom';
 
 function Clinics() {

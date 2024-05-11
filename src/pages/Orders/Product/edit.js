@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateProduct, editProductData } from '~/services/Shop/productService';
+import { updateProduct, editProductData } from '~/services/Orders/productService';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditProduct() {
@@ -41,7 +41,7 @@ function EditProduct() {
                     imageFile: productData.imageFile,
                 });
 
-                const categoryChildData = await fetch('https://localhost:7121/api/v1/categoryChilds');
+                const categoryChildData = await fetch('https://localhost:7121/api/v1/CategoryChilds');
                 const categoryChildJson = await categoryChildData.json();
                 setCategoryChild(categoryChildJson);
             } catch (error) {

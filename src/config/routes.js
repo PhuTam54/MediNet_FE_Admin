@@ -25,7 +25,11 @@ const routes = {
     resetpassword: '/resetpassword',
 
     //      categories
+    categoryParents: '/categoryParents',
+
     category: '/category',
+    createCategory: '/Category/create',
+    editCategory: '/Category/edit/:id',
 
     categoryChilds: '/categoryChilds',
     createCategoryChilds: '/CategoryChilds/create',

@@ -1,7 +1,7 @@
 import Order from './Order';
 import React, { useState, useEffect } from 'react';
 import { getOrders } from '~/services/Orders/orderService';
-import { getProductData } from '~/services/Shop/productService';
+import { getProductData } from '~/services/Orders/productService';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { Link } from 'react-router-dom';

@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getServices, deleteServices } from '~/services/service';
+import { getServices, deleteServices } from '~/services/Orders/service';
 import { Link } from 'react-router-dom';
 
 function Services() {
@@ -133,7 +133,7 @@ function Services() {
                                                         <th>Name</th>
                                                         <th>Description</th>
                                                         <th>Price</th>
-                                                        <th>Clinics Id</th>
+                                                        <th>Doctor Id</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -144,7 +144,7 @@ function Services() {
                                                             <td>{item.name}</td>
                                                             <td>{item.description}</td>
                                                             <td>{item.price}</td>
-                                                            <td>{item.clinicId}</td>
+                                                            <td>{item.doctorId}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Services/edit/${item.id}`}

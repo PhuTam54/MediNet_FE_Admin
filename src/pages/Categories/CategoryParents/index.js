@@ -4,13 +4,24 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getCarts, deleteCarts } from '~/services/cartService';
+import {
+    getCategoryParents,
+    createCategoryParents,
+    editCategoryParents,
+    updateCategoryParents,
+    deleteCategoryParents,
+} from '~/services/Categories/categoryParentService';
 import { Link } from 'react-router-dom';
 
-function Carts() {
+function CategoryParents() {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+    const [editShow, setEditShow] = useState(false);
     const [deleteShow, setDeleteShow] = useState(false);
+    const [createShow, setCreateShow] = useState(false);
+    const [name, setName] = useState('');
+    const [editId, setEditId] = useState('');
+    const [editName, setEditName] = useState('');
+    const [data, setData] = useState([]);
     const [deleteId, setDeleteId] = useState('');
 
     //search
@@ -50,7 +61,7 @@ function Carts() {
     }, []);
 
     const getData = () => {
-        getCarts()
+        getCategoryParents()
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -62,46 +73,94 @@ function Carts() {
             });
     };
 
+    const handleSave = () => {
+        handleCreateShow();
+    };
+
+    const handleSaveConfirm = () => {
+        createCategoryParents(name)
+            .then(() => {
+                getData();
+                clear();
+                handleClose();
+                toast.success('CategoryParents has been created');
+            })
+            .catch((error) => {
+                toast.error('Failed to create categoryParents', error);
+            });
+    };
+
+    const handleEdit = (id) => {
+        handleEditShow();
+        editCategoryParents(id)
+            .then((data) => {
+                setEditId(id);
+                setEditName(data.name);
+                // setEditSlug(data.slug);
+            })
+            .catch((error) => console.error('Error fetching categoryParents data:', error));
+    };
+
+    const handleUpdate = () => {
+        updateCategoryParents(editId, editName)
+            .then(() => {
+                handleClose();
+                getData();
+                clear();
+                toast.success('CategoryParents has been updated');
+            })
+            .catch((error) => {
+                toast.error('Failed to update categoryParents', error);
+            });
+    };
+
     const handleDelete = (id) => {
         setDeleteId(id);
         handleDeleteShow();
     };
 
     const handleDeleteConfirm = async () => {
-        deleteCarts(deleteId)
+        deleteCategoryParents(deleteId)
             .then(() => {
-                toast.success('Carts has been deleted');
+                toast.success('CategoryParents has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Carts', error);
+                toast.error('Failed to delete categoryParents', error);
             });
+    };
+
+    const clear = () => {
+        setName('');
+        // setSlug('');
+        setEditId('');
+        setEditName('');
+        // setEditSlug('');
     };
 
     const handleClose = () => {
         setDeleteShow(false);
+        setCreateShow(false);
+        setEditShow(false);
     };
 
+    const handleEditShow = () => setEditShow(true);
     const handleDeleteShow = () => setDeleteShow(true);
+    const handleCreateShow = () => setCreateShow(true);
 
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Carts</h1>
-                <div className="section-header-button">
-                    <Link to="/carts/create" className="btn btn-primary">
-                        Add New 
-                    </Link>
-                </div>
+                <h1>CategoryParents</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Carts</Link>
+                        <Link to="#">CategoryParents</Link>
                     </div>
-                    <div className="breadcrumb-item">All Carts</div>
+                    <div className="breadcrumb-item">All CategoryParents</div>
                 </div>
             </div>
             <div className="section-body">
@@ -109,7 +168,12 @@ function Carts() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Carts</h4>
+                                <h4>All CategoryParents</h4>
+                                <div className="section-header-button">
+                                    <button className="btn btn-primary" onClick={() => handleSave()}>
+                                        Create
+                                    </button>
+                                </div>
                             </div>
 
                             <div className="card-body">
@@ -129,9 +193,8 @@ function Carts() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Qty Cart</th>
-                                                        <th>Product ID</th>
-                                                        <th>User ID</th>
+                                                        <th>Name</th>
+                                                        {/* <th>Slug</th> */}
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -139,17 +202,16 @@ function Carts() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.qtyCart}</td>
-                                                            <td>{item.productID}</td>
-                                                            <td>{item.userID}</td>
+                                                            <td>{item.name}</td>
+                                                            {/* <td>{item.categoryParentsChilds}</td> */}
                                                             <td colSpan={2}>
-                                                                <a
-                                                                    href={`/Carts/edit/${item.id}`}
+                                                                <button
                                                                     className="btn btn-primary"
+                                                                    onClick={() => handleEdit(item.id)}
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </a>
+                                                                </button>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"
@@ -178,12 +240,69 @@ function Carts() {
                     </div>
                 </div>
             </div>
+            <Modal show={createShow} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Create CategoryParents</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Container>
+                        <Row>
+                            <Col>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter Name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                    </Container>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleSaveConfirm}>
+                        Create
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={editShow} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit CategoryParents</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Container>
+                        <Row>
+                            <Col>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter Name"
+                                    value={editName}
+                                    onChange={(e) => setEditName(e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                    </Container>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleUpdate}>
+                        Update
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
             <Modal show={deleteShow} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Carts?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this categoryParents?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -199,4 +318,4 @@ function Carts() {
     );
 }
 
-export default Carts;
+export default CategoryParents;
