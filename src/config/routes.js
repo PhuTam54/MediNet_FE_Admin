@@ -52,6 +52,10 @@ const routes = {
     ticketCreate: '/ticket/create',
     ticketEdit: '/ticket/edit/:id',
 
+    // feedbacks: '/feedbacks',
+    feedbacks: '/product/feedbacks/:id',
+    feedbackDetail: '/products/feedbacks/detail/:id',
+
     //      Manager
     calendar: '/calendar',
     calendars: '/calendars',

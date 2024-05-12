@@ -28,6 +28,7 @@ import ResetPassword from '~/pages/Account/resetpassword';
 //      Order
 import Orders from '~/pages/Orders/Order/index';
 import DetailOrders from '~/pages/Orders/Order/detail';
+import Invoice from '~/pages/Orders/Order/invoice';
 
 import Product from '~/pages/Orders/Product/index';
 import CreateProduct from '~/pages/Orders/Product/create';
@@ -37,7 +38,8 @@ import Service from '~/pages/Orders/Services/index';
 import CreateService from '~/pages/Orders/Services/create';
 import EditService from '~/pages/Orders/Services/edit';
 
-import Invoice from '~/pages/Orders/Order/invoice';
+import Feedbacks from '~/pages/Orders/Feedbacks/index';
+import FeedbackDetail from '~/pages/Orders/Feedbacks/detail';
 
 //      Categories
 import CategoryParents from '~/pages/Categories/CategoryParents/index';
@@ -98,6 +100,9 @@ export const publicRoutes = [
     { path: config.routes.services, component: Service, layout: AdminLayout },
     { path: config.routes.createServices, component: CreateService, layout: AdminLayout },
     { path: config.routes.editServices, component: EditService, layout: AdminLayout },
+
+    { path: config.routes.feedbacks, component: Feedbacks, layout: AdminLayout },
+    { path: config.routes.feedbackDetail, component: FeedbackDetail, layout: AdminLayout },
 
     //      Category
     { path: config.routes.categoryParents, component: CategoryParents, layout: AdminLayout },
