@@ -1,88 +1,96 @@
 import { get, post, put, del } from '~/utils/httpRequest';
 
-export const getProductData = async () => {
+export const getEmployees = async () => {
     try {
-        const response = await get('/Products/');
+        const response = await get('/Employees/');
         return response;
     } catch (error) {
-        console.error('Error fetching Product data:', error);
+        console.error('Error fetching Employees data:', error);
         throw error;
     }
 };
 
-export const createProduct = async (
-    categoryChildId,
-    name,
-    description,
-    price,
-    manufacturer,
-    manufacturerDate,
-    expiryDate,
+export const createEmployees = async (
+    full_Name,
+    address,
+    date_Of_Birth,
+    phoneNumber,
+    specialistId,
+    username,
+    email,
+    password,
+    clinicId,
     imageFile,
 ) => {
     try {
         const formData = new FormData();
-        formData.append('categoryChildId', categoryChildId);
-        formData.append('name', name);
-        formData.append('description', description);
-        formData.append('price', price);
-        formData.append('manufacturer', manufacturer);
-        formData.append('manufacturerDate', manufacturerDate);
-        formData.append('expiryDate', expiryDate);
+        formData.append('full_Name', full_Name);
+        formData.append('address', address);
+        formData.append('date_Of_Birth', date_Of_Birth);
+        formData.append('phoneNumber', phoneNumber);
+        formData.append('specialistId', specialistId);
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('clinicId', clinicId);
         formData.append('imageFile', imageFile);
 
-        await post(`/Products`, formData);
+        await post(`/Employees`, formData);
     } catch (error) {
-        console.error('Failed to create Product', error);
+        console.error('Failed to create Employees', error);
         throw error;
     }
 };
 
-export const editProductData = async (id) => {
+export const editEmployees = async (id) => {
     try {
-        const response = await get(`/Products/id?id=${id}`);
+        const response = await get(`/Employees/id?id=${id}`);
         return response;
     } catch (error) {
-        console.error('Error fetching Product data:', error);
+        console.error('Error fetching Employees data:', error);
         throw error;
     }
 };
 
-export const updateProduct = async (
+export const updateEmployees = async (
     id,
-    categoryChildId,
-    name,
-    description,
-    price,
-    manufacturer,
-    manufacturerDate,
-    expiryDate,
+    full_Name,
+    address,
+    date_Of_Birth,
+    phoneNumber,
+    specialistId,
+    username,
+    email,
+    password,
+    clinicId,
     imageFile,
 ) => {
     try {
         const formData = new FormData();
-        formData.append('categoryChildId', categoryChildId);
-        formData.append('name', name);
-        formData.append('description', description);
-        formData.append('price', price);
-        formData.append('manufacturer', manufacturer);
-        formData.append('manufacturerDate', manufacturerDate);
-        formData.append('expiryDate', expiryDate);
+        formData.append('full_Name', full_Name);
+        formData.append('address', address);
+        formData.append('date_Of_Birth', date_Of_Birth);
+        formData.append('phoneNumber', phoneNumber);
+        formData.append('specialistId', specialistId);
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('clinicId', clinicId);
         formData.append('imageFile', imageFile);
 
-        await put(`/Products/id?id=${id}`, formData);
+        await put(`/Employees/id?id=${id}`, formData);
     } catch (error) {
-        console.error('Failed to update Product', error);
+        console.error('Failed to update Employees', error);
         throw error;
     }
 };
 
-export const deleteProduct = async (id) => {
+export const deleteEmployees = async (id) => {
     try {
-        await del(`/Products/id?id=${id}`);
+        await del(`/Employees/id?id=${id}`);
         return true;
     } catch (error) {
-        console.error('Failed to delete Product', error);
+        console.error('Failed to delete Employees', error);
         throw error;
     }
 };

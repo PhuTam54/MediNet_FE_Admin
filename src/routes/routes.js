@@ -24,14 +24,22 @@ import Courses from '~/pages/Courses/Course/index';
 import CreateCourses from '~/pages/Courses/Course/create';
 import EditCourses from '~/pages/Courses/Course/edit';
 
+import Employees from '~/pages/Courses/Employee/index';
+import CreateEmployees from '~/pages/Courses/Employee/create';
+import EditEmployees from '~/pages/Courses/Employee/edit';
+
+import Enrollments from '~/pages/Courses/Enrollment/index';
+import CreateEnrollments from '~/pages/Courses/Enrollment/create';
+import EditEnrollments from '~/pages/Courses/Enrollment/edit';
+
 //      Doctors
 import Doctors from '~/pages/Doctors/Doctor/index';
 import CreateDoctors from '~/pages/Doctors/Doctor/create';
 import EditDoctors from '~/pages/Doctors/Doctor/edit';
 
-import Blogs from '~/pages/Doctors/Doctor/index';
-import CreateBlogs from '~/pages/Doctors/Doctor/create';
-import EditBlogs from '~/pages/Doctors/Doctor/edit';
+import Blogs from '~/pages/Doctors/Blog/index';
+import CreateBlogs from '~/pages/Doctors/Blog/create';
+import EditBlogs from '~/pages/Doctors/Blog/edit';
 
 import Disease from '~/pages/Doctors/Disease/index';
 
@@ -105,10 +113,19 @@ export const publicRoutes = [
     { path: config.routes.supplies, component: Supplies, layout: AdminLayout },
     { path: config.routes.createSupplies, component: CreateSupplies, layout: AdminLayout },
     { path: config.routes.editSupplies, component: EditSupplies, layout: AdminLayout },
+
     //      Courses
     { path: config.routes.courses, component: Courses, layout: AdminLayout },
     { path: config.routes.createCourses, component: CreateCourses, layout: AdminLayout },
     { path: config.routes.editCourses, component: EditCourses, layout: AdminLayout },
+
+    { path: config.routes.employees, component: Employees, layout: AdminLayout },
+    { path: config.routes.createEmployees, component: CreateEmployees, layout: AdminLayout },
+    { path: config.routes.editEmployees, component: EditEmployees, layout: AdminLayout },
+
+    { path: config.routes.enrollments, component: Enrollments, layout: AdminLayout },
+    { path: config.routes.createEnrollments, component: CreateEnrollments, layout: AdminLayout },
+    { path: config.routes.editEnrollments, component: EditEnrollments, layout: AdminLayout },
 
     //      Doctors
     { path: config.routes.doctors, component: Doctors, layout: AdminLayout },

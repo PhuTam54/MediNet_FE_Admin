@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateCategoryChilds, editCategoryChilds } from '~/services/Categories/categoryChildService';
+import { updateBlogs, editBlogs } from '~/services/Doctors/blogService';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
-function EditCategoryChilds() {
-    const [categories, setCategories] = useState([]);
+function EditBlogs() {
+    const [employees, setEmployees] = useState([]);
+    const [diseases, setDiseases] = useState([]);
 
     const [data, setData] = useState({
-        editId: '',
-        editCategoryId: '',
-        editName: '',
+        id: '',
+        title: '',
+        content: '',
+        employeeId: '',
+        diseaseId: '',
     });
 
     const { id } = useParams();
@@ -19,16 +22,21 @@ function EditCategoryChilds() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const categoryChildsData = await editCategoryChilds(id);
+                const blogData = await editBlogs(id);
                 setData({
-                    editId: categoryChildsData.id,
-                    editName: categoryChildsData.name,
-                    editCategoryId: categoryChildsData.categoryId,
+                    id: blogData.id,
+                    content: blogData.content,
+                    employeeId: blogData.employeeId,
+                    diseaseId: blogData.diseaseId,
                 });
 
-                const categoryData = await fetch('https://localhost:7121/api/v1/Categories');
-                const categoryJson = await categoryData.json();
-                setCategories(categoryJson);
+                const employeeData = await fetch('https://localhost:7121/api/v1/Employees');
+                const employeeJson = await employeeData.json();
+                setEmployees(employeeJson);
+
+                const diseaseData = await fetch('https://localhost:7121/api/v1/Diseases');
+                const diseaseJson = await diseaseData.json();
+                setDiseases(diseaseJson);
             } catch (error) {
                 console.error('Error fetching Shop data:', error);
             }
@@ -39,9 +47,9 @@ function EditCategoryChilds() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            await updateCategoryChilds(data.editId, data.editName, data.editCategoryId);
+            await updateBlogs(data.id, data.content, data.employeeId, data.diseaseId);
             toast.success('Shop updated successfully');
-            navigate('/CategoryChilds');
+            navigate('/Blogs');
         } catch (error) {
             toast.error('Failed to update Shop');
         }
@@ -51,29 +59,29 @@ function EditCategoryChilds() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <Link to="/categoryChilds" className="btn btn-icon">
+                    <Link to="/Blogs" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
                     </Link>
                 </div>
-                <h1>Edit CategoryChilds</h1>
+                <h1>Edit Blogs</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">CategoryChilds</Link>
+                        <Link to="#">Blogs</Link>
                     </div>
-                    <div className="breadcrumb-item">Edit CategoryChilds</div>
+                    <div className="breadcrumb-item">Edit Blogs</div>
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Edit CategoryChilds</h2>
-                <p className="section-lead">On this page you can edit CategoryChilds details.</p>
+                <h2 className="section-title">Edit Blogs</h2>
+                <p className="section-lead">On this page you can edit Blogs details.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Edit CategoryChilds Details</h4>
+                                <h4>Edit Blogs Details</h4>
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleUpdate}>
@@ -85,39 +93,71 @@ function EditCategoryChilds() {
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.editId}
                                                 disabled
-                                                onChange={(e) => setData({ ...data, editId: e.target.value })}
+                                                value={data.id}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Name
+                                            Title
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.editName}
-                                                onChange={(e) => setData({ ...data, editName: e.target.value })}
+                                                value={data.title}
+                                                onChange={(e) => setData({ ...data, title: e.target.value })}
                                             />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Category Id
+                                            Content
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.content}
+                                                onChange={(e) => setData({ ...data, content: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            EmployeeId
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
                                                 className="form-control selectric"
-                                                value={data.editCategoryId}
-                                                onChange={(e) => setData({ ...data, editCategoryId: e.target.value })}
+                                                value={data.employeeId}
+                                                onChange={(e) => setData({ ...data, employeeId: e.target.value })}
                                             >
-                                                <option>Select categories</option>
-                                                {categories.map((category) => (
-                                                    <option key={category.id} value={category.id}>
-                                                        {category.name}
+                                                <option>Select Employee</option>
+                                                {employees.map((employee) => (
+                                                    <option key={employee.id} value={employee.id}>
+                                                        {employee.username}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            DiseaseId
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <select
+                                                className="form-control selectric"
+                                                value={data.diseaseId}
+                                                onChange={(e) => setData({ ...data, diseaseId: e.target.value })}
+                                            >
+                                                <option>Select Disease</option>
+                                                {diseases.map((disease) => (
+                                                    <option key={disease.id} value={disease.id}>
+                                                        {disease.name}
                                                     </option>
                                                 ))}
                                             </select>
@@ -126,7 +166,7 @@ function EditCategoryChilds() {
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Update CategoryChilds
+                                                Create Blogs
                                             </button>
                                         </div>
                                     </div>
@@ -141,4 +181,4 @@ function EditCategoryChilds() {
     );
 }
 
-export default EditCategoryChilds;
+export default EditBlogs;

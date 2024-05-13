@@ -4,10 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getBlogs, deleteBlogs } from '~/services/Doctors/blogService';
+import { getEmployees, deleteEmployees } from '~/services/Courses/employeeService';
 import { Link } from 'react-router-dom';
 
-function Blogs() {
+function Employees() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
@@ -17,7 +17,7 @@ function Blogs() {
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
     useEffect(() => {
-        const filteredData = data.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()));
+        const filteredData = data.filter((item) => item.email.toLowerCase().includes(search.toLowerCase()));
         setSearchedData(filteredData);
     }, [search, data]);
 
@@ -50,9 +50,9 @@ function Blogs() {
     }, []);
 
     const getData = () => {
-        getBlogs()
+        getEmployees()
             .then((data) => {
-                console.log(data)
+                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -69,14 +69,14 @@ function Blogs() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteBlogs(deleteId)
+        deleteEmployees(deleteId)
             .then(() => {
-                toast.success('Blogs has been deleted');
+                toast.success('Employees has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Blogs', error);
+                toast.error('Failed to delete Employees', error);
             });
     };
 
@@ -89,20 +89,20 @@ function Blogs() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Blogs</h1>
+                <h1>Employees</h1>
                 <div className="section-header-button">
-                    <Link to="/Blogs/create" className="btn btn-primary">
+                    <Link to="/Employees/create" className="btn btn-primary">
                         Add New
                     </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <Link to="#">Dashboard</Link>
+                        <Link to="#">Dashboard </Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Blogs</Link>
+                        <Link to="#">Employees </Link>
                     </div>
-                    <div className="breadcrumb-item">All Blogs</div>
+                    <div className="breadcrumb-item">All Employees</div>
                 </div>
             </div>
             <div className="section-body">
@@ -110,7 +110,7 @@ function Blogs() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Blogs</h4>
+                                <h4>All Employees</h4>
                             </div>
 
                             <div className="card-body">
@@ -130,10 +130,14 @@ function Blogs() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Title</th>
-                                                        <th>Content</th>
-                                                        <th>Empoylee</th>
-                                                        <th>Disease</th>
+                                                        <th>Img</th>
+                                                        <th>FullName</th>
+                                                        <th>Email</th>
+                                                        <th>PhoneNumber</th>
+                                                        <th>Date Of Birth</th>
+                                                        <th>Address</th>
+                                                        <th>SpecialistId</th>
+                                                        <th>ClinicId</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -141,13 +145,23 @@ function Blogs() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.title}</td>
-                                                            <td>{item.content}</td>
-                                                            <td>{item.employeeId}</td>
-                                                            <td>{item.disease.name}</td>
+                                                            <td>
+                                                                <img
+                                                                    src={item.imageSrc}
+                                                                    style={{ width: '100px', height: 'auto' }}
+                                                                    alt={item.image}
+                                                                />
+                                                            </td>
+                                                            <td>{item.full_Name}</td>
+                                                            <td>{item.email}</td>
+                                                            <td>{item.phoneNumber}</td>
+                                                            <td>{item.date_Of_Birth}</td>
+                                                            <td>{item.address}</td>
+                                                            <td>{item.specialist.name}</td>
+                                                            <td>{item.clinic.name}</td>
                                                             <td colSpan={2}>
                                                                 <Link
-                                                                    to={`/Blogs/edit/${item.id}`}
+                                                                    to={`/Employees/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
@@ -186,7 +200,7 @@ function Blogs() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Blogs?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this Employees?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -202,4 +216,4 @@ function Blogs() {
     );
 }
 
-export default Blogs;
+export default Employees;

@@ -144,7 +144,7 @@ function Services() {
                                                             <td>{item.name}</td>
                                                             <td>{item.description}</td>
                                                             <td>{item.price}</td>
-                                                            <td>{item.doctorId}</td>
+                                                            <td>{item.doctor.username}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Services/edit/${item.id}`}

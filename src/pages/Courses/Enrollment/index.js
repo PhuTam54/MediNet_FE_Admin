@@ -4,10 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getBlogs, deleteBlogs } from '~/services/Doctors/blogService';
+import { getEnrollments, deleteEnrollments } from '~/services/Courses/enrollmentService';
 import { Link } from 'react-router-dom';
 
-function Blogs() {
+function Enrollments() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
@@ -17,7 +17,9 @@ function Blogs() {
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
     useEffect(() => {
-        const filteredData = data.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()));
+        const filteredData = data.filter((item) =>
+            item.employeeId.toString().toLowerCase().includes(search.toLowerCase()),
+        );
         setSearchedData(filteredData);
     }, [search, data]);
 
@@ -50,9 +52,9 @@ function Blogs() {
     }, []);
 
     const getData = () => {
-        getBlogs()
+        getEnrollments()
             .then((data) => {
-                console.log(data)
+                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -69,14 +71,14 @@ function Blogs() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteBlogs(deleteId)
+        deleteEnrollments(deleteId)
             .then(() => {
-                toast.success('Blogs has been deleted');
+                toast.success('Enrollments has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Blogs', error);
+                toast.error('Failed to delete Enrollments', error);
             });
     };
 
@@ -89,9 +91,9 @@ function Blogs() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Blogs</h1>
+                <h1>Enrollments</h1>
                 <div className="section-header-button">
-                    <Link to="/Blogs/create" className="btn btn-primary">
+                    <Link to="/Enrollments/create" className="btn btn-primary">
                         Add New
                     </Link>
                 </div>
@@ -100,9 +102,9 @@ function Blogs() {
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Blogs</Link>
+                        <Link to="#">Enrollments</Link>
                     </div>
-                    <div className="breadcrumb-item">All Blogs</div>
+                    <div className="breadcrumb-item">All Enrollments</div>
                 </div>
             </div>
             <div className="section-body">
@@ -110,7 +112,7 @@ function Blogs() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Blogs</h4>
+                                <h4>All Enrollments</h4>
                             </div>
 
                             <div className="card-body">
@@ -130,10 +132,8 @@ function Blogs() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Title</th>
-                                                        <th>Content</th>
-                                                        <th>Empoylee</th>
-                                                        <th>Disease</th>
+                                                        <th>CourseId</th>
+                                                        <th>EmployeeId</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -141,13 +141,11 @@ function Blogs() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.title}</td>
-                                                            <td>{item.content}</td>
-                                                            <td>{item.employeeId}</td>
-                                                            <td>{item.disease.name}</td>
+                                                            <td>{item.course.title}</td>
+                                                            <td>{item.employee.full_Name}</td>
                                                             <td colSpan={2}>
                                                                 <Link
-                                                                    to={`/Blogs/edit/${item.id}`}
+                                                                    to={`/Enrollments/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
@@ -186,7 +184,7 @@ function Blogs() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Blogs?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this Enrollments?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -202,4 +200,4 @@ function Blogs() {
     );
 }
 
-export default Blogs;
+export default Enrollments;
