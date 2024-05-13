@@ -29,8 +29,13 @@ import Doctors from '~/pages/Doctors/Doctor/index';
 import CreateDoctors from '~/pages/Doctors/Doctor/create';
 import EditDoctors from '~/pages/Doctors/Doctor/edit';
 
-import Specialist from '~/pages/Doctors/Specialist/index';
+import Blogs from '~/pages/Doctors/Doctor/index';
+import CreateBlogs from '~/pages/Doctors/Doctor/create';
+import EditBlogs from '~/pages/Doctors/Doctor/edit';
 
+import Disease from '~/pages/Doctors/Disease/index';
+
+import Specialist from '~/pages/Doctors/Specialist/index';
 
 //      Account
 import Login from '~/pages/Account/login';
@@ -110,8 +115,13 @@ export const publicRoutes = [
     { path: config.routes.createDoctors, component: CreateDoctors, layout: AdminLayout },
     { path: config.routes.editDoctors, component: EditDoctors, layout: AdminLayout },
 
+    { path: config.routes.blogs, component: Blogs, layout: AdminLayout },
+    { path: config.routes.createBlogs, component: CreateBlogs, layout: AdminLayout },
+    { path: config.routes.editBlogs, component: EditBlogs, layout: AdminLayout },
+
+    { path: config.routes.disease, component: Disease, layout: AdminLayout },
+
     { path: config.routes.specialist, component: Specialist, layout: AdminLayout },
-    
 
     //      Orders
     { path: config.routes.orders, component: Orders, layout: AdminLayout },

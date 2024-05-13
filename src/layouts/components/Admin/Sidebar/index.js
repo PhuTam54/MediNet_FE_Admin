@@ -93,11 +93,6 @@ function SidebarAdmin() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className="nav-link" to="/Blogs">
-                                        Blogs
-                                    </Link>
-                                </li>
-                                <li>
                                     <Link className="nav-link" to="/Specialists">
                                         Specialists
                                     </Link>

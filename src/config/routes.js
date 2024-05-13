@@ -28,6 +28,12 @@ const routes = {
     createDoctors: '/doctors/create',
     editDoctors: '/doctors/edit/:id',
 
+    blogs: '/blogs',
+    createBlogs: '/blogs/create',
+    editBlogs: '/blogs/edit/:id',
+
+    disease: '/diseases',
+
     specialist: '/specialists',
 
     //      Account
