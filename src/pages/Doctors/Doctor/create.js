@@ -140,7 +140,6 @@ function CreateDoctors() {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Date Of Birth</label>

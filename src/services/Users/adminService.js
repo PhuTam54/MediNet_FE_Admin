@@ -10,10 +10,15 @@ export const getAdmins = async () => {
     }
 };
 
-export const createAdmins = async (username, email, password, image, imageFile, imageSrc) => {
+export const createAdmins = async (username, email, password, imageFile) => {
     try {
-        const createData = { username, email, password, image, imageFile, imageSrc };
-        await post(`/Admins`, createData);
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('imageFile', imageFile);
+
+        await post(`/Admins`, formData);
     } catch (error) {
         console.error('Failed to create Admins', error);
         throw error;

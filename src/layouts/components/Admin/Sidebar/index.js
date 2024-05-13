@@ -74,7 +74,8 @@ function SidebarAdmin() {
 
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
-                                <i className="fab fa-shopify"></i> <span>Doctors</span>
+                                <i class="fas fa-user-md"></i>
+                                <span>Doctors</span>
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>
@@ -102,7 +103,7 @@ function SidebarAdmin() {
 
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
-                                <i className="fab fa-shopify"></i> <span>Courses</span>
+                                <i class="far fa-building"></i> <span>Courses</span>
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>
