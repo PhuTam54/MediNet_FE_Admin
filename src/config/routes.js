@@ -18,6 +18,18 @@ const routes = {
     createSupplies: '/supplies/create',
     editSupplies: '/supplies/edit/:id',
 
+    //      clinics
+    courses: '/courses',
+    createCourses: '/courses/create',
+    editCourses: '/courses/edit/:id',
+
+    //      Doctors
+    doctors: '/doctors',
+    createDoctors: '/doctors/create',
+    editDoctors: '/doctors/edit/:id',
+
+    specialist: '/specialists',
+
     //      Account
     login: '/login',
     register: '/register',

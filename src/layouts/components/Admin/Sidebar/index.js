@@ -74,6 +74,62 @@ function SidebarAdmin() {
 
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
+                                <i className="fab fa-shopify"></i> <span>Doctors</span>
+                            </Link>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link className="nav-link" to="/Doctors">
+                                        Doctors
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/Blogs">
+                                        Blogs
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/Diseases">
+                                        Diseases
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/Blogs">
+                                        Blogs
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/Specialists">
+                                        Specialists
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li className="dropdown">
+                            <Link to="#" className="nav-link has-dropdown">
+                                <i className="fab fa-shopify"></i> <span>Courses</span>
+                            </Link>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link className="nav-link" to="/Courses">
+                                        Courses
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/Employees">
+                                        Employees
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/Enrollments">
+                                        Enrollments
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li className="dropdown">
+                            <Link to="#" className="nav-link has-dropdown">
                                 <i className="fas fa-cart-plus"></i> <span>Orders</span>
                             </Link>
                             <ul className="dropdown-menu">

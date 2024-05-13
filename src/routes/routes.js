@@ -19,6 +19,19 @@ import Supplies from '~/pages/Clinics/Supply/index';
 import CreateSupplies from '~/pages/Clinics/Supply/create';
 import EditSupplies from '~/pages/Clinics/Supply/edit';
 
+//      Courses
+import Courses from '~/pages/Courses/Course/index';
+import CreateCourses from '~/pages/Courses/Course/create';
+import EditCourses from '~/pages/Courses/Course/edit';
+
+//      Doctors
+import Doctors from '~/pages/Doctors/Doctor/index';
+import CreateDoctors from '~/pages/Doctors/Doctor/create';
+import EditDoctors from '~/pages/Doctors/Doctor/edit';
+
+import Specialist from '~/pages/Doctors/Specialist/index';
+
+
 //      Account
 import Login from '~/pages/Account/login';
 import Register from '~/pages/Account/register';
@@ -87,6 +100,18 @@ export const publicRoutes = [
     { path: config.routes.supplies, component: Supplies, layout: AdminLayout },
     { path: config.routes.createSupplies, component: CreateSupplies, layout: AdminLayout },
     { path: config.routes.editSupplies, component: EditSupplies, layout: AdminLayout },
+    //      Courses
+    { path: config.routes.courses, component: Courses, layout: AdminLayout },
+    { path: config.routes.createCourses, component: CreateCourses, layout: AdminLayout },
+    { path: config.routes.editCourses, component: EditCourses, layout: AdminLayout },
+
+    //      Doctors
+    { path: config.routes.doctors, component: Doctors, layout: AdminLayout },
+    { path: config.routes.createDoctors, component: CreateDoctors, layout: AdminLayout },
+    { path: config.routes.editDoctors, component: EditDoctors, layout: AdminLayout },
+
+    { path: config.routes.specialist, component: Specialist, layout: AdminLayout },
+    
 
     //      Orders
     { path: config.routes.orders, component: Orders, layout: AdminLayout },

@@ -10,9 +10,33 @@ export const getCourses = async () => {
     }
 };
 
-export const createCourses = async (title, price, description, duration, location, topics, targetAudience, skillCovered, medicineSalesTraining, medicalExaminationTraining, doctorId) => {
+export const createCourses = async (
+    title,
+    price,
+    description,
+    duration,
+    location,
+    topics,
+    targetAudience,
+    skillCovered,
+    medicineSalesTraining,
+    medicalExaminationTraining,
+    doctorId,
+) => {
     try {
-        const newData = { title, price, description, duration, location, topics, targetAudience, skillCovered, medicineSalesTraining, medicalExaminationTraining, doctorId };
+        const newData = {
+            title,
+            price,
+            description,
+            duration,
+            location,
+            topics,
+            targetAudience,
+            skillCovered,
+            medicineSalesTraining,
+            medicalExaminationTraining,
+            doctorId,
+        };
         await post('/Courses', newData);
     } catch (error) {
         console.error('Failed to create Courses', error);
@@ -30,9 +54,35 @@ export const editCourses = async (id) => {
     }
 };
 
-export const updateCourses = async (id, title, price, description, duration, location, topics, targetAudience, skillCovered, medicineSalesTraining, medicalExaminationTraining, doctorId) => {
+export const updateCourses = async (
+    id,
+    title,
+    price,
+    description,
+    duration,
+    location,
+    topics,
+    targetAudience,
+    skillCovered,
+    medicineSalesTraining,
+    medicalExaminationTraining,
+    doctorId,
+) => {
     try {
-        const updatedData = { id, title, price, description, duration, location, topics, targetAudience, skillCovered, medicineSalesTraining, medicalExaminationTraining, doctorId };
+        const updatedData = {
+            id,
+            title,
+            price,
+            description,
+            duration,
+            location,
+            topics,
+            targetAudience,
+            skillCovered,
+            medicineSalesTraining,
+            medicalExaminationTraining,
+            doctorId,
+        };
         await put(`/Courses/id?id=${id}`, updatedData);
     } catch (error) {
         console.error('Failed to update Courses', error);
