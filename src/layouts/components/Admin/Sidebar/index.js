@@ -78,11 +78,11 @@ function SidebarAdmin() {
                                 <span>Doctors</span>
                             </Link>
                             <ul className="dropdown-menu">
-                                <li>
+                                {/* <li>
                                     <Link className="nav-link" to="/Doctors">
                                         Doctors
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link className="nav-link" to="/Blogs">
                                         Blogs
