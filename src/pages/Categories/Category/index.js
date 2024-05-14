@@ -4,26 +4,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import {
-    getCategory,
-    createCategory,
-    editCategory,
-    updateCategory,
-    deleteCategory,
-} from '~/services/Shop/categoryService';
+import { getCategory, deleteCategory } from '~/services/Categories/categoryService';
 import { Link } from 'react-router-dom';
 
 function Category() {
     const [loading, setLoading] = useState(true);
-    const [editShow, setEditShow] = useState(false);
-    const [deleteShow, setDeleteShow] = useState(false);
-    const [createShow, setCreateShow] = useState(false);
-    const [name, setName] = useState('');
-    const [slug, setSlug] = useState('');
-    const [editId, setEditId] = useState('');
-    const [editName, setEditName] = useState('');
-    const [editSlug, setEditSlug] = useState('');
     const [data, setData] = useState([]);
+    const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
 
     //search
@@ -65,6 +52,7 @@ function Category() {
     const getData = () => {
         getCategory()
             .then((data) => {
+                console.log(data)
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -72,47 +60,6 @@ function Category() {
             .catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
-            });
-    };
-
-    const handleSave = () => {
-        handleCreateShow();
-    };
-
-    const handleSaveConfirm = () => {
-        createCategory(name)
-            .then(() => {
-                getData();
-                clear();
-                handleClose();
-                toast.success('Category has been created');
-            })
-            .catch((error) => {
-                toast.error('Failed to create category', error);
-            });
-    };
-
-    const handleEdit = (id) => {
-        handleEditShow();
-        editCategory(id)
-            .then((data) => {
-                setEditId(id);
-                setEditName(data.name);
-                // setEditSlug(data.slug);
-            })
-            .catch((error) => console.error('Error fetching category data:', error));
-    };
-
-    const handleUpdate = () => {
-        updateCategory(editId, editName)
-            .then(() => {
-                handleClose();
-                getData();
-                clear();
-                toast.success('Category has been updated');
-            })
-            .catch((error) => {
-                toast.error('Failed to update category', error);
             });
     };
 
@@ -129,40 +76,33 @@ function Category() {
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete category', error);
+                toast.error('Failed to delete Category', error);
             });
-    };
-
-    const clear = () => {
-        setName('');
-        // setSlug('');
-        setEditId('');
-        setEditName('');
-        // setEditSlug('');
     };
 
     const handleClose = () => {
         setDeleteShow(false);
-        setCreateShow(false);
-        setEditShow(false);
     };
 
-    const handleEditShow = () => setEditShow(true);
     const handleDeleteShow = () => setDeleteShow(true);
-    const handleCreateShow = () => setCreateShow(true);
 
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Categories</h1>
+                <h1>Category</h1>
+                <div className="section-header-button">
+                    <Link to="/category/create" className="btn btn-primary">
+                        Add New
+                    </Link>
+                </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Categories</Link>
+                        <Link to="#">Category</Link>
                     </div>
-                    <div className="breadcrumb-item">All Categories</div>
+                    <div className="breadcrumb-item">All Category</div>
                 </div>
             </div>
             <div className="section-body">
@@ -170,12 +110,7 @@ function Category() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Categories</h4>
-                                <div className="section-header-button">
-                                    <button className="btn btn-primary" onClick={() => handleSave()}>
-                                        Create
-                                    </button>
-                                </div>
+                                <h4>All Category</h4>
                             </div>
 
                             <div className="card-body">
@@ -196,7 +131,7 @@ function Category() {
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>Name</th>
-                                                        {/* <th>Slug</th> */}
+                                                        <th>Category Id</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -205,15 +140,15 @@ function Category() {
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>{item.name}</td>
-                                                            {/* <td>{item.categoryChilds}</td> */}
+                                                            <td>{item.categoryParent.name}</td>
                                                             <td colSpan={2}>
-                                                                <button
+                                                                <Link
+                                                                    to={`/Category/edit/${item.id}`}
                                                                     className="btn btn-primary"
-                                                                    onClick={() => handleEdit(item.id)}
                                                                     title="Edit"
                                                                 >
                                                                     <i class="fas fa-pencil-alt"></i>
-                                                                </button>
+                                                                </Link>
                                                                 &nbsp;
                                                                 <button
                                                                     className="btn btn-danger"
@@ -242,69 +177,12 @@ function Category() {
                     </div>
                 </div>
             </div>
-            <Modal show={createShow} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Create Category</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Container>
-                        <Row>
-                            <Col>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Enter Name"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                />
-                            </Col>
-                        </Row>
-                    </Container>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleSaveConfirm}>
-                        Create
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            <Modal show={editShow} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Category</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Container>
-                        <Row>
-                            <Col>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Enter Name"
-                                    value={editName}
-                                    onChange={(e) => setEditName(e.target.value)}
-                                />
-                            </Col>
-                        </Row>
-                    </Container>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleUpdate}>
-                        Update
-                    </Button>
-                </Modal.Footer>
-            </Modal>
 
             <Modal show={deleteShow} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this category?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this Category?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel

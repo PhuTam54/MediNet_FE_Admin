@@ -1,7 +1,7 @@
 import Order from './Order';
 import React, { useState, useEffect } from 'react';
 import { getOrders } from '~/services/Orders/orderService';
-import { getProductData } from '~/services/Shop/productService';
+import { getProductData } from '~/services/Orders/productService';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -78,7 +78,7 @@ function HomeAdmin() {
                                     <div className="card-stats-item-count">
                                         {orders.filter((order) => order.status === 2).length}
                                     </div>
-                                    <div className="card-stats-item-label"> </div>
+                                    <div className="card-stats-item-label"> Shipping</div>
                                 </div>
                                 <div className="card-stats-item">
                                     <div className="card-stats-item-count">
@@ -111,7 +111,7 @@ function HomeAdmin() {
                             <div className="card-header">
                                 <h4>Balance</h4>
                             </div>
-                            <div className="card-body">$187,13</div>
+                            <div className="card-body">$ {orders.subtotal}</div>
                         </div>
                     </div>
                 </div>

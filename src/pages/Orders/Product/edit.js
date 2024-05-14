@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateProduct, editProductData } from '~/services/Shop/productService';
+import { updateProduct, editProductData } from '~/services/Orders/productService';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditProduct() {
     const [categoryChilds, setCategoryChild] = useState([]);
-    const [clinics, setClinics] = useState([]);
+    const defaultImage = '/anh-thuoc.jpg';
 
     const [data, setData] = useState({
         id: '',
         categoryChildId: '',
-        clinicId: '',
         name: '',
         image: '',
         description: '',
         price: '',
-        stockQuantity: '',
         manufacturer: '',
         manufacturerDate: '',
         expiryDate: '',
-        imageFile: '',
+        imageSrc: defaultImage,
+        imageFile: null,
     });
 
     const { id } = useParams();
@@ -33,23 +32,16 @@ function EditProduct() {
                 setData({
                     id: productData.id,
                     categoryChildId: productData.categoryChildId,
-                    clinicId: productData.clinicId,
                     name: productData.name,
-                    image: productData.image,
                     description: productData.description,
                     price: productData.price,
-                    stockQuantity: productData.stockQuantity,
                     manufacturer: productData.manufacturer,
                     manufacturerDate: productData.manufacturerDate,
                     expiryDate: productData.expiryDate,
                     imageFile: productData.imageFile,
                 });
 
-                const clinicData = await fetch('https://localhost:7121/api/v1/Clinics');
-                const clinicJson = await clinicData.json();
-                setClinics(clinicJson);
-
-                const categoryChildData = await fetch('https://localhost:7121/api/v1/categoryChilds');
+                const categoryChildData = await fetch('https://localhost:7121/api/v1/CategoryChilds');
                 const categoryChildJson = await categoryChildData.json();
                 setCategoryChild(categoryChildJson);
             } catch (error) {
@@ -61,19 +53,19 @@ function EditProduct() {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+        const manufacturerDate = new Date(data.manufacturerDate).toISOString();
+        const expiryDate = new Date(data.expiryDate).toISOString();
+
         try {
             await updateProduct(
                 data.id,
                 data.categoryChildId,
-                data.clinicId,
                 data.name,
-                data.image,
                 data.description,
                 data.price,
-                data.stockQuantity,
                 data.manufacturer,
-                data.manufacturerDate,
-                data.expiryDate,
+                manufacturerDate,
+                expiryDate,
                 data.imageFile,
             );
             toast.success('Shop updated successfully');
@@ -83,9 +75,25 @@ function EditProduct() {
         }
     };
 
-    const handleImageChange = (event) => {
-        const image = event.target.files[0];
-        setData({ ...data, imageFile: image });
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
+        }
     };
 
     return (
@@ -120,26 +128,14 @@ function EditProduct() {
                                 <form onSubmit={handleUpdate}>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Id</label>
+                                            <label className="col-form-label text-md-right">Name</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.id}
-                                                disabled
-                                                onChange={(e) => setData({ ...data, id: e.target.value })}
-                                            />
-                                        </div>      
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">ImageFile</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.imageFile}
-                                                onChange={(e) => setData({ ...data, imageFile: e.target.value })}
+                                                value={data.name}
+                                                onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
                                         </div>
-                                    </div>
-                                    <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">CategoryChildId</label>
                                             <select
@@ -155,43 +151,8 @@ function EditProduct() {
                                                 ))}
                                             </select>
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">ClinicId</label>
-                                            <select
-                                                className="form-control"
-                                                value={data.clinicId}
-                                                onChange={(e) => setData({ ...data, clinicId: e.target.value })}
-                                            >
-                                                <option>Select ClinicId</option>
-                                                {clinics.map((clinic) => (
-                                                    <option key={clinic.id} value={clinic.id}>
-                                                        {clinic.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
                                     </div>
 
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Name</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.name}
-                                                onChange={(e) => setData({ ...data, name: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Img</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.image}
-                                                onChange={(e) => setData({ ...data, image: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Description</label>
@@ -214,15 +175,6 @@ function EditProduct() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">StockQuantity</label>
-                                            <input
-                                                type="number"
-                                                className="form-control"
-                                                value={data.stockQuantity}
-                                                onChange={(e) => setData({ ...data, stockQuantity: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Manufacturer</label>
                                             <input
                                                 type="text"
@@ -236,7 +188,7 @@ function EditProduct() {
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">ManufacturerDate</label>
                                             <input
-                                                type="text"
+                                                type="datetime-local"
                                                 className="form-control"
                                                 value={data.manufacturerDate}
                                                 onChange={(e) => setData({ ...data, manufacturerDate: e.target.value })}
@@ -245,10 +197,28 @@ function EditProduct() {
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">ExpiryDate</label>
                                             <input
-                                                type="text"
+                                                type="datetime-local"
                                                 className="form-control"
                                                 value={data.expiryDate}
                                                 onChange={(e) => setData({ ...data, expiryDate: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ImageFile</label>
+                                            <div>
+                                                <img
+                                                    src={data.imageSrc}
+                                                    alt="Product"
+                                                    style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
+                                                />
+                                            </div>
+                                            <input
+                                                type="file"
+                                                className="form-control"
+                                                accept="image/*"
+                                                onChange={handleImageChange}
                                             />
                                         </div>
                                     </div>

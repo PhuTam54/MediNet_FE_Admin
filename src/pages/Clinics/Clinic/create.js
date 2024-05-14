@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createClinics } from '~/services/clinicService';
+import { createClinics } from '~/services/Clinics/clinicService';
 import { useNavigate, Link } from 'react-router-dom';
 
 function CreateClinics() {

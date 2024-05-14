@@ -5,14 +5,17 @@ import { updateAdmins, editAdmins } from '~/services/Users/adminService';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 function EditAdmins() {
+    const defaultImage = '/anh-thuoc.jpg';
+
     const [data, setData] = useState({
-        editId: '',
+        id: '',
         username: '',
         email: '',
         password: '',
         image: '',
-        imageFile: '',
-        imageSrc: '',
+        imageFile: null,
+        imageSrc: defaultImage,
+        image: '',
     });
 
     const { id } = useParams();
@@ -23,13 +26,13 @@ function EditAdmins() {
             try {
                 const adminData = await editAdmins(id);
                 setData({
-                    editId: adminData.id,
-                    email: adminData.email,
+                    id: adminData.id,
                     username: adminData.username,
+                    email: adminData.email,
                     password: adminData.password,
-                    image: adminData.image,
                     imageFile: adminData.imageFile,
                     imageSrc: adminData.imageSrc,
+                    image: adminData.image,
                 });
             } catch (error) {
                 console.error('Error fetching Admin data:', error);
@@ -43,7 +46,7 @@ function EditAdmins() {
         event.preventDefault();
 
         try {
-            await updateAdmins(data.editId, data.email, data.username, data.password, data.image, data.imageFile);
+            await updateAdmins(data.id, data.email, data.username, data.password, data.imageFile, data.imageSrc);
             toast.success('Admin updated successfully');
             navigate('/Admins');
         } catch (error) {
@@ -51,6 +54,26 @@ function EditAdmins() {
         }
     };
 
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
+        }
+    };
     return (
         <section className="section">
             <div className="section-header">
@@ -122,40 +145,21 @@ function EditAdmins() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Image
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.image}
-                                                onChange={(e) => setData({ ...data, image: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                             ImageFile
                                         </label>
-                                        <div className="col-sm-12 col-md-7">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.imageFile}
-                                                onChange={(e) => setData({ ...data, imageFile: e.target.value })}
+                                        <div>
+                                            <img
+                                                src={data.imageSrc}
+                                                alt="Doctors"
+                                                style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
                                             />
                                         </div>
-                                    </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            ImageSrc
-                                        </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="text"
+                                                type="file"
                                                 className="form-control"
-                                                value={data.imagesimageSrc}
-                                                onChange={(e) => setData({ ...data, imagesimageSrc: e.target.value })}
+                                                accept="image/*"
+                                                onChange={handleImageChange}
                                             />
                                         </div>
                                     </div>

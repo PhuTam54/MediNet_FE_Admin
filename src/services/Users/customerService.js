@@ -13,25 +13,21 @@ export const getCustomers = async () => {
 export const createCustomers = async (
     username,
     email,
+    date_Of_Birth,
+    phoneNumber,
     password,
-    gender,
-    image,
     imageFile,
     address,
-    phoneNumber,
-    date_Of_Birth,
 ) => {
     try {
         const createData = {
             username,
             email,
+            date_Of_Birth,
+            phoneNumber,
             password,
-            gender,
-            image,
             imageFile,
             address,
-            phoneNumber,
-            date_Of_Birth,
         };
         await post(`/Customers`, createData);
     } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createProduct } from '~/services/Shop/productService';
+import { createProduct } from '~/services/Orders/productService';
 import { useNavigate, Link } from 'react-router-dom';
 
 function CreateProduct() {
@@ -202,9 +202,7 @@ function CreateProduct() {
                                             <input
                                                 type="file"
                                                 className="form-control"
-                                                // multiple
                                                 accept="image/*"
-                                                // value={data.imageFile}
                                                 onChange={handleImageChange}
                                             />
                                         </div>

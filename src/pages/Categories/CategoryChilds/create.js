@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createCategoryChilds } from '~/services/Shop/categoryChildService';
+import { createCategoryChilds } from '~/services/Categories/categoryChildService';
 import { useNavigate, Link } from 'react-router-dom';
 
 function CreateCategoryChilds() {
@@ -31,7 +31,7 @@ function CreateCategoryChilds() {
     const handleCreate = async (event) => {
         event.preventDefault();
         try {
-            await createCategoryChilds( data.name, data.categoryId);
+            await createCategoryChilds(data.name, data.categoryId);
             toast.success('Shop created successfully');
             navigate('/CategoryChilds');
         } catch (error) {
@@ -43,17 +43,17 @@ function CreateCategoryChilds() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <a href="/CategoryChilds" className="btn btn-icon">
+                    <Link to="/CategoryChilds" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
-                    </a>
+                    </Link>
                 </div>
                 <h1>Create CategoryChilds</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">CategoryChildss</a>
+                        <Link to="#">CategoryChildss</Link>
                     </div>
                     <div className="breadcrumb-item">Create CategoryChilds</div>
                 </div>

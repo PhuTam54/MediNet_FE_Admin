@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getProductData, deleteProduct } from '~/services/Shop/productService';
+import { getProductData, deleteProduct } from '~/services/Orders/productService';
 import { Link } from 'react-router-dom';
 
 function Product() {
@@ -174,6 +174,14 @@ function Product() {
                                                             <td>{item.manufacturerDate}</td>
                                                             <td>{item.expiryDate}</td>
                                                             <td colSpan={2}>
+                                                                <Link
+                                                                    to={`/product/feedbacks/${item.id}`}
+                                                                    className="btn btn-primary"
+                                                                    title="Details"
+                                                                >
+                                                                    <i class="far fa-eye"></i>
+                                                                </Link>
+                                                                &nbsp;
                                                                 <Link
                                                                     to={`/product/edit/${item.id}`}
                                                                     className="btn btn-primary"

@@ -132,10 +132,10 @@ function Customers() {
                                                         <th>Img</th>
                                                         <th>Username</th>
                                                         <th>Email</th>
-                                                        <th>Date_Of_Birth</th>
+                                                        {/* <th>Date_Of_Birth</th>
                                                         <th>Phone</th>
                                                         <th>Password</th>
-                                                        <th>Address</th>
+                                                        <th>Address</th> */}
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -145,7 +145,7 @@ function Customers() {
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>
                                                                 <img
-                                                                src={item.imageSrc}
+                                                                    src={item.imageSrc}
                                                                     // src={`https://localhost:7121/${item.image}`}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
@@ -153,10 +153,10 @@ function Customers() {
                                                             </td>
                                                             <td>{item.username}</td>
                                                             <td>{item.email}</td>
-                                                            <td>{item.date_Of_Birth}</td>
+                                                            {/* <td>{item.date_Of_Birth}</td>
                                                             <td>{item.phoneNumber}</td>
                                                             <td>{item.password}</td>
-                                                            <td>{item.address}</td>
+                                                            <td>{item.address}</td> */}
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Customers/edit/${item.id}`}

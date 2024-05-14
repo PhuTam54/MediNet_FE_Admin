@@ -18,6 +18,32 @@ const routes = {
     createSupplies: '/supplies/create',
     editSupplies: '/supplies/edit/:id',
 
+    //      courses
+    courses: '/courses',
+    createCourses: '/courses/create',
+    editCourses: '/courses/edit/:id',
+
+    employees: '/employees',
+    createEmployees: '/employees/create',
+    editEmployees: '/employees/edit/:id',
+
+    enrollments: '/enrollments',
+    createEnrollments: '/enrollments/create',
+    editEnrollments: '/enrollments/edit/:id',
+
+    //      Doctors
+    doctors: '/doctors',
+    createDoctors: '/doctors/create',
+    editDoctors: '/doctors/edit/:id',
+
+    blogs: '/blogs',
+    createBlogs: '/blogs/create',
+    editBlogs: '/blogs/edit/:id',
+
+    disease: '/diseases',
+
+    specialist: '/specialists',
+
     //      Account
     login: '/login',
     register: '/register',
@@ -25,7 +51,11 @@ const routes = {
     resetpassword: '/resetpassword',
 
     //      categories
+    categoryParents: '/categoryParents',
+
     category: '/category',
+    createCategory: '/Category/create',
+    editCategory: '/Category/edit/:id',
 
     categoryChilds: '/categoryChilds',
     createCategoryChilds: '/CategoryChilds/create',
@@ -47,6 +77,10 @@ const routes = {
     ticket: '/ticket',
     ticketCreate: '/ticket/create',
     ticketEdit: '/ticket/edit/:id',
+
+    // feedbacks: '/feedbacks',
+    feedbacks: '/product/feedbacks/:id',
+    feedbackDetail: '/products/feedbacks/detail/:id',
 
     //      Manager
     calendar: '/calendar',

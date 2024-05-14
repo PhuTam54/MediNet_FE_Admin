@@ -19,6 +19,32 @@ import Supplies from '~/pages/Clinics/Supply/index';
 import CreateSupplies from '~/pages/Clinics/Supply/create';
 import EditSupplies from '~/pages/Clinics/Supply/edit';
 
+//      Courses
+import Courses from '~/pages/Courses/Course/index';
+import CreateCourses from '~/pages/Courses/Course/create';
+import EditCourses from '~/pages/Courses/Course/edit';
+
+import Employees from '~/pages/Courses/Employee/index';
+import CreateEmployees from '~/pages/Courses/Employee/create';
+import EditEmployees from '~/pages/Courses/Employee/edit';
+
+import Enrollments from '~/pages/Courses/Enrollment/index';
+import CreateEnrollments from '~/pages/Courses/Enrollment/create';
+import EditEnrollments from '~/pages/Courses/Enrollment/edit';
+
+//      Doctors
+import Doctors from '~/pages/Doctors/Doctor/index';
+import CreateDoctors from '~/pages/Doctors/Doctor/create';
+import EditDoctors from '~/pages/Doctors/Doctor/edit';
+
+import Blogs from '~/pages/Doctors/Blog/index';
+import CreateBlogs from '~/pages/Doctors/Blog/create';
+import EditBlogs from '~/pages/Doctors/Blog/edit';
+
+import Disease from '~/pages/Doctors/Disease/index';
+
+import Specialist from '~/pages/Doctors/Specialist/index';
+
 //      Account
 import Login from '~/pages/Account/login';
 import Register from '~/pages/Account/register';
@@ -26,12 +52,9 @@ import ForgotPassword from '~/pages/Account/forgotpassword';
 import ResetPassword from '~/pages/Account/resetpassword';
 
 //      Order
-import Cart from '~/pages/Orders/Cart/index';
-import CreateCart from '~/pages/Orders/Cart/create';
-import EditCart from '~/pages/Orders/Cart/edit';
-
 import Orders from '~/pages/Orders/Order/index';
 import DetailOrders from '~/pages/Orders/Order/detail';
+import Invoice from '~/pages/Orders/Order/invoice';
 
 import Product from '~/pages/Orders/Product/index';
 import CreateProduct from '~/pages/Orders/Product/create';
@@ -41,12 +64,15 @@ import Service from '~/pages/Orders/Services/index';
 import CreateService from '~/pages/Orders/Services/create';
 import EditService from '~/pages/Orders/Services/edit';
 
-import Invoice from '~/pages/Orders/Order/invoice';
-
-import Tickets from '~/pages/Orders/Ticket/index';
+import Feedbacks from '~/pages/Orders/Feedbacks/index';
+import FeedbackDetail from '~/pages/Orders/Feedbacks/detail';
 
 //      Categories
+import CategoryParents from '~/pages/Categories/CategoryParents/index';
+
 import Category from '~/pages/Categories/Category/index';
+import CreateCategory from '~/pages/Categories/Category/create';
+import EditCategory from '~/pages/Categories/Category/edit';
 
 import CategoryChilds from '~/pages/Categories/CategoryChilds/index';
 import CreateCategoryChilds from '~/pages/Categories/CategoryChilds/create';
@@ -79,11 +105,6 @@ export const publicRoutes = [
     { path: config.routes.lineChart, component: LineChart, layout: AdminLayout },
     { path: config.routes.pieChart, component: PieChart, layout: AdminLayout },
 
-    //      Cart
-    { path: config.routes.cart, component: Cart, layout: AdminLayout },
-    { path: config.routes.createCart, component: CreateCart, layout: AdminLayout },
-    { path: config.routes.editCart, component: EditCart, layout: AdminLayout },
-
     //      Clinics
     { path: config.routes.clinics, component: Clinics, layout: AdminLayout },
     { path: config.routes.createClinics, component: CreateClinics, layout: AdminLayout },
@@ -92,6 +113,32 @@ export const publicRoutes = [
     { path: config.routes.supplies, component: Supplies, layout: AdminLayout },
     { path: config.routes.createSupplies, component: CreateSupplies, layout: AdminLayout },
     { path: config.routes.editSupplies, component: EditSupplies, layout: AdminLayout },
+
+    //      Courses
+    { path: config.routes.courses, component: Courses, layout: AdminLayout },
+    { path: config.routes.createCourses, component: CreateCourses, layout: AdminLayout },
+    { path: config.routes.editCourses, component: EditCourses, layout: AdminLayout },
+
+    { path: config.routes.employees, component: Employees, layout: AdminLayout },
+    { path: config.routes.createEmployees, component: CreateEmployees, layout: AdminLayout },
+    { path: config.routes.editEmployees, component: EditEmployees, layout: AdminLayout },
+
+    { path: config.routes.enrollments, component: Enrollments, layout: AdminLayout },
+    { path: config.routes.createEnrollments, component: CreateEnrollments, layout: AdminLayout },
+    { path: config.routes.editEnrollments, component: EditEnrollments, layout: AdminLayout },
+
+    //      Doctors
+    { path: config.routes.doctors, component: Doctors, layout: AdminLayout },
+    { path: config.routes.createDoctors, component: CreateDoctors, layout: AdminLayout },
+    { path: config.routes.editDoctors, component: EditDoctors, layout: AdminLayout },
+
+    { path: config.routes.blogs, component: Blogs, layout: AdminLayout },
+    { path: config.routes.createBlogs, component: CreateBlogs, layout: AdminLayout },
+    { path: config.routes.editBlogs, component: EditBlogs, layout: AdminLayout },
+
+    { path: config.routes.disease, component: Disease, layout: AdminLayout },
+
+    { path: config.routes.specialist, component: Specialist, layout: AdminLayout },
 
     //      Orders
     { path: config.routes.orders, component: Orders, layout: AdminLayout },
@@ -106,10 +153,15 @@ export const publicRoutes = [
     { path: config.routes.createServices, component: CreateService, layout: AdminLayout },
     { path: config.routes.editServices, component: EditService, layout: AdminLayout },
 
-    { path: config.routes.ticket, component: Tickets, layout: AdminLayout },
+    { path: config.routes.feedbacks, component: Feedbacks, layout: AdminLayout },
+    { path: config.routes.feedbackDetail, component: FeedbackDetail, layout: AdminLayout },
 
     //      Category
+    { path: config.routes.categoryParents, component: CategoryParents, layout: AdminLayout },
+
     { path: config.routes.category, component: Category, layout: AdminLayout },
+    { path: config.routes.createCategory, component: CreateCategory, layout: AdminLayout },
+    { path: config.routes.editCategory, component: EditCategory, layout: AdminLayout },
 
     { path: config.routes.categoryChilds, component: CategoryChilds, layout: AdminLayout },
     { path: config.routes.createCategoryChilds, component: CreateCategoryChilds, layout: AdminLayout },

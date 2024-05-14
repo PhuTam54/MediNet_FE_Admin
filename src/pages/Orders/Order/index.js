@@ -91,10 +91,10 @@ function Orders() {
                 <h1>Orders</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <a href="#">Dashboard</a>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <a href="#">Orders</a>
+                        <Link to="#">Orders</Link>
                     </div>
                     <div className="breadcrumb-item">All Orders</div>
                 </div>

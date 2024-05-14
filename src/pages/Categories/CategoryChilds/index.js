@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getCategoryChilds, deleteCategoryChilds } from '~/services/Shop/categoryChildService';
+import { getCategoryChilds, deleteCategoryChilds } from '~/services/Categories/categoryChildService';
 import { Link } from 'react-router-dom';
 
 function CategoryChilds() {

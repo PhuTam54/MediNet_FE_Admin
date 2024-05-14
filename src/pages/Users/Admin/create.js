@@ -5,13 +5,16 @@ import { createAdmins } from '~/services/Users/adminService';
 import { Link, useNavigate } from 'react-router-dom';
 
 function CreateAdmins() {
+    const defaultImage = '/anh-thuoc.jpg';
+
     const [data, setData] = useState({
         username: '',
         email: '',
         password: '',
         image: '',
-        imageFile: '',
-        imageSrc: '',
+        imageFile: null,
+        imageSrc: defaultImage,
+        image: '',
     });
 
     const navigate = useNavigate();
@@ -20,17 +23,33 @@ function CreateAdmins() {
         event.preventDefault();
 
         try {
-            await createAdmins(data.username, data.email, data.password, data.image, data.imageFile, data.imageSrc);
+            await createAdmins(data.username, data.email, data.password, data.imageFile);
             toast.success('Admins created successfully');
             navigate('/Admins');
         } catch (error) {
             toast.error('Failed to create Admins');
         }
     };
-    const handleImageChange = (event) => {
-        const image = event.target.files[0];
-        console.log(event.target.files[0]);
-        setData({ ...data, imageFile: image });
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
+        }
     };
 
     return (
@@ -102,42 +121,23 @@ function CreateAdmins() {
                                             />
                                         </div>
                                     </div>
-                                    {/* <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Image
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.image}
-                                                onChange={(e) => setData({ ...data, image: e.target.value })}
-                                            />
-                                        </div>
-                                    </div> */}
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                             ImageFile
                                         </label>
+                                        <div>
+                                            <img
+                                                src={data.imageSrc}
+                                                alt="Doctors"
+                                                style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
+                                            />
+                                        </div>
                                         <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="file"
                                                 className="form-control"
-                                                value={data.imageFile}
-                                                onChange={(e) => setData({ ...data, imageFile: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            ImageSrc
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.imagesimageSrc}
-                                                onChange={(e) => setData({ ...data, imagesimageSrc: e.target.value })}
+                                                accept="image/*"
+                                                onChange={handleImageChange}
                                             />
                                         </div>
                                     </div>
