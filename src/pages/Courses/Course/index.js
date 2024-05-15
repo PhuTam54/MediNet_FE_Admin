@@ -52,7 +52,6 @@ function Courses() {
     const getData = () => {
         getCourses()
             .then((data) => {
-                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -137,7 +136,7 @@ function Courses() {
                                                         <th>Location</th>
                                                         <th>Topics</th>
                                                         <th>Target Audience</th>
-                                                        <th>Doctor</th>
+                                                        <th>Employees</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -152,7 +151,7 @@ function Courses() {
                                                             <td>{item.location}</td>
                                                             <td>{item.topics}</td>
                                                             <td>{item.targetAudience}</td>
-                                                            <td>{item.doctorId}</td>
+                                                            <td>{item.employee.username}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Courses/edit/${item.id}`}

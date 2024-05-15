@@ -10,11 +10,18 @@ export const getClinics = async () => {
     }
 };
 
-export const createClinics = async ( name, email, phone, address, description, openingHours, closingHours, imagesClinicFile) => {
-
+export const createClinics = async (
+    name,
+    email,
+    phone,
+    address,
+    description,
+    openingHours,
+    closingHours,
+    imagesClinicFile,
+) => {
     try {
         const formData = new FormData();
-
         formData.append('name', name);
         formData.append('email', email);
         formData.append('phone', phone);
@@ -22,7 +29,7 @@ export const createClinics = async ( name, email, phone, address, description, o
         formData.append('description', description);
         formData.append('openingHours', openingHours);
         formData.append('closingHours', closingHours);
-    
+
         if (imagesClinicFile !== null) {
             for (let i = 0; i < imagesClinicFile.length; i++) {
                 formData.append('imagesClinicFile', imagesClinicFile[i]);
@@ -45,10 +52,34 @@ export const editClinics = async (id) => {
     }
 };
 
-export const updateClinics = async (id, name, email, phone, address) => {
+export const updateClinics = async (
+    id,
+    name,
+    email,
+    phone,
+    address,
+    description,
+    openingHours,
+    closingHours,
+    imagesClinicFile,
+) => {
     try {
-        const updatedData = { id, name, email, phone, address };
-        await put(`/Clinics/id?id=${id}`, updatedData);
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('address', address);
+        formData.append('description', description);
+        formData.append('openingHours', openingHours);
+        formData.append('closingHours', closingHours);
+
+        if (imagesClinicFile !== null) {
+            for (let i = 0; i < imagesClinicFile.length; i++) {
+                formData.append('imagesClinicFile', imagesClinicFile[i]);
+            }
+        }
+        await put(`/Clinics/id?id=${id}`, formData);
     } catch (error) {
         console.error('Failed to update Clinics', error);
         throw error;

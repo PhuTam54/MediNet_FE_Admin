@@ -54,7 +54,6 @@ function Supplies() {
     const getData = () => {
         getSupplies()
             .then((data) => {
-                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -142,8 +141,8 @@ function Supplies() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.clinicId}</td>
-                                                            <td>{item.productId}</td>
+                                                            <td>{item.clinic.name}</td>
+                                                            <td>{item.product.name}</td>
                                                             <td>{item.stockQuantity}</td>
                                                             <td colSpan={2}>
                                                                 <Link

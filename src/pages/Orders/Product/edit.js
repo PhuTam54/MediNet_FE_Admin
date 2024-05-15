@@ -38,14 +38,15 @@ function EditProduct() {
                     manufacturer: productData.manufacturer,
                     manufacturerDate: productData.manufacturerDate,
                     expiryDate: productData.expiryDate,
-                    imageFile: productData.imageFile,
+                    imageSrc: productData.image || defaultImage,
+                    imageFile: null,
                 });
 
                 const categoryChildData = await fetch('https://localhost:7121/api/v1/CategoryChilds');
                 const categoryChildJson = await categoryChildData.json();
                 setCategoryChild(categoryChildJson);
             } catch (error) {
-                console.error('Error fetching Shop data:', error);
+                console.error('Error fetching Product data:', error);
             }
         };
         fetchData();
@@ -53,6 +54,7 @@ function EditProduct() {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+
         const manufacturerDate = new Date(data.manufacturerDate).toISOString();
         const expiryDate = new Date(data.expiryDate).toISOString();
 
@@ -68,10 +70,11 @@ function EditProduct() {
                 expiryDate,
                 data.imageFile,
             );
-            toast.success('Shop updated successfully');
+            toast.success('Product updated successfully');
             navigate('/product');
         } catch (error) {
-            toast.error('Failed to update Shop');
+            toast.error('Failed to update product');
+            console.error('Update error:', error);
         }
     };
 
@@ -95,16 +98,15 @@ function EditProduct() {
             });
         }
     };
-
     return (
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <Link to="/Product" className="btn btn-icon">
+                    <Link to="/product" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
                     </Link>
                 </div>
-                <h1>Edit Products</h1>
+                <h1>Edit Product</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
@@ -112,12 +114,12 @@ function EditProduct() {
                     <div className="breadcrumb-item">
                         <Link to="#">Products</Link>
                     </div>
-                    <div className="breadcrumb-item">Edit Products</div>
+                    <div className="breadcrumb-item">Edit Product</div>
                 </div>
             </div>
             <div className="section-body">
                 <h2 className="section-title">Edit Product</h2>
-                <p className="section-lead">On this page you can edit Product details.</p>
+                <p className="section-lead">On this page you can edit product details.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
@@ -128,6 +130,16 @@ function EditProduct() {
                                 <form onSubmit={handleUpdate}>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Id</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                disabled
+                                                value={data.id}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Name</label>
                                             <input
                                                 type="text"
@@ -135,21 +147,6 @@ function EditProduct() {
                                                 value={data.name}
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">CategoryChildId</label>
-                                            <select
-                                                className="form-control selectric"
-                                                value={data.categoryChildId}
-                                                onChange={(e) => setData({ ...data, categoryChildId: e.target.value })}
-                                            >
-                                                <option>Select CategoryChildId</option>
-                                                {categoryChilds.map((categoryChild) => (
-                                                    <option key={categoryChild.id} value={categoryChild.id}>
-                                                        {categoryChild.name}
-                                                    </option>
-                                                ))}
-                                            </select>
                                         </div>
                                     </div>
 
@@ -183,10 +180,25 @@ function EditProduct() {
                                                 onChange={(e) => setData({ ...data, manufacturer: e.target.value })}
                                             />
                                         </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Category</label>
+                                            <select
+                                                className="form-control selectric"
+                                                value={data.categoryChildId}
+                                                onChange={(e) => setData({ ...data, categoryChildId: e.target.value })}
+                                            >
+                                                <option>Select Category</option>
+                                                {categoryChilds.map((categoryChild) => (
+                                                    <option key={categoryChild.id} value={categoryChild.id}>
+                                                        {categoryChild.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">ManufacturerDate</label>
+                                            <label className="col-form-label text-md-right">Manufacturer Date</label>
                                             <input
                                                 type="datetime-local"
                                                 className="form-control"
@@ -195,7 +207,7 @@ function EditProduct() {
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">ExpiryDate</label>
+                                            <label className="col-form-label text-md-right">Expiry Date</label>
                                             <input
                                                 type="datetime-local"
                                                 className="form-control"
@@ -206,7 +218,7 @@ function EditProduct() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">ImageFile</label>
+                                            <label className="col-form-label text-md-right">Image File</label>
                                             <div>
                                                 <img
                                                     src={data.imageSrc}
@@ -225,7 +237,7 @@ function EditProduct() {
                                     <div className="row mb-4">
                                         <div className="col-md-6 offset-md-3">
                                             <button className="btn btn-primary btn-block" type="submit">
-                                                Create Customers
+                                                Update Product
                                             </button>
                                         </div>
                                     </div>

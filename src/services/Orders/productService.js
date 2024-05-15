@@ -31,7 +31,7 @@ export const createProduct = async (
         formData.append('expiryDate', expiryDate);
         formData.append('imageFile', imageFile);
 
-        await post(`/Products`, formData);
+        await post('/Products', formData);
     } catch (error) {
         console.error('Failed to create Product', error);
         throw error;
@@ -61,6 +61,7 @@ export const updateProduct = async (
 ) => {
     try {
         const formData = new FormData();
+        formData.append('id', id);
         formData.append('categoryChildId', categoryChildId);
         formData.append('name', name);
         formData.append('description', description);

@@ -52,7 +52,6 @@ function Employees() {
     const getData = () => {
         getEmployees()
             .then((data) => {
-                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);

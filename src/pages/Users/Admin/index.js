@@ -132,7 +132,7 @@ function Admins() {
                                                         <th>Img</th>
                                                         <th>UserName</th>
                                                         <th>Email</th>
-                                                        <th>Password</th>
+                                                        {/* <th>Password</th> */}
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -149,7 +149,7 @@ function Admins() {
                                                             </td>
                                                             <td>{item.username}</td>
                                                             <td>{item.email}</td>
-                                                            <td>{item.password}</td>
+                                                            {/* <td>{item.password}</td> */}
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Admins/edit/${item.id}`}

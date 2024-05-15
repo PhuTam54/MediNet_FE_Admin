@@ -5,19 +5,19 @@ import { updateCustomers, editCustomers } from '~/services/Users/customerService
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditCustomers() {
+    const defaultImage = '/anh-thuoc.jpg';
+
     const [data, setData] = useState({
         id: '',
-        address: '',
-        date_Of_Birth: '',
-        gender: '',
-        phoneNumber: '',
         username: '',
-        gender: '',
-        date_Of_Birth: '',
         email: '',
+        phoneNumber: '',
+        date_Of_Birth: '',
         password: '',
-        role: '',
+        imageFile: null,
+        imageSrc: defaultImage,
         image: '',
+        address: '',
     });
 
     const { id } = useParams();
@@ -26,19 +26,17 @@ function EditCustomers() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const adminData = await editCustomers(id);
+                const customerData = await editCustomers(id);
                 setData({
-                    id: adminData.id,
-                    address: adminData.address,
-                    date_Of_Birth: adminData.date_Of_Birth,
-                    gender: adminData.gender,
-                    phoneNumber: adminData.phoneNumber,
-                    username: adminData.username,
-                    email: adminData.email,
-                    password: adminData.password,
-                    role: adminData.role,
-                    status: adminData.status,
-                    image: adminData.image,
+                    id: customerData.id,
+                    date_Of_Birth: customerData.date_Of_Birth,
+                    phoneNumber: customerData.phoneNumber,
+                    username: customerData.username,
+                    email: customerData.email,
+                    password: customerData.password,
+                    imageSrc: customerData.image || defaultImage,
+                    imageFile: null,
+                    address: customerData.address,
                 });
             } catch (error) {
                 console.error('Error fetching Admin data:', error);
@@ -50,26 +48,44 @@ function EditCustomers() {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+        const date_Of_Birth = new Date(data.date_Of_Birth).toISOString();
 
         try {
             await updateCustomers(
                 data.id,
-                data.address,
-                data.gender,
-                data.date_Of_Birth,
-                data.phoneNumber,
                 data.username,
                 data.email,
+                date_Of_Birth,
+                data.phoneNumber,
                 data.password,
-                data.role,
-                data.status,
-                data.image,
-
+                data.imageFile,
+                data.address,
             );
             toast.success('Admin updated successfully');
             navigate('/Customers');
         } catch (error) {
             toast.error('Failed to update Admin');
+        }
+    };
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
         }
     };
 
@@ -103,49 +119,11 @@ function EditCustomers() {
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleUpdate}>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">address</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.address}
-                                                onChange={(e) => setData({ ...data, address: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">gender</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.gender}
-                                                onChange={(e) => setData({ ...data, gender: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">date_Of_Birth</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.date_Of_Birth}
-                                                onChange={(e) => setData({ ...data, date_Of_Birth: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">phoneNumber</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.phoneNumber}
-                                                onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">username</label>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            UserName
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -153,8 +131,12 @@ function EditCustomers() {
                                                 onChange={(e) => setData({ ...data, username: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">email</label>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Email
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -163,9 +145,37 @@ function EditCustomers() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">password</label>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Date Of Birth
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="datetime-local"
+                                                className="form-control"
+                                                value={data.date_Of_Birth}
+                                                onChange={(e) => setData({ ...data, date_Of_Birth: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            PhoneNumber
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.phoneNumber}
+                                                onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Password
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -173,40 +183,44 @@ function EditCustomers() {
                                                 onChange={(e) => setData({ ...data, password: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">role</label>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Address
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.role}
-                                                onChange={(e) => setData({ ...data, role: e.target.value })}
+                                                value={data.address}
+                                                onChange={(e) => setData({ ...data, address: e.target.value })}
                                             />
                                         </div>
                                     </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">status</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.status}
-                                                onChange={(e) => setData({ ...data, status: e.target.value })}
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            ImageFile
+                                        </label>
+                                        <div>
+                                            <img
+                                                src={data.imageSrc}
+                                                alt="Doctors"
+                                                style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">image</label>
+                                        <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="text"
+                                                type="file"
                                                 className="form-control"
-                                                value={data.image}
-                                                onChange={(e) => setData({ ...data, image: e.target.value })}
+                                                accept="image/*"
+                                                onChange={handleImageChange}
                                             />
                                         </div>
                                     </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6 offset-md-3">
-                                            <button className="btn btn-primary btn-block" type="submit">
-                                                Update Customers
+                                    <div className="form-group row mb-4">
+                                        <div className="col-sm-12 col-md-7 offset-md-3">
+                                            <button className="btn btn-primary" type="submit">
+                                                Create Customers
                                             </button>
                                         </div>
                                     </div>
