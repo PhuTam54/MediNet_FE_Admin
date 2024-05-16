@@ -52,7 +52,6 @@ function CategoryChilds() {
     const getData = () => {
         getCategoryChilds()
             .then((data) => {
-                console.log(data)
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);

@@ -12,7 +12,7 @@ function Product() {
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
-    const [suppliesQty, setSuppliesQty] = useState('');
+    const [stockQuantities, setStockQuantities] = useState([]);
 
     //search
     const [search, setSearch] = useState('');
@@ -53,15 +53,10 @@ function Product() {
     const getData = () => {
         getProductData()
             .then((data) => {
-                console.log(data);
-                // const productData = data.supplies;
-                // productData.forEach((element) => {
-                //     productData += element.stockQuantity;
-                //     setSuppliesQty(productData);
-                // });
-
                 setData(data);
                 setSearchedData(data);
+                const stockQuantitiesArray = data.map((item) => item.supplies[0].stockQuantity);
+                setStockQuantities(stockQuantitiesArray);
                 setLoading(false);
             })
             .catch((error) => {
@@ -142,10 +137,10 @@ function Product() {
                                                         <th>Img</th>
                                                         <th>Description</th>
                                                         <th>Price</th>
-                                                        {/* <th>Quantity</th> */}
+                                                        <th>Quantity</th>
                                                         <th>Manufacturer</th>
-                                                        <th>ManufacturerDate</th>
-                                                        <th>ExpiryDate</th>
+                                                        {/* <th>ManufacturerDate</th>
+                                                        <th>ExpiryDate</th> */}
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -165,14 +160,14 @@ function Product() {
                                                             </td>
                                                             <td>{item.description}</td>
                                                             <td>{item.price}</td>
-                                                            {/* <td>
-                                                                {item.supplies.map(
-                                                                    (qty, index) => qty.stockQuantity
-                                                                )}
-                                                            </td> */}
+                                                            <td>
+                                                                {item.supplies.length > 0
+                                                                    ? item.supplies[0].stockQuantity
+                                                                    : '0'}
+                                                            </td>
                                                             <td>{item.manufacturer}</td>
-                                                            <td>{item.manufacturerDate}</td>
-                                                            <td>{item.expiryDate}</td>
+                                                            {/* <td>{item.manufacturerDate}</td>  */}
+                                                            {/* <td>{item.expiryDate}</td> */}
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/product/feedbacks/${item.id}`}

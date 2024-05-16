@@ -21,7 +21,7 @@ export const createCourses = async (
     skillCovered,
     medicineSalesTraining,
     medicalExaminationTraining,
-    doctorId,
+    employeeId,
 ) => {
     try {
         const newData = {
@@ -35,7 +35,7 @@ export const createCourses = async (
             skillCovered,
             medicineSalesTraining,
             medicalExaminationTraining,
-            doctorId,
+            employeeId,
         };
         await post('/Courses', newData);
     } catch (error) {
@@ -66,7 +66,7 @@ export const updateCourses = async (
     skillCovered,
     medicineSalesTraining,
     medicalExaminationTraining,
-    doctorId,
+    employeeId,
 ) => {
     try {
         const updatedData = {
@@ -81,7 +81,7 @@ export const updateCourses = async (
             skillCovered,
             medicineSalesTraining,
             medicalExaminationTraining,
-            doctorId,
+            employeeId,
         };
         await put(`/Courses/id?id=${id}`, updatedData);
     } catch (error) {

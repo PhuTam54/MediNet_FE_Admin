@@ -10,9 +10,9 @@ export const getServices = async () => {
     }
 };
 
-export const createServices = async ( name, description, price, doctorId) => {
+export const createServices = async ( name, description, price, employeeId) => {
     try {
-        const newData = {  name, description, price, doctorId };
+        const newData = {  name, description, price, employeeId };
         await post('/Services', newData);
     } catch (error) {
         console.error('Failed to create Services', error);
@@ -30,9 +30,9 @@ export const editServices = async (id) => {
     }
 };
 
-export const updateServices = async (id, name, description, price, doctorId) => {
+export const updateServices = async (id, name, description, price, employeeId) => {
     try {
-        const updatedData = { id, name, description, price, doctorId };
+        const updatedData = { id, name, description, price, employeeId };
         await put(`/Services/id?id=${id}`, updatedData);
     } catch (error) {
         console.error('Failed to update Services', error);

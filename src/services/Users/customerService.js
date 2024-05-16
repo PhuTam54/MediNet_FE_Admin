@@ -10,26 +10,18 @@ export const getCustomers = async () => {
     }
 };
 
-export const createCustomers = async (
-    username,
-    email,
-    date_Of_Birth,
-    phoneNumber,
-    password,
-    imageFile,
-    address,
-) => {
+export const createCustomers = async (username, email, date_Of_Birth, phoneNumber, password, imageFile, address) => {
     try {
-        const createData = {
-            username,
-            email,
-            date_Of_Birth,
-            phoneNumber,
-            password,
-            imageFile,
-            address,
-        };
-        await post(`/Customers`, createData);
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('date_Of_Birth', date_Of_Birth);
+        formData.append('phoneNumber', phoneNumber);
+        formData.append('password', password);
+        formData.append('imageFile', imageFile);
+        formData.append('address', address);
+
+        await post(`/Customers`, formData);
     } catch (error) {
         console.error('Failed to create Customers', error);
         throw error;
@@ -47,31 +39,27 @@ export const editCustomers = async (id) => {
 };
 
 export const updateCustomers = async (
-    address,
-    phoneNumber,
-    date_Of_Birth,
     id,
     username,
     email,
+    date_Of_Birth,
+    phoneNumber,
     password,
-    gender,
-    image,
     imageFile,
+    address,
 ) => {
     try {
-        const updatedData = {
-            address,
-            phoneNumber,
-            date_Of_Birth,
-            id,
-            username,
-            email,
-            password,
-            gender,
-            image,
-            imageFile,
-        };
-        await put(`/Customers/id?id=${id}`, updatedData);
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('date_Of_Birth', date_Of_Birth);
+        formData.append('phoneNumber', phoneNumber);
+        formData.append('password', password);
+        formData.append('imageFile', imageFile);
+        formData.append('address', address);
+
+        await post(`/Customers`, formData);
     } catch (error) {
         console.error('Failed to update Customers', error);
         throw error;

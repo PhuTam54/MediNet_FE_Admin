@@ -44,7 +44,8 @@ function EditEmployees() {
                     email: employeesData.email,
                     password: employeesData.password,
                     clinicId: employeesData.clinicId,
-                    imageFile: employeesData.imageFile,
+                    imageSrc: employeesData.image || defaultImage,
+                    imageFile: null,
                 });
 
                 const specialistData = await fetch('https://localhost:7121/api/v1/Specialists');
@@ -156,15 +157,6 @@ function EditEmployees() {
                                                 onChange={(e) => setData({ ...data, full_Name: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Address</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.address}
-                                                onChange={(e) => setData({ ...data, address: e.target.value })}
-                                            />
-                                        </div>
                                     </div>
 
                                     <div className="row mb-4">
@@ -175,6 +167,15 @@ function EditEmployees() {
                                                 className="form-control"
                                                 value={data.date_Of_Birth}
                                                 onChange={(e) => setData({ ...data, date_Of_Birth: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Address</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.address}
+                                                onChange={(e) => setData({ ...data, address: e.target.value })}
                                             />
                                         </div>
                                     </div>

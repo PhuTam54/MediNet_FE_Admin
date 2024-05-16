@@ -5,16 +5,15 @@ import { createClinics } from '~/services/Clinics/clinicService';
 import { useNavigate, Link } from 'react-router-dom';
 
 function CreateClinics() {
-
     const [data, setData] = useState({
         name: '',
         email: '',
         phone: '',
         address: '',
         description: '',
-        openingHours : '',
+        openingHours: '',
         closingHours: '',
-        imagesClinicFile: null
+        imagesClinicFile: null,
     });
 
     const navigate = useNavigate();
@@ -23,22 +22,30 @@ function CreateClinics() {
         event.preventDefault();
         const openingHours = new Date(data.openingHours).toISOString();
         const closingHours = new Date(data.closingHours).toISOString();
-        
-        await createClinics(data.name, data.email, data.phone, data.address, data.description, openingHours, closingHours, data.imagesClinicFile)
+
+        await createClinics(
+            data.name,
+            data.email,
+            data.phone,
+            data.address,
+            data.description,
+            openingHours,
+            closingHours,
+            data.imagesClinicFile,
+        );
         try {
             toast.success('service created successfully');
             navigate('/clinics');
         } catch (error) {
             toast.error('Failed to create service');
         }
-        
     };
 
     const handleImagesChange = (event) => {
         const files = event.target.files;
         setData({
             ...data,
-            imagesClinicFile: files
+            imagesClinicFile: files,
         });
     };
 
@@ -140,7 +147,7 @@ function CreateClinics() {
 
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            openingHours
+                                            OpeningHours
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
@@ -154,7 +161,7 @@ function CreateClinics() {
 
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            closingHours
+                                            ClosingHours
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
@@ -168,7 +175,7 @@ function CreateClinics() {
 
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            imagesClinicFile
+                                            ImagesClinicFile
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input

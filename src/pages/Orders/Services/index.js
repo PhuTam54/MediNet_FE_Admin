@@ -52,7 +52,6 @@ function Services() {
     const getData = () => {
         getServices()
             .then((data) => {
-                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -133,7 +132,7 @@ function Services() {
                                                         <th>Name</th>
                                                         <th>Description</th>
                                                         <th>Price</th>
-                                                        <th>Doctor Id</th>
+                                                        <th>Employee Id</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -144,7 +143,7 @@ function Services() {
                                                             <td>{item.name}</td>
                                                             <td>{item.description}</td>
                                                             <td>{item.price}</td>
-                                                            <td>{item.doctor.username}</td>
+                                                            <td>{item.employee.username}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Services/edit/${item.id}`}

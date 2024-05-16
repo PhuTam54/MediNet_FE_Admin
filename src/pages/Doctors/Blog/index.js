@@ -52,7 +52,6 @@ function Blogs() {
     const getData = () => {
         getBlogs()
             .then((data) => {
-                console.log(data)
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);

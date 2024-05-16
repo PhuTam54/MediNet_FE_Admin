@@ -54,7 +54,6 @@ function Enrollments() {
     const getData = () => {
         getEnrollments()
             .then((data) => {
-                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);

@@ -54,7 +54,6 @@ function Feedbacks() {
     const getData = () => {
         getFeedbacks()
             .then((data) => {
-                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);

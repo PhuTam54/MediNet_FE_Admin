@@ -13,9 +13,8 @@ function EditAdmins() {
         email: '',
         password: '',
         image: '',
-        imageFile: null,
         imageSrc: defaultImage,
-        image: '',
+        imageFile: null,
     });
 
     const { id } = useParams();
@@ -30,9 +29,8 @@ function EditAdmins() {
                     username: adminData.username,
                     email: adminData.email,
                     password: adminData.password,
-                    imageFile: adminData.imageFile,
-                    imageSrc: adminData.imageSrc,
-                    image: adminData.image,
+                    imageSrc: adminData.image || defaultImage,
+                    imageFile: null,
                 });
             } catch (error) {
                 console.error('Error fetching Admin data:', error);
@@ -46,7 +44,7 @@ function EditAdmins() {
         event.preventDefault();
 
         try {
-            await updateAdmins(data.id, data.email, data.username, data.password, data.imageFile, data.imageSrc);
+            await updateAdmins(data.id, data.username, data.email, data.password, data.imageFile);
             toast.success('Admin updated successfully');
             navigate('/Admins');
         } catch (error) {
@@ -74,6 +72,7 @@ function EditAdmins() {
             });
         }
     };
+
     return (
         <section className="section">
             <div className="section-header">
@@ -104,6 +103,20 @@ function EditAdmins() {
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleUpdate}>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Id
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                disabled
+                                                value={data.id}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                             UserName

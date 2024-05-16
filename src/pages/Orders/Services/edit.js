@@ -5,14 +5,14 @@ import { updateServices, editServices } from '~/services/Orders/service';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditServices() {
-    const [doctors, setDoctors] = useState([]);
+    const [employees, setEmployees] = useState([]);
 
     const [data, setData] = useState({
         id: '',
         name: '',
         description: '',
         price: '',
-        doctorId: '',
+        employeeId: '',
     });
 
     const { id } = useParams();
@@ -27,11 +27,11 @@ function EditServices() {
                     name: serviceData.name,
                     description: serviceData.description,
                     price: serviceData.price,
-                    doctorId: serviceData.doctorId,
+                    employeeId: serviceData.employeeId,
                 });
-                const doctorsData = await fetch('https://localhost:7121/api/v1/Doctors');
-                const doctorsJson = await doctorsData.json();
-                setDoctors(doctorsJson);
+                const employeeData = await fetch('https://localhost:7121/api/v1/Employees');
+                const employeeJson = await employeeData.json();
+                setEmployees(employeeJson);
             } catch (error) {
                 console.error('Error fetching Services data:', error);
             }
@@ -137,18 +137,18 @@ function EditServices() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Doctor Id
+                                            Employee Id
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
                                                 className="form-control selectric"
-                                                value={data.doctorId}
-                                                onChange={(e) => setData({ ...data, doctorId: e.target.value })}
+                                                value={data.employeeId}
+                                                onChange={(e) => setData({ ...data, employeeId: e.target.value })}
                                             >
                                                 <option>Select Doctor</option>
-                                                {doctors.map((doctor) => (
-                                                    <option key={doctor.id} value={doctor.id}>
-                                                        {doctor.username}
+                                                {employees.map((employee) => (
+                                                    <option key={employee.id} value={employee.id}>
+                                                        {employee.username}
                                                     </option>
                                                 ))}
                                             </select>

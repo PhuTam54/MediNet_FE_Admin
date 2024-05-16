@@ -29,8 +29,8 @@ function CreateCustomers() {
             await createCustomers(
                 data.username,
                 data.email,
-                data.phoneNumber,
                 date_Of_Birth,
+                data.phoneNumber,
                 data.password,
                 data.imageFile,
                 data.address,
@@ -38,7 +38,7 @@ function CreateCustomers() {
             toast.success('Customers created successfully');
             navigate('/Customers');
         } catch (error) {
-            toast.error('Failed to create Shop');
+            toast.error('Failed to create Customers');
         }
     };
 
@@ -83,13 +83,13 @@ function CreateCustomers() {
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Create Shop</h2>
-                <p className="section-lead">On this page you can create a new Shop and fill in all fields.</p>
+                <h2 className="section-title">Create Customers</h2>
+                <p className="section-lead">On this page you can create a new Customers and fill in all fields.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Write Your Shop</h4>
+                                <h4>Write Your Customers</h4>
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleCreate}>
@@ -194,7 +194,7 @@ function CreateCustomers() {
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Create Admins
+                                                Create Customers
                                             </button>
                                         </div>
                                     </div>

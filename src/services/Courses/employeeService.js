@@ -67,6 +67,7 @@ export const updateEmployees = async (
 ) => {
     try {
         const formData = new FormData();
+        formData.append('id', id);
         formData.append('full_Name', full_Name);
         formData.append('address', address);
         formData.append('date_Of_Birth', date_Of_Birth);

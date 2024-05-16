@@ -35,10 +35,16 @@ export const editAdmins = async (id) => {
     }
 };
 
-export const updateAdmins = async (id, username, email, password, image, imageFile, imageSrc) => {
+export const updateAdmins = async (id, username, email, password, imageFile) => {
     try {
-        const updatedData = { id, username, email, password, image, imageFile, imageSrc };
-        await put(`/Admins/id?id=${id}`, updatedData);
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('imageFile', imageFile);
+
+        await put(`/Admins/id?id=${id}`, formData);
     } catch (error) {
         console.error('Failed to update Admins', error);
         throw error;

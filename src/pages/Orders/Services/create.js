@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 function CreateServices() {
-    const [doctors, setDoctors] = useState([]);
+    const [employees, setEmployees] = useState([]);
 
     const [data, setData] = useState({
         name: '',
         description: '',
         price: '',
-        doctorId: '',
+        employeeId: '',
     });
 
     const navigate = useNavigate();
@@ -20,9 +20,9 @@ function CreateServices() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const doctorsData = await fetch('https://localhost:7121/api/v1/Doctors');
-                const doctorsJson = await doctorsData.json();
-                setDoctors(doctorsJson);
+                const employeeData = await fetch('https://localhost:7121/api/v1/Employees');
+                const employeeJson = await employeeData.json();
+                setEmployees(employeeJson);
             } catch (error) {
                 console.error('Error fetching service data:', error);
             }
@@ -35,7 +35,7 @@ function CreateServices() {
         event.preventDefault();
 
         try {
-            await createServices(data.name, data.description, data.price, data.doctorId);
+            await createServices(data.name, data.description, data.price, data.employeeId);
             toast.success('service created successfully');
             navigate('/services');
         } catch (error) {
@@ -114,18 +114,18 @@ function CreateServices() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Doctor Id
+                                            Employee Id
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
                                                 className="form-control selectric"
-                                                value={data.doctorId}
-                                                onChange={(e) => setData({ ...data, doctorId: e.target.value })}
+                                                value={data.employeeId}
+                                                onChange={(e) => setData({ ...data, employeeId: e.target.value })}
                                             >
                                                 <option>Select Doctor</option>
-                                                {doctors.map((doctor) => (
-                                                    <option key={doctor.id} value={doctor.id}>
-                                                        {doctor.username}
+                                                {employees.map((employee) => (
+                                                    <option key={employee.id} value={employee.id}>
+                                                        {employee.username}
                                                     </option>
                                                 ))}
                                             </select>
