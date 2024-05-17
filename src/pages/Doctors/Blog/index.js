@@ -131,7 +131,7 @@ function Blogs() {
                                                         <th>Id</th>
                                                         <th>Title</th>
                                                         <th>Content</th>
-                                                        <th>Empoylee</th>
+                                                        <th>Employee</th>
                                                         <th>Disease</th>
                                                         <th>Actions</th>
                                                     </tr>
@@ -142,7 +142,7 @@ function Blogs() {
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>{item.title}</td>
                                                             <td>{item.content}</td>
-                                                            <td>{item.employeeId}</td>
+                                                            <td>{item.employee.username}</td>
                                                             <td>{item.disease.name}</td>
                                                             <td colSpan={2}>
                                                                 <Link
