@@ -25,6 +25,7 @@ function EditBlogs() {
                 const blogData = await editBlogs(id);
                 setData({
                     id: blogData.id,
+                    title: blogData.title,
                     content: blogData.content,
                     employeeId: blogData.employeeId,
                     diseaseId: blogData.diseaseId,
@@ -47,7 +48,7 @@ function EditBlogs() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            await updateBlogs(data.id, data.content, data.employeeId, data.diseaseId);
+            await updateBlogs(data.id, data.title, data.content, data.employeeId, data.diseaseId);
             toast.success('Shop updated successfully');
             navigate('/Blogs');
         } catch (error) {

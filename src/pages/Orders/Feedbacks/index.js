@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import { getFeedbacks, deleteFeedbacks } from '~/services/Orders/feedbackService';
-import { Link } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function Feedbacks() {
     const [loading, setLoading] = useState(true);
@@ -45,6 +45,7 @@ function Feedbacks() {
             setCurrentPage(currentPage + 1);
         }
     }
+    const { productId } = useParams();
 
     // Call Api
     useEffect(() => {
@@ -52,7 +53,7 @@ function Feedbacks() {
     }, []);
 
     const getData = () => {
-        getFeedbacks()
+        getFeedbacks(productId)
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -106,7 +107,7 @@ function Feedbacks() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Feedbacks</h4>
+                                <h4> Feedbacks</h4>
                             </div>
                             <div className="card-body">
                                 {loading ? (

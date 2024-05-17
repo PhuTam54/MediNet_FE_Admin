@@ -133,10 +133,10 @@ function Clinics() {
                                                         <th>Name</th>
                                                         <th>Email</th>
                                                         <th>Phone</th>
-                                                        <th>Address</th>
+                                                        {/* <th>Address</th>
                                                         <th>OpeningHours</th>
                                                         <th>ClosingHours</th>
-                                                        <th>Description</th>
+                                                        <th>Description</th> */}
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -154,11 +154,18 @@ function Clinics() {
                                                             <td>{item.name}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.phone}</td>
-                                                            <td>{item.address}</td>
+                                                            {/* <td>{item.address}</td>
                                                             <td>{item.openingHours}</td>
                                                             <td>{item.closingHours}</td>
-                                                            <td>{item.description}</td>
+                                                            <td>{item.description}</td> */}
                                                             <td colSpan={2}>
+                                                                <Link
+                                                                    to={`/Clinics/detail/${item.id}`}
+                                                                    className="btn btn-primary"
+                                                                    title="Details"
+                                                                >
+                                                                    <i class="far fa-eye"></i>
+                                                                </Link>
                                                                 <Link
                                                                     to={`/Clinics/edit/${item.id}`}
                                                                     className="btn btn-primary"

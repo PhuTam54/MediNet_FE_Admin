@@ -1,10 +1,10 @@
 import { get, post, put, del } from '~/utils/httpRequest';
 
-export const getFeedbacks = async () => {
+export const getFeedbacks = async (productId) => {
     try {
-        const response = await get('/Feedbacks/');
+        const response = await get(`/Feedbacks/productId?productId=${productId}`);
         return response;
-    } catch (error) {
+    } catch (error) {   
         console.error('Error fetching Feedbacks data:', error);
         throw error;
     }

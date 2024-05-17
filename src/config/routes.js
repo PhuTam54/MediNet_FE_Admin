@@ -79,7 +79,7 @@ const routes = {
     ticketEdit: '/ticket/edit/:id',
 
     // feedbacks: '/feedbacks',
-    feedbacks: '/product/feedbacks/:id',
+    feedbacks: '/product/feedbacks/:productId',
     feedbackDetail: '/products/feedbacks/detail/:id',
 
     //      Manager

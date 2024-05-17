@@ -45,6 +45,7 @@ function EditEmployees() {
                     password: employeesData.password,
                     clinicId: employeesData.clinicId,
                     imageSrc: employeesData.image || defaultImage,
+                    imageSrc: employeesData.imageSrc,
                     imageFile: null,
                 });
 
@@ -158,7 +159,6 @@ function EditEmployees() {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Date Of Birth</label>
@@ -205,7 +205,6 @@ function EditEmployees() {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Email</label>
@@ -245,9 +244,9 @@ function EditEmployees() {
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Password</label>
                                             <input
-                                                type="text"
+                                                type="password"
                                                 className="form-control"
-                                                value={data.password}
+                                                value={data.password }
                                                 onChange={(e) => setData({ ...data, password: e.target.value })}
                                             />
                                         </div>

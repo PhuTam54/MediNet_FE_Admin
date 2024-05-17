@@ -134,6 +134,11 @@ function SidebarAdmin() {
                                         Products
                                     </Link>
                                 </li>
+                                {/* <li>
+                                    <Link className="nav-link" to="/product/feedbacks/">
+                                        feedbacks
+                                    </Link>
+                                </li> */}
                                 <li>
                                     <Link className="nav-link" to="/orders">
                                         Orders
