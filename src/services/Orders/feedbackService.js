@@ -4,7 +4,7 @@ export const getFeedbacks = async (productId) => {
     try {
         const response = await get(`/Feedbacks/productId?productId=${productId}`);
         return response;
-    } catch (error) {   
+    } catch (error) {
         console.error('Error fetching Feedbacks data:', error);
         throw error;
     }

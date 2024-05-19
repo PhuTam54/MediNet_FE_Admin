@@ -15,7 +15,7 @@ import { Line } from 'react-chartjs-2';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const LineChart = () => {
-    const [chartData, setChartData] = useState([]);
+    const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
         const fetchChartData = async () => {
@@ -25,51 +25,73 @@ const LineChart = () => {
                     throw new Error('Failed to fetch chart data');
                 }
                 const jsonData = await response.json();
-                setChartData(jsonData);
+
+                // Tính tổng doanh thu theo tháng
+                const revenueByMonth = {};
+                jsonData.forEach((order) => {
+                    const orderDate = new Date(order.orderDate);
+                    const month = orderDate.toLocaleString('default', { date: 'short' }) + ' ' + orderDate.getDay();
+                    const totalAmount = order.orderProducts.reduce((total, product) => total + product.subtotal, 0);
+
+                    if (revenueByMonth[month]) {
+                        revenueByMonth[month] += totalAmount;
+                    } else {
+                        revenueByMonth[month] = totalAmount;
+                    }
+                });
+
+                const labels = Object.keys(revenueByMonth);
+                const data = Object.values(revenueByMonth);
+
+                setChartData({
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Doanh thu hàng tháng',
+                            data,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                        },
+                    ],
+                });
             } catch (error) {
                 console.error('Error fetching chart data:', error);
             }
         };
+
         fetchChartData();
     }, []);
 
-    if (!chartData || chartData.length === 0) {
+    if (!chartData) {
         return <div>Loading...</div>;
     }
 
-    const data = {
-        labels: chartData.map((room) => room.name),
-        datasets: [
-            {
-                label: `${chartData.length} Rooms Available`,
-                data: chartData.map((room) => room.columns),
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
-
     const options = {
         maintainAspectRatio: false,
-        scales: {},
-        legend: {
-            labels: {
-                fontSize: 25,
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Tháng',
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Doanh thu (VNĐ)',
+                },
+            },
+        },
+        plugins: {
+            legend: {
+                display: true,
+                labels: {
+                    fontSize: 14,
+                },
+            },
+            tooltip: {
+                enabled: true,
             },
         },
     };
@@ -77,15 +99,15 @@ const LineChart = () => {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Line</h1>
+                <h1>LineChart</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="/">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Line</Link>
+                        <Link to="#">LineChart</Link>
                     </div>
-                    <div className="breadcrumb-item">All Line</div>
+                    <div className="breadcrumb-item">All LineChart</div>
                 </div>
             </div>
             <div className="col-lg-8">
@@ -95,7 +117,7 @@ const LineChart = () => {
                     </div>
                     <div className="card-body">
                         <div>
-                            <Line data={data} height={400} options={options} />
+                            <Line data={chartData} height={400} options={options} />
                         </div>
                     </div>
                 </div>

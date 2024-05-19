@@ -6,54 +6,70 @@ import { Link } from 'react-router-dom';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = () => {
-    const [chartData, setChartData] = useState([]);
+    const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await fetch('https://localhost:7121/api/v1/Orders');
+                const response = await fetch('https://localhost:7121/api/v1/Products');
                 if (!response.ok) {
                     throw new Error('Failed to fetch chart data');
                 }
                 const jsonData = await response.json();
-                setChartData(jsonData);
+
+                const categoryRevenue = {};
+
+                jsonData.forEach((product) => {
+                    const category = product.categoryChild.name;
+                    const revenue = product.orderProducts.reduce((total, order) => total + order.subtotal, 0);
+
+                    if (categoryRevenue[category]) {
+                        categoryRevenue[category] += revenue;
+                    } else {
+                        categoryRevenue[category] = revenue;
+                    }
+                });
+
+                const labels = Object.keys(categoryRevenue);
+                const data = Object.values(categoryRevenue);
+
+                setChartData({
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Doanh thu theo danh mục sản phẩm',
+                            data,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                });
             } catch (error) {
                 console.error('Error fetching chart data:', error);
             }
         };
+
         fetchChartData();
     }, []);
 
-    if (!chartData || chartData.length === 0) {
+    if (!chartData) {
         return <div>Loading...</div>;
     }
-
-    const data = {
-        labels: chartData.map((order) => order.name),
-        datasets: [
-            {
-                label: `${chartData.length} Orders Available`,
-                data: chartData.map((order) => order.email),
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
 
     const options = {
         maintainAspectRatio: false,
@@ -86,7 +102,7 @@ const DoughnutChart = () => {
                     </div>
                     <div className="card-body">
                         <div>
-                            <Doughnut data={data} height={400} options={options} />
+                            <Doughnut data={chartData} height={400} options={options} />
                         </div>
                     </div>
                 </div>

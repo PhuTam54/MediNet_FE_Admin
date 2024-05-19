@@ -1,8 +1,18 @@
 import { get, post, put, del } from '~/utils/httpRequest';
 
-export const getProductData = async () => {
+export const getProduct = async () => {
     try {
         const response = await get('/Products/');
+        return response;
+    } catch (error) {
+        console.error('Error fetching Product data:', error);
+        throw error;
+    }
+};
+
+export const detailProduct = async (id) => {
+    try {
+        const response = await get(`/Products/id?id=${id}`);
         return response;
     } catch (error) {
         console.error('Error fetching Product data:', error);
@@ -38,7 +48,7 @@ export const createProduct = async (
     }
 };
 
-export const editProductData = async (id) => {
+export const editProduct = async (id) => {
     try {
         const response = await get(`/Products/id?id=${id}`);
         return response;

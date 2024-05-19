@@ -10,6 +10,16 @@ export const getClinics = async () => {
     }
 };
 
+export const detailClinics = async (id) => {
+    try {
+        const response = await get(`/Clinics/id?id=${id}`);
+        return response;
+    } catch (error) {
+        console.error('Error fetching Clinics data:', error);
+        throw error;
+    }
+};
+
 export const createClinics = async (
     name,
     email,

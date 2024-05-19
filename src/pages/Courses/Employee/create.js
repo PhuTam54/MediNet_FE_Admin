@@ -14,11 +14,15 @@ function CreateEmployees() {
         full_Name: '',
         address: '',
         date_Of_Birth: '',
+        gender: '',
         phoneNumber: '',
+        roleEmployee: '',
         specialistId: '',
         username: '',
         email: '',
         password: '',
+        role: '',
+        status: '',
         clinicId: '',
         imageSrc: defaultImage,
         imageFile: null,
@@ -53,11 +57,15 @@ function CreateEmployees() {
             data.full_Name,
             data.address,
             date_Of_Birth,
+            data.gender,
             data.phoneNumber,
+            data.roleEmployee,
             data.specialistId,
             data.username,
             data.email,
             data.password,
+            data.role,
+            data.status,
             data.clinicId,
             data.imageFile,
         );
@@ -68,7 +76,6 @@ function CreateEmployees() {
             toast.error('Failed to create Employees');
         }
     };
-
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             let imageFile = e.target.files[0];
@@ -140,7 +147,46 @@ function CreateEmployees() {
                                             />
                                         </div>
                                     </div>
-
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Email</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.email}
+                                                onChange={(e) => setData({ ...data, email: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Username</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.username}
+                                                onChange={(e) => setData({ ...data, username: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">PhoneNumber</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.phoneNumber}
+                                                onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Password</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.password}
+                                                onChange={(e) => setData({ ...data, password: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Date Of Birth</label>
@@ -149,6 +195,15 @@ function CreateEmployees() {
                                                 className="form-control"
                                                 value={data.date_Of_Birth}
                                                 onChange={(e) => setData({ ...data, date_Of_Birth: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Gender</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.gender}
+                                                onChange={(e) => setData({ ...data, gender: e.target.value })}
                                             />
                                         </div>
                                     </div>
@@ -169,27 +224,6 @@ function CreateEmployees() {
                                             </select>
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Username</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.username}
-                                                onChange={(e) => setData({ ...data, username: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Email</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.email}
-                                                onChange={(e) => setData({ ...data, email: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">ClinicId</label>
                                             <select
                                                 className="form-control selectric"
@@ -207,21 +241,32 @@ function CreateEmployees() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">PhoneNumber</label>
+                                            <label className="col-form-label text-md-right">RoleEmployee</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.phoneNumber}
-                                                onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
+                                                value={data.roleEmployee}
+                                                onChange={(e) => setData({ ...data, roleEmployee: e.target.value })}
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Password</label>
+                                            <label className="col-form-label text-md-right">Role</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.password}
-                                                onChange={(e) => setData({ ...data, password: e.target.value })}
+                                                value={data.role}
+                                                onChange={(e) => setData({ ...data, role: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Status</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.status}
+                                                onChange={(e) => setData({ ...data, status: e.target.value })}
                                             />
                                         </div>
                                         <div className="col-md-6">

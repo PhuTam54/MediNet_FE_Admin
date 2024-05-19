@@ -133,8 +133,8 @@ function Employees() {
                                                         <th>FullName</th>
                                                         <th>Email</th>
                                                         <th>PhoneNumber</th>
-                                                        <th>Date Of Birth</th>
-                                                        <th>Address</th>
+                                                        {/* <th>Date Of Birth</th>
+                                                        <th>Address</th> */}
                                                         <th>SpecialistId</th>
                                                         <th>ClinicId</th>
                                                         <th>Actions</th>
@@ -154,8 +154,8 @@ function Employees() {
                                                             <td>{item.full_Name}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.phoneNumber}</td>
-                                                            <td>{item.date_Of_Birth}</td>
-                                                            <td>{item.address}</td>
+                                                            {/* <td>{item.date_Of_Birth}</td>
+                                                            <td>{item.address}</td> */}
                                                             <td>{item.specialist.name}</td>
                                                             <td>{item.clinic.name}</td>
                                                             <td colSpan={2}>

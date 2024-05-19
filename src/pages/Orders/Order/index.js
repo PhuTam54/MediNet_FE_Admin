@@ -13,21 +13,31 @@ function Orders() {
     const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
 
-    //search
+    //search and status filter
     const [search, setSearch] = useState('');
-    const [searchedData, setSearchedData] = useState([]);
-    useEffect(() => {
-        const filteredData = data.filter((item) => item.email.toString().toLowerCase().includes(search.toLowerCase()));
-        setSearchedData(filteredData);
-    }, [search, data]);
+    const [status, setStatus] = useState('');
+    const [filteredData, setFilteredData] = useState([]);
 
-    //Page
+    useEffect(() => {
+        let filteredData = data;
+        if (search) {
+            filteredData = filteredData.filter((item) =>
+                item.email.toString().toLowerCase().includes(search.toLowerCase()),
+            );
+        }
+        if (status !== '') {
+            filteredData = filteredData.filter((item) => item.status.toString() === status);
+        }
+        setFilteredData(filteredData);
+    }, [search, status, data]);
+
+    //Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 7;
     const lastindex = currentPage * recordsPerPage;
     const firstIndex = lastindex - recordsPerPage;
-    const records = searchedData.slice(firstIndex, lastindex);
-    const npage = Math.ceil(searchedData.length / recordsPerPage);
+    const records = filteredData.slice(firstIndex, lastindex);
+    const npage = Math.ceil(filteredData.length / recordsPerPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
 
     function prePage() {
@@ -53,7 +63,7 @@ function Orders() {
         getOrders()
             .then((data) => {
                 setData(data);
-                setSearchedData(data);
+                setFilteredData(data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -85,6 +95,10 @@ function Orders() {
 
     const handleDeleteShow = () => setDeleteShow(true);
 
+    const handleStatusChange = (event) => {
+        setStatus(event.target.value);
+    };
+
     return (
         <section className="section">
             <div className="section-header">
@@ -112,8 +126,18 @@ function Orders() {
                                 ) : (
                                     <>
                                         <div className="float-left">
-                                            <select className="form-control selectric">
-                                                <option>Action For Selected</option>
+                                            <select
+                                                className="form-control selectric"
+                                                value={data.status}
+                                                onChange={handleStatusChange}
+                                            >
+                                                <option value="">All</option>
+                                                <option value={0}>Pending</option>
+                                                <option value={1}>Confirmed</option>
+                                                <option value={2}>Shipping</option>
+                                                <option value={3}>Shipped</option>
+                                                <option value={4}>Complete</option>
+                                                <option value={5}>Canceled</option>
                                             </select>
                                         </div>
                                         <Search setSearch={setSearch} />
@@ -144,7 +168,9 @@ function Orders() {
                                                                     <div className="badge badge-warning">Pending</div>
                                                                 )}
                                                                 {item.status === 1 && (
-                                                                    <div className="badge badge-secondary">Confirmed</div>
+                                                                    <div className="badge badge-secondary">
+                                                                        Confirmed
+                                                                    </div>
                                                                 )}
                                                                 {item.status === 2 && (
                                                                     <div className="badge badge-primary">Shipping</div>

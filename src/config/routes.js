@@ -69,6 +69,7 @@ const routes = {
     product: '/product',
     createProduct: '/product/create',
     editProduct: '/product/edit/:id',
+    detailProduct: '/product/detail/:id',
 
     services: '/services',
     createServices: '/services/create',

@@ -14,11 +14,15 @@ export const createEmployees = async (
     full_Name,
     address,
     date_Of_Birth,
+    gender,
     phoneNumber,
+    roleEmployee,
     specialistId,
     username,
     email,
     password,
+    role,
+    status,
     clinicId,
     imageFile,
 ) => {
@@ -27,11 +31,15 @@ export const createEmployees = async (
         formData.append('full_Name', full_Name);
         formData.append('address', address);
         formData.append('date_Of_Birth', date_Of_Birth);
+        formData.append('gender', gender);
         formData.append('phoneNumber', phoneNumber);
+        formData.append('roleEmployee', roleEmployee);
         formData.append('specialistId', specialistId);
         formData.append('username', username);
         formData.append('email', email);
         formData.append('password', password);
+        formData.append('role', role);
+        formData.append('status', status);
         formData.append('clinicId', clinicId);
         formData.append('imageFile', imageFile);
 
@@ -57,11 +65,15 @@ export const updateEmployees = async (
     full_Name,
     address,
     date_Of_Birth,
+    gender,
     phoneNumber,
+    roleEmployee,
     specialistId,
     username,
     email,
     password,
+    role,
+    status,
     clinicId,
     imageFile,
 ) => {
@@ -71,11 +83,15 @@ export const updateEmployees = async (
         formData.append('full_Name', full_Name);
         formData.append('address', address);
         formData.append('date_Of_Birth', date_Of_Birth);
+        formData.append('gender', gender);
         formData.append('phoneNumber', phoneNumber);
+        formData.append('roleEmployee', roleEmployee);
         formData.append('specialistId', specialistId);
         formData.append('username', username);
         formData.append('email', email);
         formData.append('password', password);
+        formData.append('role', role);
+        formData.append('status', status);
         formData.append('clinicId', clinicId);
         formData.append('imageFile', imageFile);
 

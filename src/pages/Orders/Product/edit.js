@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateProduct, editProductData } from '~/services/Orders/productService';
+import { updateProduct, editProduct } from '~/services/Orders/productService';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditProduct() {
@@ -28,7 +28,7 @@ function EditProduct() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const productData = await editProductData(id);
+                const productData = await editProduct(id);
                 setData({
                     id: productData.id,
                     categoryChildId: productData.categoryChildId,

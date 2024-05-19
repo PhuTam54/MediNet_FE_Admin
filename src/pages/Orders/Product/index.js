@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Modal, Button, Container, Row, Col } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getProductData, deleteProduct } from '~/services/Orders/productService';
+import { getProduct, deleteProduct } from '~/services/Orders/productService';
 import { Link } from 'react-router-dom';
 
 function Product() {
@@ -51,7 +51,7 @@ function Product() {
     }, []);
 
     const getData = () => {
-        getProductData()
+        getProduct()
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -132,14 +132,14 @@ function Product() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>CategoryChildId</th>
-                                                        <th>Name</th>
                                                         <th>Img</th>
-                                                        <th>Description</th>
+                                                        <th>Name</th>
+                                                        <th>CategoryChildId</th>
+                                                        {/* <th>Description</th> */}
                                                         <th>Price</th>
                                                         <th>Quantity</th>
-                                                        <th>Manufacturer</th>
-                                                        {/* <th>ManufacturerDate</th>
+                                                        {/* <th>Manufacturer</th>
+                                                        <th>ManufacturerDate</th>
                                                         <th>ExpiryDate</th> */}
                                                         <th>Actions</th>
                                                     </tr>
@@ -147,10 +147,7 @@ function Product() {
                                                 <tbody>
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
-                                                            {/* <p>Total Products: {records.length}</p> */}
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.categoryChild.name}</td>
-                                                            <td>{item.name}</td>
                                                             <td>
                                                                 <img
                                                                     src={item.imageSrc}
@@ -158,23 +155,33 @@ function Product() {
                                                                     alt={item.image}
                                                                 />
                                                             </td>
-                                                            <td>{item.description}</td>
+                                                            <td>{item.name}</td>
+                                                            <td>{item.categoryChild.name}</td>
+                                                            {/* <td>{item.description}</td> */}
                                                             <td>{item.price}</td>
                                                             <td>
                                                                 {item.supplies.length > 0
                                                                     ? item.supplies[0].stockQuantity
                                                                     : '0'}
                                                             </td>
-                                                            <td>{item.manufacturer}</td>
-                                                            {/* <td>{item.manufacturerDate}</td>  */}
-                                                            {/* <td>{item.expiryDate}</td> */}
+                                                            {/* <td>{item.manufacturer}</td>
+                                                            <td>{item.manufacturerDate}</td> 
+                                                            <td>{item.expiryDate}</td> */}
                                                             <td colSpan={2}>
                                                                 <Link
-                                                                    to={`/product/feedbacks/${item.id}`}
+                                                                    to={`/product/detail/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Details"
                                                                 >
                                                                     <i class="far fa-eye"></i>
+                                                                </Link>
+                                                                &nbsp;
+                                                                <Link
+                                                                    to={`/product/feedbacks/${item.id}`}
+                                                                    className="btn btn-primary"
+                                                                    title="Feedbacks"
+                                                                >
+                                                                    <i class="fa-solid fa-comment"></i>
                                                                 </Link>
                                                                 &nbsp;
                                                                 <Link

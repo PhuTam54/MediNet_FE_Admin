@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getOrders } from '~/services/Orders/orderService';
+import { getProduct } from '~/services/Orders/productService';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
-const Order = () => {
-    const [orders, setOrders] = useState([]);
+const Product = () => {
+    const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -13,10 +13,10 @@ const Order = () => {
     }, []);
 
     const getData = () => {
-        getOrders()
+        getProduct()
             .then((data) => {
                 const firstTenData = data.slice(0, 5);
-                setOrders(firstTenData);
+                setProducts(firstTenData);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -30,11 +30,11 @@ const Order = () => {
         return formattedDate;
     };
 
-    const truncateOrderCode = (orderCode) => {
-        if (orderCode && orderCode.length > 7) {
-            return orderCode.substring(0, 7) + '...';
+    const truncateProductCode = (ProductCode) => {
+        if (ProductCode && ProductCode.length > 7) {
+            return ProductCode.substring(0, 7) + '...';
         } else {
-            return orderCode;
+            return ProductCode;
         }
     };
 
@@ -44,9 +44,9 @@ const Order = () => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4>Orders</h4>
+                            <h4>Products</h4>
                             <div className="card-header-action">
-                                <Link to="/orders" className="btn btn-danger">
+                                <Link to="/Product" className="btn btn-danger">
                                     View More <i className="fas fa-chevron-right" />
                                 </Link>
                             </div>
@@ -57,47 +57,53 @@ const Order = () => {
                                     <tbody>
                                         <tr>
                                             <th>Id</th>
+                                            <th>Img</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>TelePhone</th>
-                                            <th>OrderDate</th>
-                                            <th>Status</th>
+                                            <th>CategoryChildId</th>
+                                            {/* <th>Description</th> */}
+                                            <th>Price</th>
+                                            <th>Quantity</th>
                                             <th>Actions</th>
                                         </tr>
-                                        {orders.map((item, index) => (
+                                        {products.map((item, index) => (
                                             <tr key={item.id}>
                                                 <td>{index + 1}</td>
-                                                <td>{item.name}</td>
-                                                <td>{item.email}</td>
-                                                <td>{item.tel}</td>
-                                                <td>{item.orderDate}</td>
                                                 <td>
-                                                    {item.status === 0 && (
-                                                        <div className="badge badge-warning">Pending</div>
-                                                    )}
-                                                    {item.status === 1 && (
-                                                        <div className="badge badge-secondary">Confirmed</div>
-                                                    )}
-                                                    {item.status === 2 && (
-                                                        <div className="badge badge-primary">Shipping</div>
-                                                    )}
-                                                    {item.status === 3 && (
-                                                        <div className="badge badge-info">Shipped</div>
-                                                    )}
-                                                    {item.status === 4 && (
-                                                        <div className="badge badge-success">Complete</div>
-                                                    )}
-                                                    {item.status === 5 && (
-                                                        <div className="badge badge-danger">Cancel</div>
-                                                    )}
+                                                    <img
+                                                        src={item.imageSrc}
+                                                        style={{ width: '100px', height: 'auto' }}
+                                                        alt={item.image}
+                                                    />
+                                                </td>
+                                                <td>{item.name}</td>
+                                                <td>{item.categoryChild.name}</td>
+                                                <td>{item.price}</td>
+                                                <td>
+                                                    {item.supplies.length > 0 ? item.supplies[0].stockQuantity : '0'}
                                                 </td>
                                                 <td colSpan={2}>
                                                     <Link
-                                                        to={`/Orders/detail/${item.id}`}
+                                                        to={`/product/detail/${item.id}`}
                                                         className="btn btn-primary"
                                                         title="Details"
                                                     >
                                                         <i class="far fa-eye"></i>
+                                                    </Link>
+                                                    &nbsp;
+                                                    <Link
+                                                        to={`/product/feedbacks/${item.id}`}
+                                                        className="btn btn-primary"
+                                                        title="Feedbacks"
+                                                    >
+                                                        <i class="fa-solid fa-comment"></i>
+                                                    </Link>
+                                                    &nbsp;
+                                                    <Link
+                                                        to={`/product/edit/${item.id}`}
+                                                        className="btn btn-primary"
+                                                        title="Edit"
+                                                    >
+                                                        <i class="fas fa-pencil-alt"></i>
                                                     </Link>
                                                 </td>
                                             </tr>
@@ -113,4 +119,4 @@ const Order = () => {
     );
 };
 
-export default Order;
+export default Product;

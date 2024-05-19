@@ -30,11 +30,13 @@ const BarChart = () => {
     }
 
     const data = {
-        labels: chartData.map((item) => item.id),
+        labels: chartData.map((item) => item.name),
         datasets: [
             {
-                label: `${chartData.length} Rooms Available`,
-                data: chartData.map((item) => item.name),
+                label: `${chartData.length} Total Amount per Order`,
+                data: chartData.map((item) => item.totalAmount),
+
+                
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -83,7 +85,7 @@ const BarChart = () => {
             <div className="col-lg-8">
                 <div className="card">
                     <div className="card-header">
-                        <h4>BarChart</h4>
+                        <h4>Orders</h4>
                     </div>
                     <div className="card-body">
                         <div>
