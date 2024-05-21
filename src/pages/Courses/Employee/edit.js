@@ -17,7 +17,6 @@ function EditEmployees() {
         date_Of_Birth: '',
         gender: '',
         phoneNumber: '',
-        roleEmployee: '',
         specialistId: '',
         username: '',
         email: '',
@@ -44,7 +43,6 @@ function EditEmployees() {
                     date_Of_Birth: employeesData.date_Of_Birth,
                     gender: employeesData.gender,
                     phoneNumber: employeesData.phoneNumber,
-                    roleEmployee: employeesData.roleEmployee,
                     specialistId: employeesData.specialistId,
                     username: employeesData.username,
                     email: employeesData.email,
@@ -82,7 +80,6 @@ function EditEmployees() {
                 date_Of_Birth,
                 data.gender,
                 data.phoneNumber,
-                data.roleEmployee,
                 data.specialistId,
                 data.username,
                 data.email,
@@ -203,10 +200,30 @@ function EditEmployees() {
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Password</label>
                                             <input
-                                                type="text"
+                                                type="password"
                                                 className="form-control"
                                                 value={data.password}
                                                 onChange={(e) => setData({ ...data, password: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Role</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.role}
+                                                onChange={(e) => setData({ ...data, role: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Status</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.status}
+                                                onChange={(e) => setData({ ...data, status: e.target.value })}
                                             />
                                         </div>
                                     </div>
@@ -263,35 +280,6 @@ function EditEmployees() {
                                         </div>
                                     </div>
                                     <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">RoleEmployee</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.roleEmployee}
-                                                onChange={(e) => setData({ ...data, roleEmployee: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Role</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.role}
-                                                onChange={(e) => setData({ ...data, role: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Status</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={data.status}
-                                                onChange={(e) => setData({ ...data, status: e.target.value })}
-                                            />
-                                        </div>
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">ImageFile</label>
                                             <div>

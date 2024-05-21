@@ -16,6 +16,7 @@ function Orders() {
     //search and status filter
     const [search, setSearch] = useState('');
     const [status, setStatus] = useState('');
+    const [name, setName] = useState('');
     const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
@@ -28,8 +29,11 @@ function Orders() {
         if (status !== '') {
             filteredData = filteredData.filter((item) => item.status.toString() === status);
         }
+        if (name !== '') {
+            filteredData = filteredData.filter((item) => item.name.toString() === status);
+        }
         setFilteredData(filteredData);
-    }, [search, status, data]);
+    }, [search, status, data, name]);
 
     //Pagination
     const [currentPage, setCurrentPage] = useState(1);

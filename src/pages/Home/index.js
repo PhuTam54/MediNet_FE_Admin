@@ -2,7 +2,7 @@ import Order from './Order';
 import Product from './Product';
 import React, { useState, useEffect } from 'react';
 import { getOrders } from '~/services/Orders/orderService';
-import { getProduct } from '~/services/Orders/productService';
+import { getProduct } from '~/services/Products/productService';
 import { getCustomers } from '~/services/Users/customerService';
 import { getEmployees } from '~/services/Courses/employeeService';
 import { getClinics } from '~/services/Clinics/clinicService';
@@ -83,32 +83,7 @@ function HomeAdmin() {
                 <div className="col-lg-4 col-md-4 col-sm-12">
                     <div className="card card-statistic-2">
                         <div className="card-stats">
-                            <div className="card-stats-title">
-                                Order Statistics
-                                {/* <div className="dropdown d-inline">
-                                    <a
-                                        className="font-weight-600 dropdown-toggle"
-                                        data-toggle="dropdown"
-                                        href="#"
-                                        id="orders-month"
-                                    >
-                                        August
-                                    </a>
-                                    <ul className="dropdown-menu dropdown-menu-sm">
-                                        <li className="dropdown-title">Select Month</li>
-                                        <li>
-                                            <a href="#" className="dropdown-item">
-                                                January
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" className="dropdown-item">
-                                                February
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div> */}
-                            </div>
+                            <div className="card-stats-title">Order Statistics</div>
                             <div className="card-stats-items">
                                 <div className="card-stats-item">
                                     <div className="card-stats-item-count">
@@ -116,12 +91,6 @@ function HomeAdmin() {
                                     </div>
                                     <div className="card-stats-item-label">Pending</div>
                                 </div>
-                                {/* <div className="card-stats-item">
-                                    <div className="card-stats-item-count">
-                                        {orders.filter((order) => order.status === 1).length}
-                                    </div>
-                                    <div className="card-stats-item-label">Confirmed</div>
-                                </div> */}
                                 <div className="card-stats-item">
                                     <div className="card-stats-item-count">
                                         {orders.filter((order) => order.status === 2).length}
@@ -156,17 +125,14 @@ function HomeAdmin() {
                 <div className="col-lg-4 col-md-4 col-sm-12">
                     <div className="card card-statistic-2">
                         <div className="card-stats">
-                            <div className="card-stats-title">Product Statistics</div>
-                            <div className="card-stats-items">
-                                <div className="card-icon shadow-primary bg-primary">
-                                    <i className="fas fa-archive" />
+                            <div className="card-icon shadow-primary bg-primary">
+                                <i className="fas fa-archive" />
+                            </div>
+                            <div className="card-wrap">
+                                <div className="card-header">
+                                    <h4>Total Clinics</h4>
                                 </div>
-                                <div className="card-wrap">
-                                    <div className="card-header">
-                                        <h4>Total Clinics</h4>
-                                    </div>
-                                    <div className="card-body">{clinics.length}</div>
-                                </div>
+                                <div className="card-body">{clinics.length}</div>
                             </div>
                         </div>
                         <div className="card-icon shadow-primary bg-primary">
@@ -191,13 +157,13 @@ function HomeAdmin() {
                                 </div>
                                 <div className="card-stats-item">
                                     <div className="card-stats-item-count">
-                                        {employees.filter((employee) => employee.roleEmployee === 3).length}
+                                        {employees.filter((employee) => employee.role === 3).length}
                                     </div>
                                     <div className="card-stats-item-label">Employee</div>
                                 </div>
                                 <div className="card-stats-item">
                                     <div className="card-stats-item-count">
-                                        {employees.filter((employee) => employee.roleEmployee === 4).length}
+                                        {employees.filter((employee) => employee.role === 4).length}
                                     </div>
                                     <div className="card-stats-item-label">Doctor</div>
                                 </div>

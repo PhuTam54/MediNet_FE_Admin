@@ -44,7 +44,7 @@ const Order = () => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4>Orders</h4>
+                            <h4>New Orders</h4>
                             <div className="card-header-action">
                                 <Link to="/orders" className="btn btn-danger">
                                     View More <i className="fas fa-chevron-right" />

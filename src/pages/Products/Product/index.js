@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getProduct, deleteProduct } from '~/services/Orders/productService';
+import { getProduct, deleteProduct } from '~/services/Products/productService';
 import { Link } from 'react-router-dom';
 
 function Product() {
@@ -53,6 +53,7 @@ function Product() {
     const getData = () => {
         getProduct()
             .then((data) => {
+                console.log('data', data);
                 setData(data);
                 setSearchedData(data);
                 const stockQuantitiesArray = data.map((item) => item.supplies[0].stockQuantity);
@@ -159,11 +160,11 @@ function Product() {
                                                             <td>{item.categoryChild.name}</td>
                                                             {/* <td>{item.description}</td> */}
                                                             <td>{item.price}</td>
-                                                            <td>
+                                                            {/* <td>
                                                                 {item.supplies.length > 0
                                                                     ? item.supplies[0].stockQuantity
                                                                     : '0'}
-                                                            </td>
+                                                            </td> */}
                                                             {/* <td>{item.manufacturer}</td>
                                                             <td>{item.manufacturerDate}</td> 
                                                             <td>{item.expiryDate}</td> */}

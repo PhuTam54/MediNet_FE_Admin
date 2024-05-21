@@ -16,7 +16,6 @@ export const createEmployees = async (
     date_Of_Birth,
     gender,
     phoneNumber,
-    roleEmployee,
     specialistId,
     username,
     email,
@@ -33,7 +32,6 @@ export const createEmployees = async (
         formData.append('date_Of_Birth', date_Of_Birth);
         formData.append('gender', gender);
         formData.append('phoneNumber', phoneNumber);
-        formData.append('roleEmployee', roleEmployee);
         formData.append('specialistId', specialistId);
         formData.append('username', username);
         formData.append('email', email);
@@ -67,7 +65,6 @@ export const updateEmployees = async (
     date_Of_Birth,
     gender,
     phoneNumber,
-    roleEmployee,
     specialistId,
     username,
     email,
@@ -85,7 +82,6 @@ export const updateEmployees = async (
         formData.append('date_Of_Birth', date_Of_Birth);
         formData.append('gender', gender);
         formData.append('phoneNumber', phoneNumber);
-        formData.append('roleEmployee', roleEmployee);
         formData.append('specialistId', specialistId);
         formData.append('username', username);
         formData.append('email', email);

@@ -56,17 +56,18 @@ import Orders from '~/pages/Orders/Order/index';
 import DetailOrders from '~/pages/Orders/Order/detail';
 import Invoice from '~/pages/Orders/Order/invoice';
 
-import Product from '~/pages/Orders/Product/index';
-import CreateProduct from '~/pages/Orders/Product/create';
-import EditProduct from '~/pages/Orders/Product/edit';
-import DetailProduct from '~/pages/Orders/Product/detail';
-
 import Service from '~/pages/Orders/Services/index';
 import CreateService from '~/pages/Orders/Services/create';
 import EditService from '~/pages/Orders/Services/edit';
 
 import Feedbacks from '~/pages/Orders/Feedbacks/index';
 import FeedbackDetail from '~/pages/Orders/Feedbacks/detail';
+
+//      Products
+import Product from '~/pages/Products/Product/index';
+import CreateProduct from '~/pages/Products/Product/create';
+import EditProduct from '~/pages/Products/Product/edit';
+import DetailProduct from '~/pages/Products/Product/detail';
 
 //      Categories
 import CategoryParents from '~/pages/Categories/CategoryParents/index';
@@ -146,17 +147,18 @@ export const publicRoutes = [
     { path: config.routes.orderDetail, component: DetailOrders, layout: AdminLayout },
     { path: config.routes.invoice, component: Invoice, layout: null },
 
-    { path: config.routes.product, component: Product, layout: AdminLayout },
-    { path: config.routes.createProduct, component: CreateProduct, layout: AdminLayout },
-    { path: config.routes.editProduct, component: EditProduct, layout: AdminLayout },
-    { path: config.routes.detailProduct, component: DetailProduct, layout: AdminLayout },
-
     { path: config.routes.services, component: Service, layout: AdminLayout },
     { path: config.routes.createServices, component: CreateService, layout: AdminLayout },
     { path: config.routes.editServices, component: EditService, layout: AdminLayout },
 
     { path: config.routes.feedbacks, component: Feedbacks, layout: AdminLayout },
     { path: config.routes.feedbackDetail, component: FeedbackDetail, layout: AdminLayout },
+
+    //      Products
+    { path: config.routes.product, component: Product, layout: AdminLayout },
+    { path: config.routes.createProduct, component: CreateProduct, layout: AdminLayout },
+    { path: config.routes.editProduct, component: EditProduct, layout: AdminLayout },
+    { path: config.routes.detailProduct, component: DetailProduct, layout: AdminLayout },
 
     //      Category
     { path: config.routes.categoryParents, component: CategoryParents, layout: AdminLayout },

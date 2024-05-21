@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateProduct, editProduct } from '~/services/Orders/productService';
+import { updateProduct, editProduct } from '~/services/Products/productService';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditProduct() {

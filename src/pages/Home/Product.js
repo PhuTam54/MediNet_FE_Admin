@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getProduct } from '~/services/Orders/productService';
+import { getProduct } from '~/services/Products/productService';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -44,7 +44,7 @@ const Product = () => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4>Products</h4>
+                            <h4>Feature Products</h4>
                             <div className="card-header-action">
                                 <Link to="/Product" className="btn btn-danger">
                                     View More <i className="fas fa-chevron-right" />
@@ -78,9 +78,9 @@ const Product = () => {
                                                 <td>{item.name}</td>
                                                 <td>{item.categoryChild.name}</td>
                                                 <td>{item.price}</td>
-                                                <td>
+                                                {/* <td>
                                                     {item.supplies.length > 0 ? item.supplies[0].stockQuantity : '0'}
-                                                </td>
+                                                </td> */}
                                                 <td colSpan={2}>
                                                     <Link
                                                         to={`/product/detail/${item.id}`}
