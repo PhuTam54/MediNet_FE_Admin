@@ -71,6 +71,21 @@ function OrderDetails() {
         }
     };
 
+    const getSelectableOptions = () => {
+        const options = [
+            { value: 0, label: 'Pending' },
+            { value: 1, label: 'Confirmed' },
+            { value: 2, label: 'Shipping' },
+            { value: 3, label: 'Shipped' },
+            { value: 4, label: 'Complete' },
+            { value: 5, label: 'Canceled' },
+        ];
+        if (data.status === 2) {
+            return options.filter((option) => option.value !== 5);
+        }
+        return options;
+    };
+
     return (
         <section className="section">
             <div className="section-header">
@@ -142,13 +157,13 @@ function OrderDetails() {
                                             console.log(e.target.value);
                                             setData({ ...data, status: e.target.value });
                                         }}
+                                        disabled={data.status === 4 || data.status === 5}
                                     >
-                                        <option value={0}>Pending</option>
-                                        <option value={1}>Confirmed</option>
-                                        <option value={2}>Shipping</option>
-                                        <option value={3}>Shipped</option>
-                                        <option value={4}>Complete</option>
-                                        {/* <option value={5}>Cancel</option> */}
+                                        {getSelectableOptions().map((option) => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className="col-md-6">

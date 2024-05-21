@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createSupplies } from '~/services/Clinics/supplyService';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { updateInStocks, editInStocks } from '~/services/Clinics/inStockService';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
-function CreateSupplies() {
+function EditInStocks() {
     const [clinics, setClinics] = useState([]);
     const [products, setProducts] = useState([]);
 
     const [data, setData] = useState({
-        clinicId: '',
+        id: '',
         productId: '',
         stockQuantity: '',
+        clinicId: '',
     });
 
+    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const InStocksData = await editInStocks(id);
+                setData({
+                    id: InStocksData.id,
+                    clinicId: InStocksData.clinicId,
+                    productId: InStocksData.productId,
+                    stockQuantity: InStocksData.stockQuantity,
+                });
                 const clinicsData = await fetch('https://localhost:7121/api/v1/Clinics');
                 const clinicsJson = await clinicsData.json();
                 setClinics(clinicsJson);
@@ -28,22 +36,22 @@ function CreateSupplies() {
                 const productsJson = await productsData.json();
                 setProducts(productsJson);
             } catch (error) {
-                console.error('Error fetching Supplies data:', error);
+                console.error('Error fetching InStocks data:', error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [id]);
 
-    const handleCreate = async (event) => {
+    const handleUpdate = async (event) => {
         event.preventDefault();
 
         try {
-            await createSupplies(data.clinicId, data.productId, data.stockQuantity);
-            toast.success('Supplies created successfully');
-            navigate('/Supplies');
+            await updateInStocks(data.id, data.clinicId, data.productId, data.stockQuantity);
+            toast.success('InStocks updated successfully');
+            navigate('/InStocks');
         } catch (error) {
-            toast.error('Failed to create Supplies');
+            toast.error('Failed to update InStocks');
         }
     };
 
@@ -51,35 +59,49 @@ function CreateSupplies() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <Link to="/Supplies" className="btn btn-icon">
+                    <Link to="/InStocks" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
                     </Link>
                 </div>
-                <h1>Create Supplies</h1>
+                <h1>Edit InStocks</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Supplies</Link>
+                        <Link to="#">InStocks</Link>
                     </div>
-                    <div className="breadcrumb-item">Create Supplies</div>
+                    <div className="breadcrumb-item">Edit InStocks</div>
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Create Supplies</h2>
-                <p className="section-lead">On this page you can create a new Supplies and fill in all fields.</p>
+                <h2 className="section-title">Edit InStocks</h2>
+                <p className="section-lead">On this page you can edit InStocks details.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Write Your Supplies</h4>
+                                <h4>Edit InStocks Details</h4>
                             </div>
                             <div className="card-body">
-                                <form onSubmit={handleCreate}>
+                                <form onSubmit={handleUpdate}>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Clinic Id
+                                            Id
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.id}
+                                                disabled
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            ClinicId
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
@@ -98,7 +120,7 @@ function CreateSupplies() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Product Id
+                                            ProductId
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
@@ -131,7 +153,7 @@ function CreateSupplies() {
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Create Supplies
+                                                Update InStocks
                                             </button>
                                         </div>
                                     </div>
@@ -146,4 +168,4 @@ function CreateSupplies() {
     );
 }
 
-export default CreateSupplies;
+export default EditInStocks;

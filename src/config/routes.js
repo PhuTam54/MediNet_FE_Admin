@@ -14,9 +14,17 @@ const routes = {
     createClinics: '/clinics/create',
     editClinics: '/clinics/edit/:id',
 
-    supplies: '/supplies',
-    createSupplies: '/supplies/create',
-    editSupplies: '/supplies/edit/:id',
+    inStocks: '/inStocks',
+    createInStocks: '/inStocks/create',
+    editInStocks: '/inStocks/edit/:id',
+
+    stockIns: '/stockIns',
+    createStockIns: '/stockIns/create',
+    editStockIns: '/stockIns/edit/:id',
+
+    stockOuts: '/stockOuts',
+    createStockOuts: '/stockOuts/create',
+    editStockOuts: '/stockOuts/edit/:id',
 
     //      courses
     courses: '/courses',

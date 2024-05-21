@@ -15,9 +15,17 @@ import Clinics from '~/pages/Clinics/Clinic/index';
 import CreateClinics from '~/pages/Clinics/Clinic/create';
 import EditClinics from '~/pages/Clinics/Clinic/edit';
 
-import Supplies from '~/pages/Clinics/Supply/index';
-import CreateSupplies from '~/pages/Clinics/Supply/create';
-import EditSupplies from '~/pages/Clinics/Supply/edit';
+import InStocks from '~/pages/Clinics/InStock/index';
+import CreateInStocks from '~/pages/Clinics/InStock/create';
+import EditInStocks from '~/pages/Clinics/InStock/edit';
+
+import StockIns from '~/pages/Clinics/StockIn/index';
+import CreateStockIns from '~/pages/Clinics/StockIn/create';
+import EditStockIns from '~/pages/Clinics/StockIn/edit';
+
+import StockOuts from '~/pages/Clinics/StockOut/index';
+import CreateStockOuts from '~/pages/Clinics/StockOut/create';
+import EditStockOuts from '~/pages/Clinics/StockOut/edit';
 
 //      Courses
 import Courses from '~/pages/Courses/Course/index';
@@ -81,7 +89,6 @@ import CreateCategoryChilds from '~/pages/Categories/CategoryChilds/create';
 import EditCategoryChilds from '~/pages/Categories/CategoryChilds/edit';
 
 //      Manager
-// import Invoice from '~/pages/Magager/Invoice';
 
 import Calendar from '~/pages/Calendar/index';
 import Calendars from '~/pages/Calendars/index';
@@ -112,9 +119,17 @@ export const publicRoutes = [
     { path: config.routes.createClinics, component: CreateClinics, layout: AdminLayout },
     { path: config.routes.editClinics, component: EditClinics, layout: AdminLayout },
 
-    { path: config.routes.supplies, component: Supplies, layout: AdminLayout },
-    { path: config.routes.createSupplies, component: CreateSupplies, layout: AdminLayout },
-    { path: config.routes.editSupplies, component: EditSupplies, layout: AdminLayout },
+    { path: config.routes.inStocks, component: InStocks, layout: AdminLayout },
+    { path: config.routes.createInStocks, component: CreateInStocks, layout: AdminLayout },
+    { path: config.routes.editInStocks, component: EditInStocks, layout: AdminLayout },
+
+    { path: config.routes.stockIns, component: StockIns, layout: AdminLayout },
+    { path: config.routes.createStockIns, component: CreateStockIns, layout: AdminLayout },
+    { path: config.routes.editStockIns, component: EditStockIns, layout: AdminLayout },
+
+    { path: config.routes.stockOuts, component: StockOuts, layout: AdminLayout },
+    { path: config.routes.createStockOuts, component: CreateStockOuts, layout: AdminLayout },
+    { path: config.routes.editStockOuts, component: EditStockOuts, layout: AdminLayout },
 
     //      Courses
     { path: config.routes.courses, component: Courses, layout: AdminLayout },

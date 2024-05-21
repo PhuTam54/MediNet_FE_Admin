@@ -78,11 +78,6 @@ function SidebarAdmin() {
                                 <span>Doctors</span>
                             </Link>
                             <ul className="dropdown-menu">
-                                {/* <li>
-                                    <Link className="nav-link" to="/Doctors">
-                                        Doctors
-                                    </Link>
-                                </li> */}
                                 <li>
                                     <Link className="nav-link" to="/Blogs">
                                         Blogs
@@ -126,7 +121,7 @@ function SidebarAdmin() {
 
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
-                                <i className="fas fa-cart-plus"></i> <span>Orders</span>
+                                <i class="fab fa-product-hunt"></i> <span>Products</span>
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>
@@ -134,24 +129,50 @@ function SidebarAdmin() {
                                         Products
                                     </Link>
                                 </li>
-                                {/* <li>
-                                    <Link className="nav-link" to="/product/feedbacks/">
-                                        feedbacks
+                                <li>
+                                    <Link className="nav-link" to="Favorite">
+                                        Favorite
                                     </Link>
-                                </li> */}
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li className="dropdown">
+                            <Link to="#" className="nav-link has-dropdown">
+                                <i class="fas fa-clinic-medical"></i> <span>Clinics</span>
+                            </Link>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link className="nav-link" to="/clinics">
+                                        Clinic
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/InStocks">
+                                        InStocks
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/StockIns">
+                                        StockIns
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/StockOuts">
+                                        StockOuts
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li className="dropdown">
+                            <Link to="#" className="nav-link has-dropdown">
+                                <i className="fas fa-cart-plus"></i> <span>Orders</span>
+                            </Link>
+                            <ul className="dropdown-menu">
                                 <li>
                                     <Link className="nav-link" to="/orders">
                                         Orders
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/clinics">
-                                        Clinics
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/supplies">
-                                        Supplies
                                     </Link>
                                 </li>
                                 <li>

@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateSupplies, editSupplies } from  '~/services/Clinics/supplyService';
+import { updateStockOuts, editStockOuts } from '~/services/Clinics/stockOutService';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
-function EditSupplies() {
+function EditStockOuts() {
     const [clinics, setClinics] = useState([]);
     const [products, setProducts] = useState([]);
 
     const [data, setData] = useState({
         id: '',
-        productId: '',
-        stockQuantity: '',
         clinicId: '',
+        productId: '',
+        quantity: '',
+        dateOut: '',
+        reason: '',
     });
 
     const { id } = useParams();
@@ -21,12 +23,14 @@ function EditSupplies() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const suppliesData = await editSupplies(id);
+                const StockOutsData = await editStockOuts(id);
                 setData({
-                    id: suppliesData.id,
-                    clinicId: suppliesData.clinicId,
-                    productId: suppliesData.productId,
-                    stockQuantity: suppliesData.stockQuantity,
+                    id: StockOutsData.id,
+                    clinicId: StockOutsData.clinicId,
+                    productId: StockOutsData.productId,
+                    quantity: StockOutsData.quantity,
+                    dateOut: StockOutsData.dateOut,
+                    reason: StockOutsData.reason,
                 });
                 const clinicsData = await fetch('https://localhost:7121/api/v1/Clinics');
                 const clinicsJson = await clinicsData.json();
@@ -36,7 +40,7 @@ function EditSupplies() {
                 const productsJson = await productsData.json();
                 setProducts(productsJson);
             } catch (error) {
-                console.error('Error fetching Supplies data:', error);
+                console.error('Error fetching StockOuts data:', error);
             }
         };
 
@@ -45,13 +49,14 @@ function EditSupplies() {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+        const dateOut = new Date(data.dateOut).toISOString();
 
         try {
-            await updateSupplies(data.id, data.clinicId, data.productId, data.stockQuantity);
-            toast.success('Supplies updated successfully');
-            navigate('/Supplies');
+            await updateStockOuts(data.id, data.clinicId, data.productId, data.quantity, data.dateOut, data.reason);
+            toast.success('StockOuts updated successfully');
+            navigate('/StockOuts');
         } catch (error) {
-            toast.error('Failed to update Supplies');
+            toast.error('Failed to update StockOuts');
         }
     };
 
@@ -59,57 +64,62 @@ function EditSupplies() {
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <Link to="/Supplies" className="btn btn-icon">
+                    <Link to="/StockOuts" className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
                     </Link>
                 </div>
-                <h1>Edit Supplies</h1>
+                <h1>Edit StockOuts</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Supplies</Link>
+                        <Link to="#">StockOuts</Link>
                     </div>
-                    <div className="breadcrumb-item">Edit Supplies</div>
+                    <div className="breadcrumb-item">Edit StockOuts</div>
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Edit Supplies</h2>
-                <p className="section-lead">On this page you can edit Supplies details.</p>
+                <h2 className="section-title">Edit StockOuts</h2>
+                <p className="section-lead">On this page you can edit StockOuts details.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Edit Supplies Details</h4>
+                                <h4>Edit StockOuts Details</h4>
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleUpdate}>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Id
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Id</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={data.id}
                                                 disabled
+                                                value={data.id}
                                                 onChange={(e) => setData({ ...data, id: e.target.value })}
                                             />
                                         </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Reason</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.reason}
+                                                onChange={(e) => setData({ ...data, reason: e.target.value })}
+                                            />
+                                        </div>
                                     </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            ClinicId
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ClinicId</label>
                                             <select
                                                 className="form-control selectric"
                                                 value={data.clinicId}
                                                 onChange={(e) => setData({ ...data, clinicId: e.target.value })}
                                             >
-                                                <option>Select clinic</option>
+                                                <option>Select clinics</option>
                                                 {clinics.map((clinic) => (
                                                     <option key={clinic.id} value={clinic.id}>
                                                         {clinic.name}
@@ -117,18 +127,14 @@ function EditSupplies() {
                                                 ))}
                                             </select>
                                         </div>
-                                    </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            ProductId
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ProductId</label>
                                             <select
                                                 className="form-control selectric"
                                                 value={data.productId}
                                                 onChange={(e) => setData({ ...data, productId: e.target.value })}
                                             >
-                                                <option>Select clinic</option>
+                                                <option>Select productId</option>
                                                 {products.map((product) => (
                                                     <option key={product.id} value={product.id}>
                                                         {product.name}
@@ -137,23 +143,30 @@ function EditSupplies() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            StockQuantity
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Quantity</label>
                                             <input
                                                 type="number"
                                                 className="form-control"
-                                                value={data.stockQuantity}
-                                                onChange={(e) => setData({ ...data, stockQuantity: e.target.value })}
+                                                value={data.quantity}
+                                                onChange={(e) => setData({ ...data, quantity: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">DateOut</label>
+                                            <input
+                                                type="datetime-local"
+                                                className="form-control"
+                                                value={data.dateOut}
+                                                onChange={(e) => setData({ ...data, dateOut: e.target.value })}
                                             />
                                         </div>
                                     </div>
-                                    <div className="form-group row mb-4">
-                                        <div className="col-sm-12 col-md-7 offset-md-3">
-                                            <button className="btn btn-primary" type="submit">
-                                                Update Supplies
+                                    <div className="row mb-4">
+                                        <div className="col-md-6 offset-md-3">
+                                            <button className="btn btn-primary btn-block" type="submit">
+                                                Create Customers
                                             </button>
                                         </div>
                                     </div>
@@ -168,4 +181,4 @@ function EditSupplies() {
     );
 }
 
-export default EditSupplies;
+export default EditStockOuts;

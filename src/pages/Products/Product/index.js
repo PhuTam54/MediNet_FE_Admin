@@ -138,7 +138,7 @@ function Product() {
                                                         <th>CategoryChildId</th>
                                                         {/* <th>Description</th> */}
                                                         <th>Price</th>
-                                                        <th>Quantity</th>
+                                                        {/* <th>Quantity</th> */}
                                                         {/* <th>Manufacturer</th>
                                                         <th>ManufacturerDate</th>
                                                         <th>ExpiryDate</th> */}

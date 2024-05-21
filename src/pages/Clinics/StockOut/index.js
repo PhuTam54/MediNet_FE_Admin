@@ -4,10 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getClinics, deleteClinics } from '~/services/Clinics/clinicService';
+import { getStockOuts, deleteStockOuts } from '~/services/Clinics/stockOutService';
 import { Link } from 'react-router-dom';
 
-function Clinics() {
+function StockOuts() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
@@ -17,7 +17,9 @@ function Clinics() {
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
     useEffect(() => {
-        const filteredData = data.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+        const filteredData = data.filter((item) =>
+            item.clinicId.toString().toLowerCase().includes(search.toLowerCase()),
+        );
         setSearchedData(filteredData);
     }, [search, data]);
 
@@ -50,7 +52,7 @@ function Clinics() {
     }, []);
 
     const getData = () => {
-        getClinics()
+        getStockOuts()
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -68,14 +70,14 @@ function Clinics() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteClinics(deleteId)
+        deleteStockOuts(deleteId)
             .then(() => {
-                toast.success('Clinics has been deleted');
+                toast.success('StockOuts has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Clinics', error);
+                toast.error('Failed to delete StockOuts', error);
             });
     };
 
@@ -88,9 +90,9 @@ function Clinics() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Clinics</h1>
+                <h1>StockOuts</h1>
                 <div className="section-header-button">
-                    <Link to="/clinics/create" className="btn btn-primary">
+                    <Link to="/StockOuts/create" className="btn btn-primary">
                         Add New
                     </Link>
                 </div>
@@ -99,9 +101,9 @@ function Clinics() {
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Clinics</Link>
+                        <Link to="#">StockOuts</Link>
                     </div>
-                    <div className="breadcrumb-item">All Clinics</div>
+                    <div className="breadcrumb-item">All StockOuts</div>
                 </div>
             </div>
             <div className="section-body">
@@ -109,7 +111,7 @@ function Clinics() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Clinics</h4>
+                                <h4>All StockOuts</h4>
                             </div>
 
                             <div className="card-body">
@@ -129,14 +131,11 @@ function Clinics() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Img</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Phone</th>
-                                                        {/* <th>Address</th>
-                                                        <th>OpeningHours</th>
-                                                        <th>ClosingHours</th>
-                                                        <th>Description</th> */}
+                                                        <th>Clinics</th>
+                                                        <th>Product</th>
+                                                        <th>Quantity</th>
+                                                        {/* <th>dateOut</th> */}
+                                                        <th>Reason</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -144,31 +143,14 @@ function Clinics() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>
-                                                                <img
-                                                                    src={item.imagesSrc}
-                                                                    style={{ width: '100px', height: 'auto' }}
-                                                                    alt={item.imagesSrc}
-                                                                />
-                                                            </td>
-                                                            <td>{item.name}</td>
-                                                            <td>{item.email}</td>
-                                                            <td>{item.phone}</td>
-                                                            {/* <td>{item.address}</td>
-                                                            <td>{item.openingHours}</td>
-                                                            <td>{item.closingHours}</td>
-                                                            <td>{item.description}</td> */}
+                                                            <td>{item.clinic.name}</td>
+                                                            <td>{item.product.name}</td>
+                                                            <td>{item.quantity}</td>
+                                                            {/* <td>{item.dateOut}</td> */}
+                                                            <td>{item.reason}</td>
                                                             <td colSpan={2}>
                                                                 <Link
-                                                                    to={`/Clinics/detail/${item.id}`}
-                                                                    className="btn btn-primary"
-                                                                    title="Details"
-                                                                >
-                                                                    <i class="far fa-eye"></i>
-                                                                </Link>
-                                                                &nbsp;
-                                                                <Link
-                                                                    to={`/Clinics/edit/${item.id}`}
+                                                                    to={`/StockOuts/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
@@ -207,7 +189,7 @@ function Clinics() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Clinics?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this StockOuts?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -223,4 +205,4 @@ function Clinics() {
     );
 }
 
-export default Clinics;
+export default StockOuts;

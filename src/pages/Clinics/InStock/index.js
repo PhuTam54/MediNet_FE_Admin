@@ -4,10 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getSupplies, deleteSupplies } from '~/services/Clinics/supplyService';
+import { getInStocks, deleteInStocks } from '~/services/Clinics/inStockService';
 import { Link } from 'react-router-dom';
 
-function Supplies() {
+function InStocks() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
@@ -52,7 +52,7 @@ function Supplies() {
     }, []);
 
     const getData = () => {
-        getSupplies()
+        getInStocks()
             .then((data) => {
                 setData(data);
                 setSearchedData(data);
@@ -70,14 +70,14 @@ function Supplies() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteSupplies(deleteId)
+        deleteInStocks(deleteId)
             .then(() => {
-                toast.success('Supplies has been deleted');
+                toast.success('InStocks has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Supplies', error);
+                toast.error('Failed to delete InStocks', error);
             });
     };
 
@@ -90,9 +90,9 @@ function Supplies() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Supplies</h1>
+                <h1>InStocks</h1>
                 <div className="section-header-button">
-                    <Link to="/Supplies/create" className="btn btn-primary">
+                    <Link to="/InStocks/create" className="btn btn-primary">
                         Add New
                     </Link>
                 </div>
@@ -101,9 +101,9 @@ function Supplies() {
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Supplies</Link>
+                        <Link to="#">InStocks</Link>
                     </div>
-                    <div className="breadcrumb-item">All Supplies</div>
+                    <div className="breadcrumb-item">All InStocks</div>
                 </div>
             </div>
             <div className="section-body">
@@ -111,7 +111,7 @@ function Supplies() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Supplies</h4>
+                                <h4>All InStocks</h4>
                             </div>
 
                             <div className="card-body">
@@ -146,7 +146,7 @@ function Supplies() {
                                                             <td>{item.stockQuantity}</td>
                                                             <td colSpan={2}>
                                                                 <Link
-                                                                    to={`/supplies/edit/${item.id}`}
+                                                                    to={`/InStocks/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
@@ -185,7 +185,7 @@ function Supplies() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Supplies?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this InStocks?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -201,4 +201,4 @@ function Supplies() {
     );
 }
 
-export default Supplies;
+export default InStocks;

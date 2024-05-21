@@ -34,10 +34,10 @@ function CreateClinics() {
             data.imagesClinicFile,
         );
         try {
-            toast.success('service created successfully');
+            toast.success('Clinics created successfully');
             navigate('/clinics');
         } catch (error) {
-            toast.error('Failed to create service');
+            toast.error('Failed to create Clinics');
         }
     };
 
@@ -57,7 +57,7 @@ function CreateClinics() {
                         <i className="fas fa-arrow-left" />
                     </Link>
                 </div>
-                <h1>Create service</h1>
+                <h1>Create Clinics</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
@@ -65,17 +65,17 @@ function CreateClinics() {
                     <div className="breadcrumb-item">
                         <Link to="#">Clinics</Link>
                     </div>
-                    <div className="breadcrumb-item">Create service</div>
+                    <div className="breadcrumb-item">Create Clinics</div>
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Create service</h2>
-                <p className="section-lead">On this page you can create a new service and fill in all fields.</p>
+                <h2 className="section-title">Create Clinics</h2>
+                <p className="section-lead">On this page you can create a new Clinics and fill in all fields.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Write Your service</h4>
+                                <h4>Write Your Clinics</h4>
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleCreate}>
@@ -191,7 +191,7 @@ function CreateClinics() {
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Create service
+                                                Create Clinics
                                             </button>
                                         </div>
                                     </div>
