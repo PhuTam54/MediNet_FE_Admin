@@ -173,7 +173,7 @@ export const publicRoutes = [
     { path: config.routes.product, component: Product, layout: AdminLayout },
     { path: config.routes.createProduct, component: CreateProduct, layout: AdminLayout },
     { path: config.routes.editProduct, component: EditProduct, layout: AdminLayout },
-    { path: config.routes.detailProduct, component: DetailProduct, layout: AdminLayout },
+    { path: config.routes.detailProduct, component: DetailProduct, layout: null },
 
     //      Category
     { path: config.routes.categoryParents, component: CategoryParents, layout: AdminLayout },

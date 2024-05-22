@@ -6,11 +6,13 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditCourses() {
     const [employees, setEmployees] = useState([]);
+    const defaultImage = '/anh-thuoc.jpg';
 
     const [data, setData] = useState({
         id: '',
         title: '',
         price: '',
+        img: '',
         description: '',
         duration: '',
         location: '',
@@ -20,6 +22,8 @@ function EditCourses() {
         medicineSalesTraining: true,
         medicalExaminationTraining: true,
         employeeId: '',
+        imageSrc: defaultImage,
+        imagesCourseFile: null,
     });
 
     const { id } = useParams();
@@ -42,6 +46,8 @@ function EditCourses() {
                     medicineSalesTraining: coursesData.medicineSalesTraining,
                     medicalExaminationTraining: coursesData.medicalExaminationTraining,
                     employeeId: coursesData.employeeId,
+                    imageSrc: coursesData.image || defaultImage,
+                    imagesCourseFile: null,
                 });
 
                 const employeeData = await fetch('https://localhost:7121/api/v1/Employees');
@@ -70,6 +76,7 @@ function EditCourses() {
                 data.medicineSalesTraining,
                 data.medicalExaminationTraining,
                 data.employeeId,
+                data.imageFile,
             );
             toast.success('Shop updated successfully');
             navigate('/Courses');
@@ -77,7 +84,26 @@ function EditCourses() {
             toast.error('Failed to update Shop');
         }
     };
-
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
+        }
+    };
     return (
         <section className="section">
             <div className="section-header">
@@ -241,6 +267,24 @@ function EditCourses() {
                                                     </option>
                                                 ))}
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ImageFile</label>
+                                            <div>
+                                                <img
+                                                    src={data.imageSrc}
+                                                    alt="Product"
+                                                    style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
+                                                />
+                                            </div>
+                                            <input
+                                                type="file"
+                                                className="form-control"
+                                                accept="image/*"
+                                                onChange={handleImageChange}
+                                            />
                                         </div>
                                     </div>
                                     <div className="row mb-4">

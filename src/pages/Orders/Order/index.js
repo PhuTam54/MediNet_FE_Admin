@@ -66,6 +66,7 @@ function Orders() {
     const getData = () => {
         getOrders()
             .then((data) => {
+                console.log(data);
                 setData(data);
                 setFilteredData(data);
                 setLoading(false);

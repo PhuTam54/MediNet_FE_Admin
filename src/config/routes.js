@@ -77,7 +77,8 @@ const routes = {
     product: '/product',
     createProduct: '/product/create',
     editProduct: '/product/edit/:id',
-    detailProduct: '/product/detail/:id',
+    // detailProduct: '/product/detail/:id',
+    detailProduct: '/product/detail',
 
     services: '/services',
     createServices: '/services/create',

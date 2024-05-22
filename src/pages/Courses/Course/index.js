@@ -129,6 +129,7 @@ function Courses() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
+                                                        <th>Img</th>
                                                         <th>Title</th>
                                                         <th>Price</th>
                                                         <th>Description</th>
@@ -144,6 +145,13 @@ function Courses() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
+                                                            <td>
+                                                                <img
+                                                                    src={item.imageSrc}
+                                                                    style={{ width: '100px', height: 'auto' }}
+                                                                    alt={item.image}
+                                                                />
+                                                            </td>
                                                             <td>{item.title}</td>
                                                             <td>{item.price}</td>
                                                             <td>{item.description}</td>

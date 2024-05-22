@@ -10,7 +10,7 @@ export const getProduct = async () => {
     }
 };
 
-export const detailProduct = async (id) => {
+export const getProductDetails = async (id) => {
     try {
         const response = await get(`/Products/id?id=${id}`);
         return response;

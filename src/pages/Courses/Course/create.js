@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 function CreateCourses() {
     const [employees, setEmployees] = useState([]);
+    const defaultImage = '/anh-thuoc.jpg';
 
     const [data, setData] = useState({
         title: '',
@@ -19,6 +20,8 @@ function CreateCourses() {
         medicineSalesTraining: true,
         medicalExaminationTraining: true,
         employeeId: '',
+        imageSrc: defaultImage,
+        imagesCourseFile: null,
     });
 
     const navigate = useNavigate();
@@ -52,6 +55,7 @@ function CreateCourses() {
                 data.medicineSalesTraining,
                 data.medicalExaminationTraining,
                 data.employeeId,
+                data.imageFile,
             );
             toast.success('Course created successfully');
             navigate('/Courses');
@@ -59,7 +63,26 @@ function CreateCourses() {
             toast.error('Failed to create course');
         }
     };
-
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
+        }
+    };
     return (
         <section className="section">
             <div className="section-header">
@@ -223,6 +246,24 @@ function CreateCourses() {
                                                     </option>
                                                 ))}
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">ImageFile</label>
+                                            <div>
+                                                <img
+                                                    src={data.imageSrc}
+                                                    alt="Product"
+                                                    style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
+                                                />
+                                            </div>
+                                            <input
+                                                type="file"
+                                                className="form-control"
+                                                accept="image/*"
+                                                onChange={handleImageChange}
+                                            />
                                         </div>
                                     </div>
                                     <div className="row mb-4">

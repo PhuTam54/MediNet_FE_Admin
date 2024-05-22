@@ -22,22 +22,24 @@ export const createCourses = async (
     medicineSalesTraining,
     medicalExaminationTraining,
     employeeId,
+    imagesCourseFile,
 ) => {
     try {
-        const newData = {
-            title,
-            price,
-            description,
-            duration,
-            location,
-            topics,
-            targetAudience,
-            skillCovered,
-            medicineSalesTraining,
-            medicalExaminationTraining,
-            employeeId,
-        };
-        await post('/Courses', newData);
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('description', description);
+        formData.append('duration', duration);
+        formData.append('location', location);
+        formData.append('topics', topics);
+        formData.append('targetAudience', targetAudience);
+        formData.append('skillCovered', skillCovered);
+        formData.append('medicineSalesTraining', medicineSalesTraining);
+        formData.append('medicalExaminationTraining', medicalExaminationTraining);
+        formData.append('employeeId', employeeId);
+        formData.append('imagesCourseFile', imagesCourseFile);
+
+        await post('/Courses', formData);
     } catch (error) {
         console.error('Failed to create Courses', error);
         throw error;
@@ -67,23 +69,24 @@ export const updateCourses = async (
     medicineSalesTraining,
     medicalExaminationTraining,
     employeeId,
+    imagesCourseFile,
 ) => {
     try {
-        const updatedData = {
-            id,
-            title,
-            price,
-            description,
-            duration,
-            location,
-            topics,
-            targetAudience,
-            skillCovered,
-            medicineSalesTraining,
-            medicalExaminationTraining,
-            employeeId,
-        };
-        await put(`/Courses/id?id=${id}`, updatedData);
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('title', title);
+        formData.append('price', price);
+        formData.append('description', description);
+        formData.append('duration', duration);
+        formData.append('location', location);
+        formData.append('topics', topics);
+        formData.append('targetAudience', targetAudience);
+        formData.append('skillCovered', skillCovered);
+        formData.append('medicineSalesTraining', medicineSalesTraining);
+        formData.append('medicalExaminationTraining', medicalExaminationTraining);
+        formData.append('employeeId', employeeId);
+        formData.append('imagesCourseFile', imagesCourseFile);
+        await put(`/Courses/id?id=${id}`, formData);
     } catch (error) {
         console.error('Failed to update Courses', error);
         throw error;
