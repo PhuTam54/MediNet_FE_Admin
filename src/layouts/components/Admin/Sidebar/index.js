@@ -186,23 +186,6 @@ function SidebarAdmin() {
                         <li className="menu-header">Manager</li>
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
-                                <i className="fas fa-tasks"></i> <span>Manager</span>
-                            </Link>
-                            <ul className="dropdown-menu">
-                                <li>
-                                    <Link className="nav-link" to="/calendar">
-                                        Calendar
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/error_404">
-                                        404
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <Link to="#" className="nav-link has-dropdown">
                                 <i className="far fa-user"></i> <span>User</span>
                             </Link>
                             <ul className="dropdown-menu">
@@ -219,6 +202,23 @@ function SidebarAdmin() {
                                 <li>
                                     <Link className="nav-link" to="/profile">
                                         Profile
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="dropdown">
+                            <Link to="#" className="nav-link has-dropdown">
+                                <i className="fas fa-tasks"></i> <span>Manager</span>
+                            </Link>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link className="nav-link" to="/calendar">
+                                        Calendar
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/error_404">
+                                        404
                                     </Link>
                                 </li>
                             </ul>

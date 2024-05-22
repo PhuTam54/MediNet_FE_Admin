@@ -1,13 +1,14 @@
-import avatar from '~/assets/img/avatar/avatar-1.png';
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateAdmins, editAdmins } from '~/services/Users/adminService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { updateAdmins } from '~/services/Users/adminService';
+import { useNavigate, useParams, Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+import avatar from '~/assets/img/avatar/avatar-1.png';
 
 function Profile() {
     const [data, setData] = useState({
-        editId: '',
+        id: '',
         username: '',
         email: '',
         password: '',
@@ -19,30 +20,39 @@ function Profile() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const adminData = await editAdmins(id);
-                setData({
-                    editId: adminData.id,
-                    email: adminData.email,
-                    username: adminData.username,
-                    password: adminData.password,
-                    role: adminData.role,
-                    status: adminData.status,
-                });
-            } catch (error) {
-                console.error('Error fetching Admin data:', error);
-            }
-        };
-
-        fetchData();
+        const userId = getUserIdFromToken();
+        if (userId) {
+            fetchUserData(userId);
+        }
     }, [id]);
+
+    const getUserIdFromToken = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.userId;
+            return userId;
+        }
+        return null;
+    };
+
+    const fetchUserData = (userId) => {
+        const token = localStorage.getItem('token');
+        fetch(`https://localhost:7121/api/v1/Admins/id?id=${userId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => setData(data))
+            .catch((error) => console.error(error));
+    };
 
     const handleUpdate = async (event) => {
         event.preventDefault();
 
         try {
-            await updateAdmins(data.editId, data.email, data.username, data.password, data.role, data.status);
+            await updateAdmins(data.id, data.email, data.username, data.password);
             toast.success('Admin updated successfully');
             navigate('/Admins');
         } catch (error) {
@@ -87,17 +97,15 @@ function Profile() {
                             </div>
                             <div className="profile-widget-description">
                                 <div className="profile-widget-name">
-                                    Ujang Maman{' '}
-                                    <div className="text-muted d-inline font-weight-normal">
-                                        <div className="slash" /> Web Developer
-                                    </div>
+                                    {data.username}
+                                    <div className="text-muted d-inline font-weight-normal"> Web Developer</div>
                                 </div>
-                                Ujang maman is a superhero name in <b>Indonesia</b>
+                                {data.username} is a superhero name in <b>Indonesia</b>
                             </div>
                             <div className="card-footer text-center">
-                                <div className="font-weight-bold mb-2">Follow Ujang On</div>
+                                <div className="font-weight-bold mb-2">Follow {data.username} On</div>
                                 <a href="#" className="btn btn-social-icon btn-facebook mr-1">
-                                    <i className="fab fa-facebook-f" />
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
                                 <a href="#" className="btn btn-social-icon btn-twitter mr-1">
                                     <i className="fab fa-twitter" />
@@ -154,36 +162,7 @@ function Profile() {
                                             />
                                             <div className="invalid-feedback">Please fill in the Role</div>
                                         </div>
-                                        <div className="form-group col-md-6 col-12">
-                                            <label>Status</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                required
-                                                value={data.status}
-                                                onChange={(e) => setData({ ...data, status: e.target.value })}
-                                            />
-                                            <div className="invalid-feedback">Please fill in the Status</div>
-                                        </div>
                                     </div>
-                                    {/* <div className="row">
-                                        <div className="form-group mb-0 col-12">
-                                            <div className="custom-control custom-checkbox">
-                                                <input
-                                                    type="checkbox"
-                                                    name="remember"
-                                                    className="custom-control-input"
-                                                    id="newsletter"
-                                                />
-                                                <label className="custom-control-label" htmlFor="newsletter">
-                                                    Subscribe to newsletter
-                                                </label>
-                                                <div className="text-muted form-text">
-                                                    You will get new information about products, offers and promotions
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> */}
                                 </div>
                                 <div className="card-footer text-right">
                                     <button type="submit" className="btn btn-primary">

@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, Route,Link } from 'react-router-dom';
+import { useNavigate, useLocation, Route, Link } from 'react-router-dom';
 import images from '~/assets/img/';
 import { NavDropdown, Nav } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -7,15 +7,12 @@ import React, { useState, useEffect } from 'react';
 function HeaderAdmin() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [id, setId] = useState('');
 
     useEffect(() => {
         const storedEmail = localStorage.getItem('email');
-        const storedId = localStorage.getItem('id');
 
         if (storedEmail) {
             setEmail(storedEmail);
-            setId(storedId);
         } else {
             navigate('/login');
         }
@@ -23,7 +20,7 @@ function HeaderAdmin() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('email');
-        localStorage.removeItem('id');
+        localStorage.removeItem('userId');
 
         navigate('/login');
         toast.success('Logout Success');
@@ -150,8 +147,8 @@ function HeaderAdmin() {
                         <div className="dropdown-menu dropdown-menu-right">
                             <div className="dropdown-title">Logged in 5 min ago</div>
 
-                            <Link to={`/user/edit/${id}`} className="dropdown-item has-icon">
-                                <i className="far fa-user" /> Edit Users
+                            <Link to={`/profile`} className="dropdown-item has-icon">
+                                <i className="far fa-user" /> Profile
                             </Link>
 
                             <div className="dropdown-divider" />

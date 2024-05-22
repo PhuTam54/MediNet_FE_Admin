@@ -4,6 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import images from '~/assets/img/';
 import { httpRequest } from '~/utils/httpRequest';
+import { jwtDecode } from 'jwt-decode';
+import { postLogin } from '~/services/Account/accountService';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -15,6 +17,7 @@ function Login() {
     });
     const handleLogin = async (event) => {
         event.preventDefault();
+
         if (validate()) {
             try {
                 const response = await httpRequest.post('https://localhost:7121/api/v1/LoginRegister/Login', {
@@ -22,8 +25,14 @@ function Login() {
                     password: password,
                 });
                 if (response && response.data && response.data.token) {
-                    localStorage.setItem('token', response.data.token);
+                    const token = response.data.token;
+                    const decodedToken = jwtDecode(token);
+                    const userId = decodedToken.userId;
+
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('userId', userId);
                     localStorage.setItem('email', email);
+
                     toast.success('Login successful!');
                     navigate('/');
                     window.location.reload();
