@@ -77,6 +77,8 @@ import CreateProduct from '~/pages/Products/Product/create';
 import EditProduct from '~/pages/Products/Product/edit';
 import DetailProduct from '~/pages/Products/Product/detail';
 
+import FavoriteProducts from '~/pages/Products/FavoriteProducts/index';
+
 //      Categories
 import CategoryParents from '~/pages/Categories/CategoryParents/index';
 
@@ -175,6 +177,7 @@ export const publicRoutes = [
     { path: config.routes.editProduct, component: EditProduct, layout: AdminLayout },
     { path: config.routes.detailProduct, component: DetailProduct, layout: null },
 
+    { path: config.routes.favoriteProducts, component: FavoriteProducts, layout: AdminLayout },
     //      Category
     { path: config.routes.categoryParents, component: CategoryParents, layout: AdminLayout },
 

@@ -20,16 +20,7 @@ export const getProductDetails = async (id) => {
     }
 };
 
-export const createProduct = async (
-    categoryChildId,
-    name,
-    description,
-    price,
-    manufacturer,
-    manufacturerDate,
-    expiryDate,
-    imageFile,
-) => {
+export const createProduct = async (categoryChildId, name, description, price, manufacturer, imageFile) => {
     try {
         const formData = new FormData();
         formData.append('categoryChildId', categoryChildId);
@@ -37,8 +28,6 @@ export const createProduct = async (
         formData.append('description', description);
         formData.append('price', price);
         formData.append('manufacturer', manufacturer);
-        formData.append('manufacturerDate', manufacturerDate);
-        formData.append('expiryDate', expiryDate);
         formData.append('imageFile', imageFile);
 
         await post('/Products', formData);
@@ -58,17 +47,7 @@ export const editProduct = async (id) => {
     }
 };
 
-export const updateProduct = async (
-    id,
-    categoryChildId,
-    name,
-    description,
-    price,
-    manufacturer,
-    manufacturerDate,
-    expiryDate,
-    imageFile,
-) => {
+export const updateProduct = async (id, categoryChildId, name, description, price, manufacturer, imageFile) => {
     try {
         const formData = new FormData();
         formData.append('id', id);
@@ -77,8 +56,6 @@ export const updateProduct = async (
         formData.append('description', description);
         formData.append('price', price);
         formData.append('manufacturer', manufacturer);
-        formData.append('manufacturerDate', manufacturerDate);
-        formData.append('expiryDate', expiryDate);
         formData.append('imageFile', imageFile);
 
         await put(`/Products/id?id=${id}`, formData);

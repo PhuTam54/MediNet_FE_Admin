@@ -69,16 +69,19 @@ const routes = {
     createCategoryChilds: '/CategoryChilds/create',
     editCategoryChilds: '/CategoryChilds/edit/:id',
 
-    //      Orders
-    orders: '/orders',
-    orderDetail: '/orders/detail/:id',
-    invoice: '/orders/invoice/:id',
-
+    //      products
     product: '/product',
     createProduct: '/product/create',
     editProduct: '/product/edit/:id',
     // detailProduct: '/product/detail/:id',
     detailProduct: '/product/detail',
+
+    favoriteProducts: '/favorite',
+
+    //      Orders
+    orders: '/orders',
+    orderDetail: '/orders/detail/:id',
+    invoice: '/orders/invoice/:id',
 
     services: '/services',
     createServices: '/services/create',

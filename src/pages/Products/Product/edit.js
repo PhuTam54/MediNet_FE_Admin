@@ -16,8 +16,6 @@ function EditProduct() {
         description: '',
         price: '',
         manufacturer: '',
-        manufacturerDate: '',
-        expiryDate: '',
         imageSrc: defaultImage,
         imageFile: null,
     });
@@ -36,8 +34,6 @@ function EditProduct() {
                     description: productData.description,
                     price: productData.price,
                     manufacturer: productData.manufacturer,
-                    manufacturerDate: productData.manufacturerDate,
-                    expiryDate: productData.expiryDate,
                     imageSrc: productData.image || defaultImage,
                     imageFile: null,
                 });
@@ -55,9 +51,6 @@ function EditProduct() {
     const handleUpdate = async (event) => {
         event.preventDefault();
 
-        const manufacturerDate = new Date(data.manufacturerDate).toISOString();
-        const expiryDate = new Date(data.expiryDate).toISOString();
-
         try {
             await updateProduct(
                 data.id,
@@ -66,8 +59,6 @@ function EditProduct() {
                 data.description,
                 data.price,
                 data.manufacturer,
-                manufacturerDate,
-                expiryDate,
                 data.imageFile,
             );
             toast.success('Product updated successfully');
@@ -130,16 +121,6 @@ function EditProduct() {
                                 <form onSubmit={handleUpdate}>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Id</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                disabled
-                                                value={data.id}
-                                                onChange={(e) => setData({ ...data, id: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Name</label>
                                             <input
                                                 type="text"
@@ -147,6 +128,21 @@ function EditProduct() {
                                                 value={data.name}
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">CategoryChildId</label>
+                                            <select
+                                                className="form-control selectric"
+                                                value={data.categoryChildId}
+                                                onChange={(e) => setData({ ...data, categoryChildId: e.target.value })}
+                                            >
+                                                <option>Select CategoryChildId</option>
+                                                {categoryChilds.map((categoryChild) => (
+                                                    <option key={categoryChild.id} value={categoryChild.id}>
+                                                        {categoryChild.name}
+                                                    </option>
+                                                ))}
+                                            </select>
                                         </div>
                                     </div>
 
@@ -180,45 +176,10 @@ function EditProduct() {
                                                 onChange={(e) => setData({ ...data, manufacturer: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Category</label>
-                                            <select
-                                                className="form-control selectric"
-                                                value={data.categoryChildId}
-                                                onChange={(e) => setData({ ...data, categoryChildId: e.target.value })}
-                                            >
-                                                <option>Select Category</option>
-                                                {categoryChilds.map((categoryChild) => (
-                                                    <option key={categoryChild.id} value={categoryChild.id}>
-                                                        {categoryChild.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Manufacturer Date</label>
-                                            <input
-                                                type="datetime-local"
-                                                className="form-control"
-                                                value={data.manufacturerDate}
-                                                onChange={(e) => setData({ ...data, manufacturerDate: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Expiry Date</label>
-                                            <input
-                                                type="datetime-local"
-                                                className="form-control"
-                                                value={data.expiryDate}
-                                                onChange={(e) => setData({ ...data, expiryDate: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Image File</label>
+                                            <label className="col-form-label text-md-right">ImageFile</label>
                                             <div>
                                                 <img
                                                     src={data.imageSrc}
@@ -237,7 +198,7 @@ function EditProduct() {
                                     <div className="row mb-4">
                                         <div className="col-md-6 offset-md-3">
                                             <button className="btn btn-primary btn-block" type="submit">
-                                                Update Product
+                                                Create Customers
                                             </button>
                                         </div>
                                     </div>

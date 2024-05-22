@@ -15,8 +15,6 @@ function CreateProduct() {
         description: '',
         price: '',
         manufacturer: '',
-        manufacturerDate: '',
-        expiryDate: '',
         imageSrc: defaultImage,
         imageFile: null,
     });
@@ -39,8 +37,6 @@ function CreateProduct() {
 
     const handleCreate = async (event) => {
         event.preventDefault();
-        const manufacturerDate = new Date(data.manufacturerDate).toISOString();
-        const expiryDate = new Date(data.expiryDate).toISOString();
 
         await createProduct(
             data.categoryChildId,
@@ -48,8 +44,6 @@ function CreateProduct() {
             data.description,
             data.price,
             data.manufacturer,
-            manufacturerDate,
-            expiryDate,
             data.imageFile,
         );
         try {
@@ -166,26 +160,6 @@ function CreateProduct() {
                                                 className="form-control"
                                                 value={data.manufacturer}
                                                 onChange={(e) => setData({ ...data, manufacturer: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">ManufacturerDate</label>
-                                            <input
-                                                type="datetime-local"
-                                                className="form-control"
-                                                value={data.manufacturerDate}
-                                                onChange={(e) => setData({ ...data, manufacturerDate: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">ExpiryDate</label>
-                                            <input
-                                                type="datetime-local"
-                                                className="form-control"
-                                                value={data.expiryDate}
-                                                onChange={(e) => setData({ ...data, expiryDate: e.target.value })}
                                             />
                                         </div>
                                     </div>
