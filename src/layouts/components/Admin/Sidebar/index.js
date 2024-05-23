@@ -130,13 +130,12 @@ function SidebarAdmin() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className="nav-link" to="Favorite">
+                                    <Link className="nav-link" to="/Favorite">
                                         Favorite
                                     </Link>
                                 </li>
                             </ul>
                         </li>
-
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
                                 <i class="fas fa-clinic-medical"></i> <span>Clinics</span>
@@ -164,7 +163,6 @@ function SidebarAdmin() {
                                 </li>
                             </ul>
                         </li>
-
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
                                 <i className="fas fa-cart-plus"></i> <span>Orders</span>
