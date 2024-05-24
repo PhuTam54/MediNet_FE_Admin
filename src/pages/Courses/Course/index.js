@@ -146,7 +146,7 @@ function Courses() {
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>
                                                                 <img
-                                                                    src={`https://localhost:7121/${item.imagesCourse}`}
+                                                                    src={`https://medinetprj.azurewebsites.net/${item.imagesCourse}`}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />

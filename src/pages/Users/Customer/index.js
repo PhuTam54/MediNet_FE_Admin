@@ -146,7 +146,7 @@ function Customers() {
                                                             <td>
                                                                 <img
                                                                     src={item.imageSrc}
-                                                                    // src={`https://localhost:7121/${item.image}`}
+                                                                    // src={`https://medinetprj.azurewebsites.net/${item.image}`}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />

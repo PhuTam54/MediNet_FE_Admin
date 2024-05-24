@@ -109,7 +109,7 @@ function FeedbackDetail() {
                                                     <td>{index + 1}</td>
                                                     <td>
                                                         <img
-                                                            src={`https://localhost:7121/${product.image}`}
+                                                            src={`https://medinetprj.azurewebsites.net/${product.image}`}
                                                             style={{ width: '100px', height: 'auto' }}
                                                             alt={product.name}
                                                         />

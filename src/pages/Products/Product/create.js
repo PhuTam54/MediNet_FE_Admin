@@ -24,7 +24,7 @@ function CreateProduct() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const categoryChildData = await fetch('https://localhost:7121/api/v1/CategoryChilds');
+                const categoryChildData = await fetch('https://medinetprj.azurewebsites.net/api/v1/CategoryChilds');
                 const categoryChildJson = await categoryChildData.json();
                 setCategoryChild(categoryChildJson);
             } catch (error) {
@@ -184,7 +184,7 @@ function CreateProduct() {
                                     <div className="row mb-4">
                                         <div className="col-md-6 offset-md-3">
                                             <button className="btn btn-primary btn-block" type="submit">
-                                                Create Customers
+                                                Create Product
                                             </button>
                                         </div>
                                     </div>

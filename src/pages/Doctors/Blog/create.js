@@ -22,11 +22,11 @@ function CreateBlogs() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const employeeData = await fetch('https://localhost:7121/api/v1/Employees');
+                const employeeData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Employees');
                 const employeeJson = await employeeData.json();
                 setEmployees(employeeJson);
 
-                const diseaseData = await fetch('https://localhost:7121/api/v1/Diseases');
+                const diseaseData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Diseases');
                 const diseaseJson = await diseaseData.json();
                 setDiseases(diseaseJson);
             } catch (error) {

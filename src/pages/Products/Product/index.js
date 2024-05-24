@@ -172,7 +172,7 @@ function Product() {
                                                             <td>{item.name}</td>
                                                             <td>{item.categoryChild.name}</td>
                                                             {/* <td>{item.description}</td> */}
-                                                            <td>{item.price}</td>
+                                                            <td>{item.price}$</td>
                                                             {/* <td>
                                                                 {item.supplies.length > 0
                                                                     ? item.supplies[0].stockQuantity

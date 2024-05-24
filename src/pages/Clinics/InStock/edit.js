@@ -28,11 +28,11 @@ function EditInStocks() {
                     productId: InStocksData.productId,
                     stockQuantity: InStocksData.stockQuantity,
                 });
-                const clinicsData = await fetch('https://localhost:7121/api/v1/Clinics');
+                const clinicsData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Clinics');
                 const clinicsJson = await clinicsData.json();
                 setClinics(clinicsJson);
 
-                const productsData = await fetch('https://localhost:7121/api/v1/Products');
+                const productsData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Products');
                 const productsJson = await productsData.json();
                 setProducts(productsJson);
             } catch (error) {

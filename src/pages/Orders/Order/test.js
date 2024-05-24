@@ -143,8 +143,9 @@ function OrderDetails() {
                                             setData({ ...data, status: e.target.value });
                                         }}
                                     >
-                                        if (data.status === 0 ) {
-                                              <>
+                                        if (data.status === 0 ){' '}
+                                        {
+                                            <>
                                                 <option value={1}>Confirmed</option>
                                                 <option value={5}>Cancel</option>
                                             </>
@@ -211,7 +212,7 @@ function OrderDetails() {
                                                     <td>{index + 1}</td>
                                                     <td>
                                                         <img
-                                                            src={`https://localhost:7121/${item.product.image}`}
+                                                            src={`https://medinetprj.azurewebsites.net/${item.product.image}`}
                                                             style={{ width: '100px', height: 'auto' }}
                                                             alt={item.image}
                                                         />

@@ -11,7 +11,7 @@ const PieChart = () => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await fetch('https://localhost:7121/api/v1/Orders');
+                const response = await fetch('https://medinetprj.azurewebsites.net/api/v1/Orders');
                 if (!response.ok) {
                     throw new Error('Failed to fetch chart data');
                 }

@@ -26,7 +26,7 @@ function EditCategory() {
                     categoryParentId: categoriesData.categoryParentId,
                 });
 
-                const categoryParentIdData = await fetch('https://localhost:7121/api/v1/categoryParents');
+                const categoryParentIdData = await fetch('https://medinetprj.azurewebsites.net/api/v1/categoryParents');
                 const categoryParentIdJson = await categoryParentIdData.json();
                 setCategories(categoryParentIdJson);
             } catch (error) {

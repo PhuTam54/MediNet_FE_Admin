@@ -20,10 +20,13 @@ function Login() {
 
         if (validate()) {
             try {
-                const response = await httpRequest.post('https://localhost:7121/api/v1/LoginRegister/Login', {
-                    email: email,
-                    password: password,
-                });
+                const response = await httpRequest.post(
+                    'https://medinetprj.azurewebsites.net/api/v1/LoginRegister/Login',
+                    {
+                        email: email,
+                        password: password,
+                    },
+                );
                 if (response && response.data && response.data.token) {
                     const token = response.data.token;
                     const decodedToken = jwtDecode(token);

@@ -47,11 +47,11 @@ function EditDoctors() {
                     imageFile: doctorsData.imageFile,
                 });
 
-                const specialistData = await fetch('https://localhost:7121/api/v1/Specialists');
+                const specialistData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Specialists');
                 const specialistJson = await specialistData.json();
                 setSpecialists(specialistJson);
 
-                const clinicData = await fetch('https://localhost:7121/api/v1/Clinics');
+                const clinicData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Clinics');
                 const clinicJson = await clinicData.json();
                 setClinics(clinicJson);
             } catch (error) {

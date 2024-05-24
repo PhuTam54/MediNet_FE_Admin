@@ -38,7 +38,7 @@ function Profile() {
 
     const fetchUserData = (userId) => {
         const token = localStorage.getItem('token');
-        fetch(`https://localhost:7121/api/v1/Admins/id?id=${userId}`, {
+        fetch(`https://medinetprj.azurewebsites.net/api/v1/Admins/id?id=${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

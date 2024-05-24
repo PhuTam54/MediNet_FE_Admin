@@ -11,8 +11,6 @@ export const postLogin = async (email, password) => {
     }
 };
 
-
-
 export const postRegister = async (userName, email, password, confirmPassword) => {
     try {
         const newData = { userName, email, password, confirmPassword };
@@ -37,7 +35,7 @@ export const postResetPwd = async (userId, pwd, confirmpwd) => {
     try {
         const postData = { userId, pwd, confirmpwd };
         await post(
-            `https://localhost:7121/api/v1/LoginRegister/ResetPwd?userId=${userId}&pwd=${pwd}&confirmpwd=${confirmpwd}`,
+            `https://medinetprj.azurewebsites.net/api/v1/LoginRegister/ResetPwd?userId=${userId}&pwd=${pwd}&confirmpwd=${confirmpwd}`,
             postData,
         );
     } catch (error) {

@@ -29,7 +29,7 @@ function EditServices() {
                     price: serviceData.price,
                     employeeId: serviceData.employeeId,
                 });
-                const employeeData = await fetch('https://localhost:7121/api/v1/Employees');
+                const employeeData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Employees');
                 const employeeJson = await employeeData.json();
                 setEmployees(employeeJson);
             } catch (error) {
