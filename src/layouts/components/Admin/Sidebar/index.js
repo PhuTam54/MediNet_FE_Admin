@@ -219,7 +219,7 @@ function SidebarAdmin() {
                                 </li>
                             </ul>
                         </li>
-                        <li className="dropdown">
+                        {/* <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
                                 <i className="fas fa-tasks"></i> <span>Manager</span>
                             </Link>
@@ -235,7 +235,7 @@ function SidebarAdmin() {
                                     </Link>
                                 </li>
                             </ul>
-                        </li>
+                        </li> */}
                     </ul>
                 </aside>
             </div>

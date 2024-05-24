@@ -135,8 +135,8 @@ function Employees() {
                                                         <th>PhoneNumber</th>
                                                         {/* <th>Date Of Birth</th>
                                                         <th>Address</th> */}
-                                                        <th>SpecialistId</th>
-                                                        <th>ClinicId</th>
+                                                        <th>Specialists</th>
+                                                        <th>Clinics</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>

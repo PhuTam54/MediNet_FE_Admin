@@ -130,7 +130,7 @@ function Category() {
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>Name</th>
-                                                        <th>Category Id</th>
+                                                        <th>CategoryParent</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>

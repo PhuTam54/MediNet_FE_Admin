@@ -145,7 +145,7 @@ function HeaderAdmin() {
                             <div className="d-sm-none d-lg-inline-block">Hi, {email}</div>
                         </a>
                         <div className="dropdown-menu dropdown-menu-right">
-                            <div className="dropdown-title">Logged in 5 min ago</div>
+                            <div className="dropdown-title">Logged</div>
 
                             <Link to={`/profile`} className="dropdown-item has-icon">
                                 <i className="far fa-user" /> Profile

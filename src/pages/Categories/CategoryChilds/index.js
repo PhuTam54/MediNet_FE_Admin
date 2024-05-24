@@ -130,7 +130,7 @@ function CategoryChilds() {
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>Name</th>
-                                                        <th>Category Id</th>
+                                                        <th>Category</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>

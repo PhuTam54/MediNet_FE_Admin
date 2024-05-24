@@ -59,7 +59,7 @@ const Product = () => {
                                             <th>Id</th>
                                             <th>Img</th>
                                             <th>Name</th>
-                                            <th>CategoryChildId</th>
+                                            <th>CategoryChild</th>
                                             {/* <th>Description</th> */}
                                             <th>Price</th>
                                             <th>Quantity</th>

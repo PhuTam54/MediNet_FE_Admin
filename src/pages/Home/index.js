@@ -114,11 +114,22 @@ function HomeAdmin() {
                         <div className="card-icon shadow-primary bg-primary">
                             <i className="fas fa-archive" />
                         </div>
-                        <div className="card-wrap">
-                            <div className="card-header">
-                                <h4>Total Orders</h4>
+                        <div className="row">
+                            <div className="card-wrap">
+                                <div className="card-header">
+                                    <h4>Total Orders</h4>
+                                </div>
+                                <div className="card-body">{orders.length}</div>
                             </div>
-                            <div className="card-body">{orders.length}</div>
+                            <div className="card-wrap">
+                                <div
+                                    className="card-header card-stats-items card-stats-item-count"
+                                    style={{ fontWeight: 700, fontSize: 20 }}
+                                >
+                                    {orders.filter((order) => order.status === 5).length}
+                                </div>
+                                <div className="card-stats-item-label">Canceled</div>
+                            </div>
                         </div>
                     </div>
                 </div>

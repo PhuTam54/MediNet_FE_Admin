@@ -131,8 +131,8 @@ function InStocks() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Clinics Id</th>
-                                                        <th>Product Id</th>
+                                                        <th>Clinics</th>
+                                                        <th>Product</th>
                                                         <th>Stock Quantity</th>
                                                         <th>Actions</th>
                                                     </tr>

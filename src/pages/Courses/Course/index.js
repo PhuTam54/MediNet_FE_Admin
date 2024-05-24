@@ -131,12 +131,11 @@ function Courses() {
                                                         <th>Id</th>
                                                         <th>Img</th>
                                                         <th>Title</th>
-                                                        <th>Price</th>
-                                                        <th>Description</th>
+                                                        {/* <th>Price</th> */}
                                                         <th>Duration</th>
                                                         <th>Location</th>
                                                         <th>Topics</th>
-                                                        <th>Target Audience</th>
+                                                        <th>TargetAudience</th>
                                                         <th>Employees</th>
                                                         <th>Actions</th>
                                                     </tr>
@@ -153,8 +152,6 @@ function Courses() {
                                                                 />
                                                             </td>
                                                             <td>{item.title}</td>
-                                                            <td>{item.price}</td>
-                                                            <td>{item.description}</td>
                                                             <td>{item.duration}</td>
                                                             <td>{item.location}</td>
                                                             <td>{item.topics}</td>

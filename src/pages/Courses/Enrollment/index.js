@@ -18,7 +18,7 @@ function Enrollments() {
     const [searchedData, setSearchedData] = useState([]);
     useEffect(() => {
         const filteredData = data.filter((item) =>
-            item.employeeId.toString().toLowerCase().includes(search.toLowerCase()),
+            item.course.title.toString().toLowerCase().includes(search.toLowerCase()),
         );
         setSearchedData(filteredData);
     }, [search, data]);
@@ -131,8 +131,8 @@ function Enrollments() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>CourseId</th>
-                                                        <th>EmployeeId</th>
+                                                        <th>Course</th>
+                                                        <th>Employees</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>

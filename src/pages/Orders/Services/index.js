@@ -132,7 +132,7 @@ function Services() {
                                                         <th>Name</th>
                                                         <th>Description</th>
                                                         <th>Price</th>
-                                                        <th>Employee Id</th>
+                                                        <th>Employees</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
