@@ -63,7 +63,7 @@ function EditEmployees() {
                 const clinicJson = await clinicData.json();
                 setClinics(clinicJson);
             } catch (error) {
-                console.error('Error fetching Shop data:', error);
+                console.error('Error fetching Employees data:', error);
             }
         };
         fetchData();
@@ -89,10 +89,10 @@ function EditEmployees() {
                 data.clinicId,
                 data.imageFile,
             );
-            toast.success('Shop updated successfully');
+            toast.success('Employees updated successfully');
             navigate('/Employees');
         } catch (error) {
-            toast.error('Failed to update Shop');
+            toast.error('Failed to update Employees');
         }
     };
 
@@ -210,12 +210,19 @@ function EditEmployees() {
                                     <div className="row mb-4">
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Role</label>
-                                            <input
-                                                type="text"
+                                            <select
                                                 className="form-control"
+                                                id="role"
                                                 value={data.role}
-                                                onChange={(e) => setData({ ...data, role: e.target.value })}
-                                            />
+                                                onChange={(e) => {
+                                                    console.log(e.target.value);
+                                                    setData({ ...data, role: e.target.value });
+                                                }}
+                                            >
+                                                <option value="">Select</option>
+                                                <option value={3}>Doctor</option>
+                                                <option value={4}>Employees</option>
+                                            </select>
                                         </div>
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Status</label>

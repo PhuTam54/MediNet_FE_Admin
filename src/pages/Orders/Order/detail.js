@@ -33,7 +33,7 @@ function OrderDetails() {
                 const orderData = await editOrders(id);
                 setData(orderData);
                 setProducts(orderData.orderProducts);
-                setTempStatus(orderData.status); // Initialize tempStatus
+                setTempStatus(orderData.status);
             } catch (error) {
                 console.error('Error fetching Shop data:', error);
             }
@@ -150,7 +150,7 @@ function OrderDetails() {
                                         id="status"
                                         value={tempStatus}
                                         onChange={(e) => setTempStatus(parseInt(e.target.value))}
-                                        // disabled={data.status !== tempStatus || data.status === 4 || data.status === 5}
+                                        disabled={data.status !== tempStatus || data.status === 4 || data.status === 5}
                                     >
                                         {getSelectableOptions().map((option) => (
                                             <option key={option.value} value={option.value}>

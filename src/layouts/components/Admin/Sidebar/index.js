@@ -72,7 +72,7 @@ function SidebarAdmin() {
                             </ul>
                         </li>
 
-                        <li className="dropdown">
+                        {/* <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
                                 <i class="fas fa-user-md"></i>
                                 <span>Doctors</span>
@@ -94,7 +94,7 @@ function SidebarAdmin() {
                                     </Link>
                                 </li>
                             </ul>
-                        </li>
+                        </li> */}
 
                         <li className="dropdown">
                             <Link to="#" className="nav-link has-dropdown">
@@ -102,18 +102,28 @@ function SidebarAdmin() {
                             </Link>
                             <ul className="dropdown-menu">
                                 <li>
+                                    <Link className="nav-link" to="/Blogs">
+                                        Blogs
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link className="nav-link" to="/Courses">
                                         Courses
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className="nav-link" to="/Employees">
-                                        Employees
+                                    <Link className="nav-link" to="/Enrollments">
+                                        Enrollments
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className="nav-link" to="/Enrollments">
-                                        Enrollments
+                                    <Link className="nav-link" to="/Diseases">
+                                        Diseases
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/Specialists">
+                                        Specialists
                                     </Link>
                                 </li>
                             </ul>
@@ -190,6 +200,11 @@ function SidebarAdmin() {
                                 <li>
                                     <Link className="nav-link" to="/customers">
                                         Customers
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="nav-link" to="/Employees">
+                                        Employees
                                     </Link>
                                 </li>
                                 <li>

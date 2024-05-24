@@ -183,7 +183,7 @@ function Product() {
                                                             <td>{item.expiryDate}</td> */}
                                                             <td colSpan={2}>
                                                                 <Link
-                                                                    to={`/product/detail`}
+                                                                    to={`/product/detail/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Details"
                                                                 >

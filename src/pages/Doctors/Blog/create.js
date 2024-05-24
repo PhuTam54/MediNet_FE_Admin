@@ -12,6 +12,7 @@ function CreateBlogs() {
     const [data, setData] = useState({
         title: '',
         content: '',
+        status: '',
         employeeId: '',
         diseaseId: '',
     });
@@ -39,7 +40,7 @@ function CreateBlogs() {
     const handleCreate = async (event) => {
         event.preventDefault();
         try {
-            await createBlogs(data.title, data.content, data.employeeId, data.diseaseId);
+            await createBlogs(data.title, data.content, data.status, data.employeeId, data.diseaseId);
             toast.success('Blogs created successfully');
             navigate('/Blogs');
         } catch (error) {
@@ -100,6 +101,19 @@ function CreateBlogs() {
                                                 className="form-control"
                                                 value={data.content}
                                                 onChange={(e) => setData({ ...data, content: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Status
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={data.status}
+                                                onChange={(e) => setData({ ...data, status: e.target.value })}
                                             />
                                         </div>
                                     </div>

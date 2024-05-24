@@ -10,9 +10,9 @@ export const getBlogs = async () => {
     }
 };
 
-export const createBlogs = async (title, content, employeeId, diseaseId) => {
+export const createBlogs = async (title, content, status, employeeId, diseaseId) => {
     try {
-        const newData = { title, content, employeeId, diseaseId };
+        const newData = { title, content, status, employeeId, diseaseId };
         await post('/Blogs', newData);
     } catch (error) {
         console.error('Failed to create Blogs', error);
