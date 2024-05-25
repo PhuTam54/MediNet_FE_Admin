@@ -84,7 +84,7 @@ function CreateCategoryChilds() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Category Id
+                                            Category
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select

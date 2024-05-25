@@ -54,7 +54,7 @@ function EditCourses() {
                 const employeeJson = await employeeData.json();
                 setEmployees(employeeJson);
             } catch (error) {
-                console.error('Error fetching Shop data:', error);
+                console.error('Error fetching Course data:', error);
             }
         };
         fetchData();
@@ -78,10 +78,10 @@ function EditCourses() {
                 data.employeeId,
                 data.imageFile,
             );
-            toast.success('Shop updated successfully');
+            toast.success('Course updated successfully');
             navigate('/Courses');
         } catch (error) {
-            toast.error('Failed to update Shop');
+            toast.error('Failed to update Course');
         }
     };
     const handleImageChange = (e) => {
@@ -254,18 +254,20 @@ function EditCourses() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Employee Id</label>
+                                            <label className="col-form-label text-md-right">Employees</label>
                                             <select
                                                 className="form-control selectric"
                                                 value={data.employeeId}
                                                 onChange={(e) => setData({ ...data, employeeId: e.target.value })}
                                             >
-                                                <option>Select employee</option>
-                                                {employees.map((employee) => (
-                                                    <option key={employee.id} value={employee.id}>
-                                                        {employee.username}
-                                                    </option>
-                                                ))}
+                                                <option>Select employees</option>
+                                                {employees
+                                                    .filter((category) => category.role === 4)
+                                                    .map((employee) => (
+                                                        <option key={employee.id} value={employee.id}>
+                                                            {employee.username}
+                                                        </option>
+                                                    ))}
                                             </select>
                                         </div>
                                     </div>

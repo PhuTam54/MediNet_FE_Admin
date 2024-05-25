@@ -233,14 +233,16 @@ function CreateCourses() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Employee Id</label>
+                                            <label className="col-form-label text-md-right">Employees</label>
                                             <select
                                                 className="form-control selectric"
                                                 value={data.employeeId}
                                                 onChange={(e) => setData({ ...data, employeeId: e.target.value })}
                                             >
-                                                <option>Select employee</option>
-                                                {employees.map((employee) => (
+                                                <option>Select Employee</option>
+                                                {employees
+                                                    .filter((category) => category.role === 4)
+                                                    .map((employee) => (
                                                     <option key={employee.id} value={employee.id}>
                                                         {employee.username}
                                                     </option>

@@ -17,7 +17,7 @@ function FavoriteProducts() {
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
     useEffect(() => {
-        const filteredData = data.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+        const filteredData = data.filter((item) => item.product.name.toLowerCase().includes(search.toLowerCase()));
         setSearchedData(filteredData);
     }, [search, data]);
 
@@ -138,7 +138,7 @@ function FavoriteProducts() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.customer.name}</td>
+                                                            <td>{item.customer.username}</td>
                                                             <td>{item.product.name}</td>
                                                             <td colSpan={2}>
                                                                 <Link

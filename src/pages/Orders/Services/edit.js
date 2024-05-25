@@ -44,7 +44,7 @@ function EditServices() {
         event.preventDefault();
 
         try {
-            await updateServices(data.id, data.name, data.description, data.price, data.doctorId);
+            await updateServices(data.id, data.name, data.description, data.price, data.employeeId);
             toast.success('Services updated successfully');
             navigate('/Services');
         } catch (error) {
@@ -137,7 +137,7 @@ function EditServices() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Employee Id
+                                            Employees
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select

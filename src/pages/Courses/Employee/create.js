@@ -285,7 +285,7 @@ function CreateEmployees() {
                                     <div className="row mb-4">
                                         <div className="col-md-6 offset-md-3">
                                             <button className="btn btn-primary btn-block" type="submit">
-                                                Create Customers
+                                                Create Employees
                                             </button>
                                         </div>
                                     </div>

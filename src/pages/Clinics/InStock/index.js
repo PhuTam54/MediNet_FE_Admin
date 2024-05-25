@@ -92,9 +92,9 @@ function InStocks() {
             <div className="section-header">
                 <h1>InStocks</h1>
                 <div className="section-header-button">
-                    <Link to="/InStocks/create" className="btn btn-primary">
+                    {/* <Link to="/InStocks/create" className="btn btn-primary">
                         Add New
-                    </Link>
+                    </Link> */}
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">

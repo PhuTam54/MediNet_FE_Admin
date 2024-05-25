@@ -10,10 +10,17 @@ export const getBlogs = async () => {
     }
 };
 
-export const createBlogs = async (title, content, status, employeeId, diseaseId) => {
+export const createBlogs = async (title, content, status, employeeId, diseaseId, imageFile) => {
     try {
-        const newData = { title, content, status, employeeId, diseaseId };
-        await post('/Blogs', newData);
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('status', status);
+        formData.append('employeeId', employeeId);
+        formData.append('diseaseId', diseaseId);
+        formData.append('imageFile', imageFile);
+
+        await post('/Blogs', formData);
     } catch (error) {
         console.error('Failed to create Blogs', error);
         throw error;
@@ -30,10 +37,17 @@ export const editBlogs = async (id) => {
     }
 };
 
-export const updateBlogs = async (id, title, content, employeeId, diseaseId) => {
+export const updateBlogs = async (id, title, content, status, employeeId, diseaseId, imageFile) => {
     try {
-        const updatedData = { id, title, content, employeeId, diseaseId };
-        await put(`/Blogs/id?id=${id}`, updatedData);
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('status', status);
+        formData.append('employeeId', employeeId);
+        formData.append('diseaseId', diseaseId);
+        formData.append('imageFile', imageFile);
+        await put(`/Blogs/id?id=${id}`, formData);
     } catch (error) {
         console.error('Failed to update Blogs', error);
         throw error;

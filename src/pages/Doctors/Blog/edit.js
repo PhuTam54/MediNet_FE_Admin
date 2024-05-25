@@ -7,6 +7,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 function EditBlogs() {
     const [employees, setEmployees] = useState([]);
     const [diseases, setDiseases] = useState([]);
+    const defaultImage = '/anh-thuoc.jpg';
 
     const [data, setData] = useState({
         id: '',
@@ -14,6 +15,8 @@ function EditBlogs() {
         content: '',
         employeeId: '',
         diseaseId: '',
+        imageSrc: defaultImage,
+        imageFile: null,
     });
 
     const { id } = useParams();
@@ -29,6 +32,8 @@ function EditBlogs() {
                     content: blogData.content,
                     employeeId: blogData.employeeId,
                     diseaseId: blogData.diseaseId,
+                    imageSrc: blogData.imageSrc || defaultImage,
+                    imageFile: null,
                 });
 
                 const employeeData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Employees');
@@ -48,7 +53,7 @@ function EditBlogs() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            await updateBlogs(data.id, data.title, data.content, data.employeeId, data.diseaseId);
+            await updateBlogs(data.id, data.title, data.content, data.employeeId, data.diseaseId, data.imageFile);
             toast.success('Shop updated successfully');
             navigate('/Blogs');
         } catch (error) {
@@ -56,6 +61,26 @@ function EditBlogs() {
         }
     };
 
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
+        }
+    };
     return (
         <section className="section">
             <div className="section-header">
@@ -88,20 +113,6 @@ function EditBlogs() {
                                 <form onSubmit={handleUpdate}>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            Id
-                                        </label>
-                                        <div className="col-sm-12 col-md-7">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                disabled
-                                                value={data.id}
-                                                onChange={(e) => setData({ ...data, id: e.target.value })}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                             Title
                                         </label>
                                         <div className="col-sm-12 col-md-7">
@@ -128,7 +139,20 @@ function EditBlogs() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            EmployeeId
+                                            Status
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                value={data.status}
+                                                onChange={(e) => setData({ ...data, status: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Employees
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
@@ -137,17 +161,19 @@ function EditBlogs() {
                                                 onChange={(e) => setData({ ...data, employeeId: e.target.value })}
                                             >
                                                 <option>Select Employee</option>
-                                                {employees.map((employee) => (
-                                                    <option key={employee.id} value={employee.id}>
-                                                        {employee.username}
-                                                    </option>
-                                                ))}
+                                                {employees
+                                                    .filter((category) => category.role === 4)
+                                                    .map((employee) => (
+                                                        <option key={employee.id} value={employee.id}>
+                                                            {employee.username}
+                                                        </option>
+                                                    ))}
                                             </select>
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            DiseaseId
+                                            Diseases
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
@@ -162,6 +188,27 @@ function EditBlogs() {
                                                     </option>
                                                 ))}
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            ImagesClinicFile
+                                        </label>
+                                        <div>
+                                            <img
+                                                src={data.imageSrc}
+                                                alt="Product"
+                                                style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
+                                            />
+                                        </div>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="file"
+                                                multiple
+                                                accept="image/*"
+                                                className="form-control"
+                                                onChange={handleImageChange}
+                                            />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">

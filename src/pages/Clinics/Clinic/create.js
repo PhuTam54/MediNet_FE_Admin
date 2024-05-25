@@ -177,6 +177,13 @@ function CreateClinics() {
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                             ImagesClinicFile
                                         </label>
+                                        <div>
+                                            <img
+                                                src={data.imageSrc}
+                                                alt="Product"
+                                                style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
+                                            />
+                                        </div>
                                         <div className="col-sm-12 col-md-7">
                                             <input
                                                 type="file"

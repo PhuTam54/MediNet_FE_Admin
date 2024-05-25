@@ -3,11 +3,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createBlogs } from '~/services/Doctors/blogService';
 import { useNavigate, Link } from 'react-router-dom';
-import { postLogin } from '~/services/Account/accountService';
 
 function CreateBlogs() {
     const [employees, setEmployees] = useState([]);
     const [diseases, setDiseases] = useState([]);
+    const defaultImage = '/anh-thuoc.jpg';
 
     const [data, setData] = useState({
         title: '',
@@ -15,6 +15,8 @@ function CreateBlogs() {
         status: '',
         employeeId: '',
         diseaseId: '',
+        imageSrc: defaultImage,
+        imageFile: null,
     });
 
     const navigate = useNavigate();
@@ -40,14 +42,33 @@ function CreateBlogs() {
     const handleCreate = async (event) => {
         event.preventDefault();
         try {
-            await createBlogs(data.title, data.content, data.status, data.employeeId, data.diseaseId);
+            await createBlogs(data.title, data.content, data.status, data.employeeId, data.diseaseId, data.imageFile);
             toast.success('Blogs created successfully');
             navigate('/Blogs');
         } catch (error) {
             toast.error('Failed to create Blogs');
         }
     };
-
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
+        }
+    };
     return (
         <section className="section">
             <div className="section-header">
@@ -110,7 +131,7 @@ function CreateBlogs() {
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 className="form-control"
                                                 value={data.status}
                                                 onChange={(e) => setData({ ...data, status: e.target.value })}
@@ -119,7 +140,7 @@ function CreateBlogs() {
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            EmployeeId
+                                            Employees
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
@@ -128,17 +149,19 @@ function CreateBlogs() {
                                                 onChange={(e) => setData({ ...data, employeeId: e.target.value })}
                                             >
                                                 <option>Select Employee</option>
-                                                {employees.map((employee) => (
-                                                    <option key={employee.id} value={employee.id}>
-                                                        {employee.username}
-                                                    </option>
-                                                ))}
+                                                {employees
+                                                    .filter((category) => category.role === 4)
+                                                    .map((employee) => (
+                                                        <option key={employee.id} value={employee.id}>
+                                                            {employee.username}
+                                                        </option>
+                                                    ))}
                                             </select>
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            DiseaseId
+                                            Diseases
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <select
@@ -153,6 +176,27 @@ function CreateBlogs() {
                                                     </option>
                                                 ))}
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            ImagesClinicFile
+                                        </label>
+                                        <div>
+                                            <img
+                                                src={data.imageSrc}
+                                                alt="Product"
+                                                style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
+                                            />
+                                        </div>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="file"
+                                                multiple
+                                                accept="image/*"
+                                                className="form-control"
+                                                onChange={handleImageChange}
+                                            />
                                         </div>
                                     </div>
                                     <div className="form-group row mb-4">
