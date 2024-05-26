@@ -8,7 +8,7 @@ ChartJS.register(BarElement, CategoryScale, LinearScale);
 
 const BarChart = () => {
     const [chartData, setChartData] = useState(null);
-    const [dailyRevenue, setDailyRevenue] = useState(null);
+    const [timeRange, setTimeRange] = useState('Date');
 
     useEffect(() => {
         const fetchChartData = async () => {
@@ -19,39 +19,83 @@ const BarChart = () => {
                 }
                 const jsonData = await response.json();
 
-                // Calculate daily revenue
-                const revenueByDay = jsonData.reduce((acc, item) => {
-                    const day = dayjs(item.date).format('YYYY-MM-DD');
-                    if (!acc[day]) {
-                        acc[day] = 0;
-                    }
-                    acc[day] += item.totalAmount;
-                    return acc;
-                }, {});
+                const processData = (data, format, unit, totalUnits, fixedLabels) => {
+                    const latestOrderDate = data.reduce((latestDate, item) => {
+                        const orderDate = dayjs(item.orderDate);
+                        return orderDate.isAfter(latestDate) ? orderDate : latestDate;
+                    }, dayjs('2000-01-01'));
 
-                setChartData(jsonData);
-                setDailyRevenue(revenueByDay);
+                    const latestUnits =
+                        fixedLabels ||
+                        Array.from({ length: totalUnits }, (_, index) =>
+                            latestOrderDate.subtract(index, unit).format(format),
+                        ).reverse();
+
+                    const revenueByTime = data.reduce((acc, item) => {
+                        const time = dayjs(item.orderDate).format(format);
+                        if (!acc[time]) {
+                            acc[time] = { orderCount: 0, totalRevenue: 0 };
+                        }
+                        acc[time].orderCount += 1;
+                        acc[time].totalRevenue += item.totalAmount;
+                        return acc;
+                    }, {});
+
+                    const chartData = latestUnits.map((time) => {
+                        const dailyData = revenueByTime[time];
+                        return {
+                            time,
+                            orderCount: dailyData ? dailyData.orderCount : 0,
+                            totalRevenue: dailyData ? dailyData.totalRevenue : 0,
+                        };
+                    });
+
+                    return chartData;
+                };
+
+                let chartData;
+                if (timeRange === 'Date') {
+                    chartData = processData(jsonData, 'YYYY-MM-DD', 'day', 7);
+                } else if (timeRange === 'Month') {
+                    const currentYear = dayjs().year();
+                    const months = Array.from({ length: 12 }, (_, index) =>
+                        dayjs(new Date(currentYear, index)).format('YYYY-MM'),
+                    );
+                    chartData = processData(jsonData, 'YYYY-MM', 'month', 12, months);
+                } else if (timeRange === 'Year') {
+                    chartData = processData(jsonData, 'YYYY', 'year', 7);
+                }
+
+                setChartData(chartData);
             } catch (error) {
                 console.error('Error fetching chart data:', error);
             }
         };
 
         fetchChartData();
-    }, []);
+    }, [timeRange]);
 
-    if (!chartData || !dailyRevenue) {
+    if (!chartData) {
         return <div>Loading...</div>;
     }
 
-    const dailyLabels = Object.keys(dailyRevenue);
-    const dailyData = Object.values(dailyRevenue);
+    const labels = chartData.map((data) => data.time);
+    const orderCount = chartData.map((data) => data.orderCount);
+    const totalRevenue = chartData.map((data) => data.totalRevenue);
 
     const data = {
-        labels: dailyLabels,
+        labels,
         datasets: [
             {
-                label: 'Daily Revenue',
-                data: dailyData,
+                label: 'Order Count',
+                data: orderCount,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'Revenue',
+                data: totalRevenue,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1,
@@ -92,9 +136,16 @@ const BarChart = () => {
             <div className="col-lg-8">
                 <div className="card">
                     <div className="card-header">
-                        <h4>Daily Revenue</h4>
+                        <h4>Order Count and Revenue</h4>
                     </div>
                     <div className="card-body">
+                        <div>
+                            <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)}>
+                                <option value="Date">Date</option>
+                                <option value="Month">Month</option>
+                                <option value="Year">Year</option>
+                            </select>
+                        </div>
                         <div>
                             <Bar data={data} height={400} options={options} />
                         </div>

@@ -163,7 +163,9 @@ function HomeAdmin() {
                             <div className="card-stats-title">Users Statistics</div>
                             <div className="card-stats-items">
                                 <div className="card-stats-item">
-                                    <div className="card-stats-item-count">{customers.length}</div>
+                                    <div className="card-stats-item-count">
+                                        {customers.filter((employee) => employee.role === 1).length}
+                                    </div>
                                     <div className="card-stats-item-label">Customers</div>
                                 </div>
                                 <div className="card-stats-item">

@@ -156,6 +156,7 @@ function Orders() {
                                                         <th>Email</th>
                                                         <th>TelePhone</th>
                                                         <th>OrderDate</th>
+                                                        <th>Payment</th>
                                                         <th>Status</th>
                                                         <th>Actions</th>
                                                     </tr>
@@ -168,6 +169,7 @@ function Orders() {
                                                             <td>{item.email}</td>
                                                             <td>{item.tel}</td>
                                                             <td>{item.orderDate}</td>
+                                                            <td>{item.payment_method}</td>
                                                             <td>
                                                                 {item.status === 0 && (
                                                                     <div className="badge badge-warning">Pending</div>

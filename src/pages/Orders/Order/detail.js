@@ -31,7 +31,6 @@ function OrderDetails() {
         const fetchData = async () => {
             try {
                 const orderData = await editOrders(id);
-                // console.log(orderData);
                 setData(orderData);
                 setProducts(orderData.orderProducts);
                 setTempStatus(orderData.status);
@@ -196,7 +195,7 @@ function OrderDetails() {
                                                     <td>{item.product.name}</td>
                                                     <td>${item.product.price}</td>
                                                     <td>{item.quantity}</td>
-                                                    <td>${item.totalAmount}</td>
+                                                    <td>${data.totalAmount}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
