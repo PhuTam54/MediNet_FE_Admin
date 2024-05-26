@@ -117,7 +117,7 @@ function OrderDetails() {
                                             <p>User: {data.name}</p>
                                             <p>Email: {data.email}</p>
                                             <p>Telephone: {data.tel}</p>
-                                            <p>Status: {data.status}</p>
+                                            <p>OrderCode: {data.orderCode}</p>
                                         </address>
                                     </div>
                                     <div className="col-md-6 text-md-right">

@@ -22,8 +22,11 @@ function Orders() {
     useEffect(() => {
         let filteredData = data;
         if (search) {
-            filteredData = filteredData.filter((item) =>
-                item.email.toString().toLowerCase().includes(search.toLowerCase()),
+            filteredData = filteredData.filter(
+                (item) =>
+                    item.email.toString().toLowerCase().includes(search.toLowerCase()) ||
+                    item.name.toString().toLowerCase().includes(search.toLowerCase()) ||
+                    item.orderCode.toString().toLowerCase().includes(search.toLowerCase()),
             );
         }
         if (status !== '') {
@@ -152,6 +155,7 @@ function Orders() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
+                                                        <th>OrderCode</th>
                                                         <th>Name</th>
                                                         <th>Email</th>
                                                         <th>TelePhone</th>
@@ -165,6 +169,7 @@ function Orders() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
+                                                            <td>{item.orderCode}</td>
                                                             <td>{item.name}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.tel}</td>
