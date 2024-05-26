@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
 import { getProduct, deleteProduct } from '~/services/Products/productService';
+import { getCategoryChilds } from '~/services/Categories/categoryChildService';
 import { Link } from 'react-router-dom';
 
 function Product() {
@@ -13,24 +14,51 @@ function Product() {
     const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
     const [stockQuantities, setStockQuantities] = useState([]);
+    const [categoryChilds, setCategoryChilds] = useState([]);
 
     //search
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
     const [sortOrder, setSortOrder] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    const getData = async () => {
+        try {
+            const productData = await getProduct();
+            console.log(productData);
+            const categoryData = await getCategoryChilds();
+            setData(productData);
+            setSearchedData(productData);
+            setCategoryChilds(categoryData);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const filteredData = data.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+        getData();
+    }, []);
+
+    useEffect(() => {
+        let filteredData = data.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+
+        if (selectedCategory) {
+            filteredData = filteredData.filter((item) => item.categoryChild.name === selectedCategory);
+        }
+
         let sortedData = [...filteredData];
         if (sortOrder === 'lowToHigh') {
             sortedData.sort((a, b) => a.price - b.price);
         } else if (sortOrder === 'highToLow') {
             sortedData.sort((a, b) => b.price - a.price);
         }
-        setSearchedData(sortedData);
-    }, [search, data, sortOrder]);
 
-    //Page
+        setSearchedData(sortedData);
+    }, [search, data, sortOrder, selectedCategory]);
+
+    // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 7;
     const lastindex = currentPage * recordsPerPage;
@@ -52,27 +80,6 @@ function Product() {
             setCurrentPage(currentPage + 1);
         }
     }
-
-    // Call Api
-    useEffect(() => {
-        getData();
-    }, []);
-
-    const getData = () => {
-        getProduct()
-            .then((data) => {
-                // console.log('data', data);
-                setData(data);
-                setSearchedData(data);
-                // const stockQuantitiesArray = data.map((item) => item.supplies[0].stockQuantity);
-                // setStockQuantities(stockQuantitiesArray);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-            });
-    };
 
     const handleDelete = (id) => {
         setDeleteId(id);
@@ -139,6 +146,19 @@ function Product() {
                                                 <option value="highToLow">High to Low</option>
                                             </select>
                                         </div>
+                                        <div className="float-left ml-2">
+                                            <select
+                                                className="form-control selectric"
+                                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                            >
+                                                <option value="">Filter by CategoryChilds</option>
+                                                {categoryChilds.map((categoryChild) => (
+                                                    <option key={categoryChild.id} value={categoryChild.name}>
+                                                        {categoryChild.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
                                         <Search setSearch={setSearch} />
                                         <div className="clearfix mb-3" />
                                         <div className="table-responsive">
@@ -173,16 +193,13 @@ function Product() {
                                                                     : '0'}
                                                             </td>
                                                             <td>{item.price}$</td>
-                                                            {/* <td>{item.manufacturer}</td>
-                                                            <td>{item.manufacturerDate}</td> 
-                                                            <td>{item.expiryDate}</td> */}
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/product/detail/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Details"
                                                                 >
-                                                                    <i class="far fa-eye"></i>
+                                                                    <i className="far fa-eye"></i>
                                                                 </Link>
                                                                 &nbsp;
                                                                 <Link
@@ -190,7 +207,7 @@ function Product() {
                                                                     className="btn btn-primary"
                                                                     title="Feedbacks"
                                                                 >
-                                                                    <i class="fa-solid fa-comment"></i>
+                                                                    <i className="fa-solid fa-comment"></i>
                                                                 </Link>
                                                                 &nbsp;
                                                                 <Link
@@ -198,7 +215,7 @@ function Product() {
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
-                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                    <i className="fas fa-pencil-alt"></i>
                                                                 </Link>
                                                                 &nbsp;
                                                                 <button
@@ -206,7 +223,7 @@ function Product() {
                                                                     onClick={() => handleDelete(item.id)}
                                                                     title="Delete"
                                                                 >
-                                                                    <i class="fas fa-trash"></i>
+                                                                    <i className="fas fa-trash"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>

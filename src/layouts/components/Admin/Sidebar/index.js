@@ -27,10 +27,10 @@ function SidebarAdmin() {
                                 </li>
                                 <li>
                                     <Link className="nav-link" to="/barChart">
-                                        BarChart
+                                        Chart
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link className="nav-link" to="/doughnutChart">
                                         DoughnutChart
                                     </Link>
@@ -39,7 +39,7 @@ function SidebarAdmin() {
                                     <Link className="nav-link" to="/lineChart">
                                         LineChart
                                     </Link>
-                                </li>
+                                </li> */}
                             </ul>
                         </li>
 

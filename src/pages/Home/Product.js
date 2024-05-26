@@ -15,8 +15,9 @@ const Product = () => {
     const getData = () => {
         getProduct()
             .then((data) => {
-                const firstTenData = data.slice(0, 5);
-                setProducts(firstTenData);
+                const sortedData = data.sort((a, b) => b.orders - a.orders);
+                const topProducts = sortedData.slice(0, 7);
+                setProducts(topProducts);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -44,7 +45,7 @@ const Product = () => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4>Feature Products</h4>
+                            <h4>Best-selling products</h4>
                             <div className="card-header-action">
                                 <Link to="/Product" className="btn btn-danger">
                                     View More <i className="fas fa-chevron-right" />
@@ -60,9 +61,8 @@ const Product = () => {
                                             <th>Img</th>
                                             <th>Name</th>
                                             <th>CategoryChild</th>
-                                            {/* <th>Description</th> */}
-                                            <th>Price</th>
                                             <th>Quantity</th>
+                                            <th>Price</th>
                                             <th>Actions</th>
                                         </tr>
                                         {products.map((item, index) => (
@@ -77,10 +77,10 @@ const Product = () => {
                                                 </td>
                                                 <td>{item.name}</td>
                                                 <td>{item.categoryChild.name}</td>
-                                                <td>{item.price}</td>
-                                                {/* <td>
-                                                    {item.supplies.length > 0 ? item.supplies[0].stockQuantity : '0'}
-                                                </td> */}
+                                                <td>
+                                                    {item.inStocks.length > 0 ? item.inStocks[0].stockQuantity : '0'}
+                                                </td>
+                                                <td>{item.price}$</td>
                                                 <td colSpan={2}>
                                                     <Link
                                                         to={`/product/detail/${item.id}`}
