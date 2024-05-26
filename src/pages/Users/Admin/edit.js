@@ -179,7 +179,7 @@ function EditAdmins() {
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Create Admins
+                                                Update Admins
                                             </button>
                                         </div>
                                     </div>

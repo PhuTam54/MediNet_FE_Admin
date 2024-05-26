@@ -52,6 +52,7 @@ function FavoriteProducts() {
     const getData = () => {
         getFavoriteProducts()
             .then((data) => {
+                // console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -129,8 +130,9 @@ function FavoriteProducts() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Customers</th>
+                                                        <th>Image</th>
                                                         <th>Products</th>
+                                                        <th>Customers</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -138,8 +140,15 @@ function FavoriteProducts() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
-                                                            <td>{item.customer.username}</td>
+                                                            <td>
+                                                                <img
+                                                                    src={item.product.imageSrc}
+                                                                    style={{ width: '100px', height: 'auto' }}
+                                                                    alt={item.product.image}
+                                                                />
+                                                            </td>
                                                             <td>{item.product.name}</td>
+                                                            <td>{item.customer.username}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/FavoriteProducts/edit/${item.id}`}

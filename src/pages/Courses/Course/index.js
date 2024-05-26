@@ -52,6 +52,7 @@ function Courses() {
     const getData = () => {
         getCourses()
             .then((data) => {
+                console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);
@@ -131,7 +132,6 @@ function Courses() {
                                                         <th>Id</th>
                                                         <th>Img</th>
                                                         <th>Title</th>
-                                                        {/* <th>Price</th> */}
                                                         <th>Duration</th>
                                                         <th>Location</th>
                                                         <th>Topics</th>
@@ -146,7 +146,7 @@ function Courses() {
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>
                                                                 <img
-                                                                    src={`https://medinetprj.azurewebsites.net/${item.imagesCourse}`}
+                                                                    src={item.imagesSrc}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />

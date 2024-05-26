@@ -7,13 +7,16 @@ import { jwtDecode } from 'jwt-decode';
 import avatar from '~/assets/img/avatar/avatar-1.png';
 
 function Profile() {
+    const defaultImage = '/anh-thuoc.jpg';
+
     const [data, setData] = useState({
         id: '',
         username: '',
         email: '',
         password: '',
         role: '',
-        status: '',
+        imageSrc: defaultImage,
+        imageFile: null,
     });
 
     const { id } = useParams();
@@ -52,11 +55,32 @@ function Profile() {
         event.preventDefault();
 
         try {
-            await updateAdmins(data.id, data.email, data.username, data.password);
+            await updateAdmins(data.id, data.email, data.username, data.password, data.imageFile);
             toast.success('Admin updated successfully');
             navigate('/Admins');
         } catch (error) {
             toast.error('Failed to update Admin');
+        }
+    };
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (x) => {
+                setData({
+                    ...data,
+                    imageFile,
+                    imageSrc: x.target.result,
+                });
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            setData({
+                ...data,
+                imageFile: null,
+                imageSrc: defaultImage,
+            });
         }
     };
     return (
@@ -79,7 +103,11 @@ function Profile() {
                     <div className="col-12 col-md-12 col-lg-5">
                         <div className="card profile-widget">
                             <div className="profile-widget-header">
-                                <img alt="image" src={avatar} className="rounded-circle profile-widget-picture" />
+                                <img
+                                    alt="image"
+                                    src={data.imageSrc}
+                                    className="rounded-circle profile-widget-picture"
+                                />
                                 <div className="profile-widget-items">
                                     <div className="profile-widget-item">
                                         <div className="profile-widget-item-label">Posts</div>

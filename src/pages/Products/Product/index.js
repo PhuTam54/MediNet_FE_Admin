@@ -149,12 +149,8 @@ function Product() {
                                                         <th>Img</th>
                                                         <th>Name</th>
                                                         <th>CategoryChildId</th>
-                                                        {/* <th>Description</th> */}
+                                                        <th>Quantity</th>
                                                         <th>Price</th>
-                                                        {/* <th>Quantity</th> */}
-                                                        {/* <th>Manufacturer</th>
-                                                        <th>ManufacturerDate</th>
-                                                        <th>ExpiryDate</th> */}
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -171,13 +167,12 @@ function Product() {
                                                             </td>
                                                             <td>{item.name}</td>
                                                             <td>{item.categoryChild.name}</td>
-                                                            {/* <td>{item.description}</td> */}
-                                                            <td>{item.price}$</td>
-                                                            {/* <td>
-                                                                {item.supplies.length > 0
-                                                                    ? item.supplies[0].stockQuantity
+                                                            <td>
+                                                                {item.inStocks.length > 0
+                                                                    ? item.inStocks[0].stockQuantity
                                                                     : '0'}
-                                                            </td> */}
+                                                            </td>
+                                                            <td>{item.price}$</td>
                                                             {/* <td>{item.manufacturer}</td>
                                                             <td>{item.manufacturerDate}</td> 
                                                             <td>{item.expiryDate}</td> */}

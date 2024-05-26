@@ -26,28 +26,28 @@ const LineChart = () => {
                 }
                 const jsonData = await response.json();
 
-                // Tính tổng doanh thu theo tháng
-                const revenueByMonth = {};
+                // Calculate daily revenue
+                const revenueByDay = {};
                 jsonData.forEach((order) => {
                     const orderDate = new Date(order.orderDate);
-                    const month = orderDate.toLocaleString('default', { date: 'short' }) + ' ' + orderDate.getDay();
+                    const day = orderDate.toISOString().split('T')[0]; // Get the date in YYYY-MM-DD format
                     const totalAmount = order.orderProducts.reduce((total, product) => total + product.subtotal, 0);
 
-                    if (revenueByMonth[month]) {
-                        revenueByMonth[month] += totalAmount;
+                    if (revenueByDay[day]) {
+                        revenueByDay[day] += totalAmount;
                     } else {
-                        revenueByMonth[month] = totalAmount;
+                        revenueByDay[day] = totalAmount;
                     }
                 });
 
-                const labels = Object.keys(revenueByMonth);
-                const data = Object.values(revenueByMonth);
+                const labels = Object.keys(revenueByDay).sort();
+                const data = labels.map((label) => revenueByDay[label]);
 
                 setChartData({
                     labels,
                     datasets: [
                         {
-                            label: 'Doanh thu hàng tháng',
+                            label: 'Doanh thu hàng ngày',
                             data,
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             borderColor: 'rgba(75, 192, 192, 1)',
@@ -73,7 +73,7 @@ const LineChart = () => {
             x: {
                 title: {
                     display: true,
-                    text: 'Tháng',
+                    text: 'Ngày',
                 },
             },
             y: {
@@ -113,7 +113,7 @@ const LineChart = () => {
             <div className="col-lg-8">
                 <div className="card">
                     <div className="card-header">
-                        <h4>LineChart</h4>
+                        <h4>Doanh thu hàng ngày</h4>
                     </div>
                     <div className="card-body">
                         <div>

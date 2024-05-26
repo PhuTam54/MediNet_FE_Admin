@@ -31,6 +31,7 @@ function OrderDetails() {
         const fetchData = async () => {
             try {
                 const orderData = await editOrders(id);
+                // console.log(orderData);
                 setData(orderData);
                 setProducts(orderData.orderProducts);
                 setTempStatus(orderData.status);
@@ -187,7 +188,7 @@ function OrderDetails() {
                                                     <td>{index + 1}</td>
                                                     <td>
                                                         <img
-                                                            src={`https://medinetprj.azurewebsites.net/${item.product.image}`}
+                                                            src={item.product.imageSrc}
                                                             style={{ width: '100px', height: 'auto' }}
                                                             alt={item.image}
                                                         />
@@ -195,7 +196,7 @@ function OrderDetails() {
                                                     <td>{item.product.name}</td>
                                                     <td>${item.product.price}</td>
                                                     <td>{item.quantity}</td>
-                                                    <td>${item.subtotal}</td>
+                                                    <td>${item.totalAmount}</td>
                                                 </tr>
                                             ))}
                                         </tbody>

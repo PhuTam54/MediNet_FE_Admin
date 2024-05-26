@@ -142,7 +142,8 @@ function Admins() {
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>
                                                                 <img
-                                                                    src={`https://medinetprj.azurewebsites.net/${item.image}`}
+                                                                    src={item.imageSrc}
+                                                                    // src={`https://medinetprj.azurewebsites.net/${item.image}`}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />

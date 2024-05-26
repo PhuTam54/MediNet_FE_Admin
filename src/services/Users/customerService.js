@@ -59,7 +59,7 @@ export const updateCustomers = async (
         formData.append('imageFile', imageFile);
         formData.append('address', address);
 
-        await post(`/Customers`, formData);
+        await put(`/Customers/id?id=${id}`, formData);
     } catch (error) {
         console.error('Failed to update Customers', error);
         throw error;

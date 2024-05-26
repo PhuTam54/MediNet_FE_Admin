@@ -129,8 +129,8 @@ function Blogs() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
+                                                        <th>Image</th>
                                                         <th>Title</th>
-                                                        <th>Content</th>
                                                         <th>Employee</th>
                                                         <th>Disease</th>
                                                         <th>Actions</th>
@@ -140,8 +140,14 @@ function Blogs() {
                                                     {records.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
+                                                            <td>
+                                                                <img
+                                                                    src={item.imageSrc}
+                                                                    style={{ width: '100px', height: 'auto' }}
+                                                                    alt={item.image}
+                                                                />
+                                                            </td>
                                                             <td>{item.title}</td>
-                                                            <td>{item.content}</td>
                                                             <td>{item.employee.username}</td>
                                                             <td>{item.disease.name}</td>
                                                             <td colSpan={2}>

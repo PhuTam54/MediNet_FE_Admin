@@ -29,17 +29,17 @@ function EditCustomers() {
                 const customerData = await editCustomers(id);
                 setData({
                     id: customerData.id,
-                    date_Of_Birth: customerData.date_Of_Birth,
-                    phoneNumber: customerData.phoneNumber,
                     username: customerData.username,
                     email: customerData.email,
+                    date_Of_Birth: customerData.date_Of_Birth,
+                    phoneNumber: customerData.phoneNumber,
                     password: customerData.password,
                     imageSrc: customerData.image || defaultImage,
                     imageFile: null,
                     address: customerData.address,
                 });
             } catch (error) {
-                console.error('Error fetching Admin data:', error);
+                console.error('Error fetching Customers data:', error);
             }
         };
 
@@ -61,10 +61,10 @@ function EditCustomers() {
                 data.imageFile,
                 data.address,
             );
-            toast.success('Admin updated successfully');
+            toast.success('Customers updated successfully');
             navigate('/Customers');
         } catch (error) {
-            toast.error('Failed to update Admin');
+            toast.error('Failed to update Customers');
         }
     };
 
@@ -109,13 +109,13 @@ function EditCustomers() {
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Edit Admin</h2>
-                <p className="section-lead">On this page you can edit Admin details.</p>
+                <h2 className="section-title">Edit Customers</h2>
+                <p className="section-lead">On this page you can edit Customers details.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Edit Admin Details</h4>
+                                <h4>Edit Customers Details</h4>
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleUpdate}>
@@ -177,7 +177,7 @@ function EditCustomers() {
                                         </label>
                                         <div className="col-sm-12 col-md-7">
                                             <input
-                                                type="password"
+                                                type="text"
                                                 className="form-control"
                                                 value={data.password}
                                                 onChange={(e) => setData({ ...data, password: e.target.value })}
@@ -220,7 +220,7 @@ function EditCustomers() {
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Create Customers
+                                                Update Customers
                                             </button>
                                         </div>
                                     </div>
