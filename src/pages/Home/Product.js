@@ -15,9 +15,13 @@ const Product = () => {
     const getData = () => {
         getProduct()
             .then((data) => {
-                const sortedData = data.sort((a, b) => b.orders - a.orders);
-                const topProducts = sortedData.slice(0, 7);
-                setProducts(topProducts);
+                const sortedData = data.sort((a, b) => {
+                    const totalQuantityA = a.orderProducts.reduce((sum, order) => sum + order.quantity, 0);
+                    const totalQuantityB = b.orderProducts.reduce((sum, order) => sum + order.quantity, 0);
+                    return totalQuantityB - totalQuantityA;
+                });
+                const topFiveData = sortedData.slice(0, 5);
+                setProducts(topFiveData);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -27,7 +31,6 @@ const Product = () => {
     const formatDate = (inputDate) => {
         const parsedDate = moment(inputDate);
         const formattedDate = parsedDate.format('HH:mm:ss DD/MM/YYYY');
-
         return formattedDate;
     };
 
@@ -45,7 +48,7 @@ const Product = () => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4>Best-selling products</h4>
+                            <h4>Best-selling Products</h4>
                             <div className="card-header-action">
                                 <Link to="/Product" className="btn btn-danger">
                                     View More <i className="fas fa-chevron-right" />
@@ -80,7 +83,7 @@ const Product = () => {
                                                 <td>
                                                     {item.inStocks.length > 0 ? item.inStocks[0].stockQuantity : '0'}
                                                 </td>
-                                                <td>{item.price}$</td>
+                                                <td>{item.price}</td>
                                                 <td colSpan={2}>
                                                     <Link
                                                         to={`/product/detail/${item.id}`}

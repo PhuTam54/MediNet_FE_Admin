@@ -166,7 +166,7 @@ function EditStockOuts() {
                                     <div className="row mb-4">
                                         <div className="col-md-6 offset-md-3">
                                             <button className="btn btn-primary btn-block" type="submit">
-                                                Create StockOuts
+                                                Update StockOuts
                                             </button>
                                         </div>
                                     </div>

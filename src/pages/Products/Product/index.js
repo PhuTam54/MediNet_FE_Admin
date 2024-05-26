@@ -25,7 +25,7 @@ function Product() {
     const getData = async () => {
         try {
             const productData = await getProduct();
-            console.log(productData);
+            // console.log(productData);
             const categoryData = await getCategoryChilds();
             setData(productData);
             setSearchedData(productData);
@@ -218,13 +218,13 @@ function Product() {
                                                                     <i className="fas fa-pencil-alt"></i>
                                                                 </Link>
                                                                 &nbsp;
-                                                                <button
+                                                                {/* <button
                                                                     className="btn btn-danger"
                                                                     onClick={() => handleDelete(item.id)}
                                                                     title="Delete"
                                                                 >
                                                                     <i className="fas fa-trash"></i>
-                                                                </button>
+                                                                </button> */}
                                                             </td>
                                                         </tr>
                                                     ))}

@@ -198,7 +198,7 @@ function EditProduct() {
                                     <div className="row mb-4">
                                         <div className="col-md-6 offset-md-3">
                                             <button className="btn btn-primary btn-block" type="submit">
-                                                Create Products
+                                                Update Products
                                             </button>
                                         </div>
                                     </div>

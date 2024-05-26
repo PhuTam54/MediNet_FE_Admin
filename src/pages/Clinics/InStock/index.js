@@ -91,11 +91,11 @@ function InStocks() {
         <section className="section">
             <div className="section-header">
                 <h1>InStocks</h1>
-                <div className="section-header-button">
-                    {/* <Link to="/InStocks/create" className="btn btn-primary">
+                {/* <div className="section-header-button">
+                    <Link to="/InStocks/create" className="btn btn-primary">
                         Add New
-                    </Link> */}
-                </div>
+                    </Link>
+                </div> */}
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
