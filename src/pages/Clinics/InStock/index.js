@@ -144,7 +144,7 @@ function InStocks() {
                                                             <td>{item.clinic.name}</td>
                                                             <td>{item.product.name}</td>
                                                             <td>{item.stockQuantity}</td>
-                                                            <td colSpan={2}>
+                                                            {/* <td colSpan={2}>
                                                                 <Link
                                                                     to={`/InStocks/edit/${item.id}`}
                                                                     className="btn btn-primary"
@@ -160,7 +160,7 @@ function InStocks() {
                                                                 >
                                                                     <i class="fas fa-trash"></i>
                                                                 </button>
-                                                            </td>
+                                                            </td> */}
                                                         </tr>
                                                     ))}
                                                 </tbody>
