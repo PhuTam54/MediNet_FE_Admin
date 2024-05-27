@@ -203,7 +203,7 @@ function Orders() {
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Orders/detail/${item.id}`}
-                                                                    className="btn btn-primary"
+                                                                    className="btn btn-info"
                                                                     title="Details"
                                                                 >
                                                                     <i class="far fa-eye"></i>

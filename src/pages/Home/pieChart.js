@@ -1,122 +1,183 @@
-// import React, { useState, useEffect } from 'react';
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-// import { Pie } from 'react-chartjs-2';
-// import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import images from '~/assets/img/';
+import { NavDropdown } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
-// ChartJS.register(ArcElement, Tooltip, Legend);
+function HeaderAdmin() {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
 
-// const PieChart = () => {
-//     const [chartData, setChartData] = useState(null);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                const userRole = decodedToken.role;
 
-//     useEffect(() => {
-//         const fetchChartData = async () => {
-//             try {
-//                 const response = await fetch('https://medinetprj.azurewebsites.net/api/v1/Orders');
-//                 if (!response.ok) {
-//                     throw new Error('Failed to fetch chart data');
-//                 }
-//                 const jsonData = await response.json();
+                if (userRole !== 'Admin') {
+                    handleLogout();
+                } else {
+                    const storedEmail = localStorage.getItem('email');
+                    setEmail(storedEmail || '');
+                }
+            } catch (error) {
+                handleLogout();
+            }
+        } else {
+            navigate('/login');
+        }
+    }, []);
 
-//                 // Tính tổng doanh thu theo danh mục sản phẩm
-//                 const revenueByCategory = {};
-//                 jsonData.forEach((order) => {
-//                     order.orderProducts.forEach((orderProduct) => {
-//                         const category = orderProduct.product.categoryChild
-//                             ? orderProduct.product.categoryChild.name
-//                             : 'Unknown';
-//                         const subtotal = orderProduct.subtotal;
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('userId');
 
-//                         if (revenueByCategory[category]) {
-//                             revenueByCategory[category] += subtotal;
-//                         } else {
-//                             revenueByCategory[category] = subtotal;
-//                         }
-//                     });
-//                 });
+        navigate('/login');
+        toast.success('Logout Success');
+    };
 
-//                 const labels = Object.keys(revenueByCategory);
-//                 const data = Object.values(revenueByCategory);
+    return (
+        <>
+            <div className="navbar-bg" />
+            <nav className="navbar navbar-expand-lg main-navbar">
+                <form className="form-inline mr-auto">
+                    <ul className="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" className="nav-link nav-link-lg">
+                                <i className="fas fa-bars" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="search" className="nav-link nav-link-lg d-sm-none">
+                                <i className="fas fa-search" />
+                            </a>
+                        </li>
+                    </ul>
+                    <div className="search-element">
+                        <input
+                            className="form-control"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                            data-width={250}
+                        />
+                        <button className="btn" type="submit">
+                            <i className="fas fa-search" />
+                        </button>
+                        <div className="search-backdrop" />
+                        <div className="search-result">
+                            <div className="search-header">Search</div>
+                            <div className="search-item">
+                                <a href="#">How to CSS</a>
+                                <a href="#" className="search-close">
+                                    <i className="fas fa-times" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ul className="navbar-nav navbar-right">
+                    <li className="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown" className="nav-link nav-link-lg message-toggle beep">
+                            <i className="far fa-envelope" />
+                        </a>
+                        <div className="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div className="dropdown-header">
+                                Messages
+                                <div className="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div className="dropdown-list-content dropdown-list-message">
+                                <a href="#" className="dropdown-item dropdown-item-unread">
+                                    <div className="dropdown-item-avatar">
+                                        <img alt="image" src={images.avatar} className="rounded-circle" />
+                                        <div className="is-online" />
+                                    </div>
+                                    <div className="dropdown-item-desc">
+                                        <b>Kusnaedi</b>
+                                        <p>Hello, Bro!</p>
+                                        <div className="time">10 Hours Ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div className="dropdown-footer text-center">
+                                <a href="#">
+                                    View All <i className="fas fa-chevron-right" />
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown" className="nav-link notification-toggle nav-link-lg beep">
+                            <i className="far fa-bell" />
+                        </a>
+                        <div className="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div className="dropdown-header">
+                                Notifications
+                                <div className="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div className="dropdown-list-content dropdown-list-icons">
+                                <a href="#" className="dropdown-item dropdown-item-unread">
+                                    <div className="dropdown-item-icon bg-primary text-white">
+                                        <i className="fas fa-code" />
+                                    </div>
+                                    <div className="dropdown-item-desc">
+                                        Template update is available now!
+                                        <div className="time text-primary">2 Min Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" className="dropdown-item">
+                                    <div className="dropdown-item-icon bg-info text-white">
+                                        <i className="fas fa-bell" />
+                                    </div>
+                                    <div className="dropdown-item-desc">
+                                        Welcome to Stisla template!
+                                        <div className="time">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div className="dropdown-footer text-center">
+                                <a href="#">
+                                    View All <i className="fas fa-chevron-right" />
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="dropdown">
+                        <a
+                            href="#"
+                            data-toggle="dropdown"
+                            className="nav-link dropdown-toggle nav-link-lg nav-link-user"
+                        >
+                            <img alt="image" src={images.avatar} className="rounded-circle mr-1" />
+                            <div className="d-sm-none d-lg-inline-block">Hi, {email}</div>
+                        </a>
+                        <div className="dropdown-menu dropdown-menu-right">
+                            <div className="dropdown-title">Logged</div>
 
-//                 setChartData({
-//                     labels,
-//                     datasets: [
-//                         {
-//                             label: 'Doanh thu theo danh mục sản phẩm',
-//                             data,
-//                             backgroundColor: [
-//                                 'rgba(255, 99, 132, 0.2)',
-//                                 'rgba(54, 162, 235, 0.2)',
-//                                 'rgba(255, 206, 86, 0.2)',
-//                                 'rgba(75, 192, 192, 0.2)',
-//                                 'rgba(153, 102, 255, 0.2)',
-//                                 'rgba(255, 159, 64, 0.2)',
-//                             ],
-//                             borderColor: [
-//                                 'rgba(255, 99, 132, 1)',
-//                                 'rgba(54, 162, 235, 1)',
-//                                 'rgba(255, 206, 86, 1)',
-//                                 'rgba(75, 192, 192, 1)',
-//                                 'rgba(153, 102, 255, 1)',
-//                                 'rgba(255, 159, 64, 1)',
-//                             ],
-//                             borderWidth: 1,
-//                         },
-//                     ],
-//                 });
-//             } catch (error) {
-//                 console.error('Error fetching chart data:', error);
-//             }
-//         };
+                            <Link to={`/profile`} className="dropdown-item has-icon">
+                                <i className="far fa-user" /> Profile
+                            </Link>
 
-//         fetchChartData();
-//     }, []);
+                            <div className="dropdown-divider" />
+                            <NavDropdown.Item
+                                onClick={() => handleLogout()}
+                                className="dropdown-item has-icon text-danger"
+                            >
+                                <i className="fas fa-sign-out-alt" /> Logout
+                            </NavDropdown.Item>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </>
+    );
+}
 
-//     if (!chartData) {
-//         return <div>Loading...</div>;
-//     }
-
-//     const options = {
-//         maintainAspectRatio: false,
-//         plugins: {
-//             legend: {
-//                 labels: {
-//                     fontSize: 14,
-//                 },
-//             },
-//             tooltip: {
-//                 enabled: true,
-//             },
-//         },
-//     };
-
-//     return (
-//         <section className="section">
-//             <div className="section-header">
-//                 <h1>PieChart</h1>
-//                 <div className="section-header-breadcrumb">
-//                     <div className="breadcrumb-item active">
-//                         <Link to="/">Dashboard</Link>
-//                     </div>
-//                     <div className="breadcrumb-item">
-//                         <Link to="#">PieChart</Link>
-//                     </div>
-//                     <div className="breadcrumb-item">All PieChart</div>
-//                 </div>
-//             </div>
-//             <div className="col-lg-8">
-//                 <div className="card">
-//                     <div className="card-header">
-//                         <h4>PieChart</h4>
-//                     </div>
-//                     <div className="card-body">
-//                         <div>
-//                             <Pie data={chartData} height={400} options={options} />
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </section>
-//     );
-// };
-
-// export default PieChart;
+export default HeaderAdmin;

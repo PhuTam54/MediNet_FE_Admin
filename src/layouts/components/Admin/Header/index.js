@@ -18,6 +18,7 @@ function HeaderAdmin() {
         }
     }, []);
     const handleLogout = () => {
+        localStorage.removeItem('userRole');
         localStorage.removeItem('token');
         localStorage.removeItem('email');
         localStorage.removeItem('userId');

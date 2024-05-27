@@ -1,64 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Table, Modal, Button, Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '~/layouts/components/Admin/Search';
 import Pagination from '~/layouts/components/Admin/Pagination';
-import { getProduct, deleteProduct } from '~/services/Products/productService';
-import { getCategoryChilds } from '~/services/Categories/categoryChildService';
-import { Link } from 'react-router-dom';
+import { getProductDetails, deleteProductDetails } from '~/services/Products/productDetailService';
+import { Link, useParams } from 'react-router-dom';
 
-function Product() {
+function ProductDetails() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
-    const [stockQuantities, setStockQuantities] = useState([]);
-    const [categoryChilds, setCategoryChilds] = useState([]);
 
     //search
     const [search, setSearch] = useState('');
     const [searchedData, setSearchedData] = useState([]);
-    const [sortOrder, setSortOrder] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
-
-    const getData = async () => {
-        try {
-            const productData = await getProduct();
-            console.log(productData);
-            const categoryData = await getCategoryChilds();
-            setData(productData);
-            setSearchedData(productData);
-            setCategoryChilds(categoryData);
-            setLoading(false);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        getData();
-    }, []);
+        const filteredData = data.filter((item) => item.product.name.toLowerCase().includes(search.toLowerCase()));
+        setSearchedData(filteredData);
+    }, [search, data]);
 
-    useEffect(() => {
-        let filteredData = data.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
-
-        if (selectedCategory) {
-            filteredData = filteredData.filter((item) => item.categoryChild.name === selectedCategory);
-        }
-
-        let sortedData = [...filteredData];
-        if (sortOrder === 'lowToHigh') {
-            sortedData.sort((a, b) => a.price - b.price);
-        } else if (sortOrder === 'highToLow') {
-            sortedData.sort((a, b) => b.price - a.price);
-        }
-
-        setSearchedData(sortedData);
-    }, [search, data, sortOrder, selectedCategory]);
-
-    // Pagination
+    //Page
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 7;
     const lastindex = currentPage * recordsPerPage;
@@ -80,6 +43,26 @@ function Product() {
             setCurrentPage(currentPage + 1);
         }
     }
+    const { productId } = useParams();
+
+    // Call Api
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = () => {
+        getProductDetails(productId)
+            .then((data) => {
+                // console.log(data);
+                setData(data);
+                setSearchedData(data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                setLoading(false);
+            });
+    };
 
     const handleDelete = (id) => {
         setDeleteId(id);
@@ -87,14 +70,14 @@ function Product() {
     };
 
     const handleDeleteConfirm = async () => {
-        deleteProduct(deleteId)
+        deleteProductDetails(deleteId)
             .then(() => {
-                toast.success('Product has been deleted');
+                toast.success('ProductDetails has been deleted');
                 handleClose();
                 getData();
             })
             .catch((error) => {
-                toast.error('Failed to delete Product', error);
+                toast.error('Failed to delete ProductDetails', error);
             });
     };
 
@@ -107,25 +90,20 @@ function Product() {
     return (
         <section className="section">
             <div className="section-header">
-                <h1>Product</h1>
-                <div className="section-header-button">
-                    <Link to="/product/create" className="btn btn-primary">
-                        Add New
-                    </Link>
-                </div>
+                <h1>ProductDetails</h1>
                 <div className="section-header-button">
                     <Link to="/product/detail/create" className="btn btn-primary">
-                        Add New Product Detail
+                        Add New
                     </Link>
                 </div>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
-                        <Link to="#">Dashboard </Link>
+                        <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">Product </Link>
+                        <Link to="#">ProductDetails</Link>
                     </div>
-                    <div className="breadcrumb-item">All Product</div>
+                    <div className="breadcrumb-item">All ProductDetails</div>
                 </div>
             </div>
             <div className="section-body">
@@ -133,7 +111,7 @@ function Product() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>All Product</h4>
+                                <h4>All ProductDetails</h4>
                             </div>
 
                             <div className="card-body">
@@ -142,26 +120,8 @@ function Product() {
                                 ) : (
                                     <>
                                         <div className="float-left">
-                                            <select
-                                                className="form-control selectric"
-                                                onChange={(e) => setSortOrder(e.target.value)}
-                                            >
-                                                <option value="">Sort by Price</option>
-                                                <option value="lowToHigh">Low to High</option>
-                                                <option value="highToLow">High to Low</option>
-                                            </select>
-                                        </div>
-                                        <div className="float-left ml-2">
-                                            <select
-                                                className="form-control selectric"
-                                                onChange={(e) => setSelectedCategory(e.target.value)}
-                                            >
-                                                <option value="">Filter by CategoryChilds</option>
-                                                {categoryChilds.map((categoryChild) => (
-                                                    <option key={categoryChild.id} value={categoryChild.name}>
-                                                        {categoryChild.name}
-                                                    </option>
-                                                ))}
+                                            <select className="form-control selectric">
+                                                <option>Action For Selected</option>
                                             </select>
                                         </div>
                                         <Search setSearch={setSearch} />
@@ -171,11 +131,11 @@ function Product() {
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Img</th>
-                                                        <th>Name</th>
-                                                        <th>CategoryChildId</th>
-                                                        <th>Quantity</th>
-                                                        <th>Price</th>
+                                                        <th>Image</th>
+                                                        <th>Products</th>
+                                                        <th>Ingredient</th>
+                                                        <th>Usage</th>
+                                                        <th>UsageInstructions</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -185,42 +145,22 @@ function Product() {
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>
                                                                 <img
-                                                                    src={item.imageSrc}
+                                                                    src={item.imagesSrc[0]}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />
                                                             </td>
-                                                            <td>{item.name}</td>
-                                                            <td>{item.categoryChild.name}</td>
-                                                            <td>
-                                                                {item.inStocks.length > 0
-                                                                    ? item.inStocks[0].stockQuantity
-                                                                    : '0'}
-                                                            </td>
-                                                            <td>{item.price}$</td>
+                                                            <td>{item.product.name}</td>
+                                                            <td>{item.ingredient}</td>
+                                                            <td>{item.usage}</td>
+                                                            <td>{item.usageInstructions}</td>
                                                             <td colSpan={2}>
                                                                 <Link
-                                                                    to={`/product/detail/${item.id}`}
-                                                                    className="btn btn-info"
-                                                                    title="Details"
-                                                                >
-                                                                    <i className="far fa-eye"></i>
-                                                                </Link>
-                                                                &nbsp;
-                                                                <Link
-                                                                    to={`/product/feedbacks/${item.id}`}
-                                                                    className="btn btn-warning"
-                                                                    title="Feedbacks"
-                                                                >
-                                                                    <i className="fa-solid fa-comment"></i>
-                                                                </Link>
-                                                                &nbsp;
-                                                                <Link
-                                                                    to={`/product/edit/${item.id}`}
+                                                                    to={`/product/detail/edit/${item.id}`}
                                                                     className="btn btn-primary"
                                                                     title="Edit"
                                                                 >
-                                                                    <i className="fas fa-pencil-alt"></i>
+                                                                    <i class="fas fa-pencil-alt"></i>
                                                                 </Link>
                                                                 &nbsp;
                                                                 {/* <button
@@ -228,7 +168,7 @@ function Product() {
                                                                     onClick={() => handleDelete(item.id)}
                                                                     title="Delete"
                                                                 >
-                                                                    <i className="fas fa-trash"></i>
+                                                                    <i class="fas fa-trash"></i>
                                                                 </button> */}
                                                             </td>
                                                         </tr>
@@ -255,7 +195,7 @@ function Product() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this Product?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this ProductDetails?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
@@ -271,4 +211,4 @@ function Product() {
     );
 }
 
-export default Product;
+export default ProductDetails;

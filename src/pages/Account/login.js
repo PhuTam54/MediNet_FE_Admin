@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import images from '~/assets/img/';
 import { httpRequest } from '~/utils/httpRequest';
 import { jwtDecode } from 'jwt-decode';
-import { postLogin } from '~/services/Account/accountService';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -14,7 +13,8 @@ function Login() {
 
     useEffect(() => {
         sessionStorage.clear();
-    });
+    }, []);
+
     const handleLogin = async (event) => {
         event.preventDefault();
 
@@ -30,8 +30,16 @@ function Login() {
                 if (response && response.data && response.data.token) {
                     const token = response.data.token;
                     const decodedToken = jwtDecode(token);
+                    console.log('Decoded Token:', decodedToken);
                     const userId = decodedToken.userId;
+                    const userRole = decodedToken.userRole;
 
+                    if (userRole !== 'Admin') {
+                        toast.error('You are not Admin');
+                        return;
+                    }
+
+                    localStorage.setItem('userRole', userRole);
                     localStorage.setItem('token', token);
                     localStorage.setItem('userId', userId);
                     localStorage.setItem('email', email);

@@ -18,6 +18,7 @@ const BarChart = () => {
                     throw new Error('Failed to fetch chart data');
                 }
                 const jsonData = await response.json();
+                const filteredData = jsonData.filter(order => order.status === 4);
 
                 const processData = (data, format, unit, totalUnits, fixedLabels) => {
                     const latestOrderDate = data.reduce((latestDate, item) => {
@@ -55,15 +56,15 @@ const BarChart = () => {
 
                 let chartData;
                 if (timeRange === 'Date') {
-                    chartData = processData(jsonData, 'YYYY-MM-DD', 'day', 7);
+                    chartData = processData(filteredData, 'YYYY-MM-DD', 'day', 7);
                 } else if (timeRange === 'Month') {
                     const currentYear = dayjs().year();
                     const months = Array.from({ length: 12 }, (_, index) =>
                         dayjs(new Date(currentYear, index)).format('YYYY-MM'),
                     );
-                    chartData = processData(jsonData, 'YYYY-MM', 'month', 12, months);
+                    chartData = processData(filteredData, 'YYYY-MM', 'month', 12, months);
                 } else if (timeRange === 'Year') {
-                    chartData = processData(jsonData, 'YYYY', 'year', 7);
+                    chartData = processData(filteredData, 'YYYY', 'year', 7);
                 }
 
                 setChartData(chartData);

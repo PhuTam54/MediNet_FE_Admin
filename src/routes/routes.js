@@ -75,9 +75,12 @@ import FeedbackDetail from '~/pages/Orders/Feedbacks/detail';
 import Product from '~/pages/Products/Product/index';
 import CreateProduct from '~/pages/Products/Product/create';
 import EditProduct from '~/pages/Products/Product/edit';
-import DetailProduct from '~/pages/Products/Product/detail';
 
 import FavoriteProducts from '~/pages/Products/FavoriteProducts/index';
+
+import DetailProduct from '~/pages/Products/ProductDetails/index';
+import CreateProductDetails from '~/pages/Products/ProductDetails/create';
+import EditProductDetails from '~/pages/Products/ProductDetails/edit';
 
 //      Categories
 import CategoryParents from '~/pages/Categories/CategoryParents/index';
@@ -175,9 +178,12 @@ export const publicRoutes = [
     { path: config.routes.product, component: Product, layout: AdminLayout },
     { path: config.routes.createProduct, component: CreateProduct, layout: AdminLayout },
     { path: config.routes.editProduct, component: EditProduct, layout: AdminLayout },
-    { path: config.routes.detailProduct, component: DetailProduct, layout: null },
 
     { path: config.routes.favoriteProducts, component: FavoriteProducts, layout: AdminLayout },
+
+    { path: config.routes.detailProduct, component: DetailProduct, layout: AdminLayout },
+    { path: config.routes.createProductDetails, component: CreateProductDetails, layout: AdminLayout },
+    { path: config.routes.editProductDetails, component: EditProductDetails, layout: AdminLayout }, 
     //      Category
     { path: config.routes.categoryParents, component: CategoryParents, layout: AdminLayout },
 

@@ -73,11 +73,12 @@ const routes = {
     product: '/product',
     createProduct: '/product/create',
     editProduct: '/product/edit/:id',
-    // detailProduct: '/product/detail/:id',
-    detailProduct: '/product/detail',
 
     favoriteProducts: '/favorite',
 
+    detailProduct: '/product/detail/:id',
+    createProductDetails: '/product/detail/create',
+    editProductDetails: '/product/detail/edit/:id',
     //      Orders
     orders: '/orders',
     orderDetail: '/orders/detail/:id',
