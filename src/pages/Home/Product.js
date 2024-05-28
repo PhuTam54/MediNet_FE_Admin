@@ -100,14 +100,6 @@ const Product = () => {
                                                     >
                                                         <i class="fa-solid fa-comment"></i>
                                                     </Link>
-                                                    &nbsp;
-                                                    <Link
-                                                        to={`/product/edit/${item.id}`}
-                                                        className="btn btn-primary"
-                                                        title="Edit"
-                                                    >
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </Link>
                                                 </td>
                                             </tr>
                                         ))}
