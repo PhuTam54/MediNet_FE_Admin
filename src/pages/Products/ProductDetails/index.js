@@ -1,48 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Modal, Button, Container, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Search from '~/layouts/components/Admin/Search';
-import Pagination from '~/layouts/components/Admin/Pagination';
-import { getProductDetails, deleteProductDetails } from '~/services/Products/productDetailService';
+import { getProductDetails } from '~/services/Products/productDetailService';
 import { Link, useParams } from 'react-router-dom';
 
 function ProductDetails() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-    const [deleteShow, setDeleteShow] = useState(false);
-    const [deleteId, setDeleteId] = useState('');
 
-    //search
-    const [search, setSearch] = useState('');
-    const [searchedData, setSearchedData] = useState([]);
-    useEffect(() => {
-        const filteredData = data.filter((item) => item.product.name.toLowerCase().includes(search.toLowerCase()));
-        setSearchedData(filteredData);
-    }, [search, data]);
-
-    //Page
-    const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 7;
-    const lastindex = currentPage * recordsPerPage;
-    const firstIndex = lastindex - recordsPerPage;
-    const records = searchedData.slice(firstIndex, lastindex);
-    const npage = Math.ceil(searchedData.length / recordsPerPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1);
-
-    function prePage() {
-        if (currentPage !== 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    }
-    function changeCPage(id) {
-        setCurrentPage(id);
-    }
-    function nextPage() {
-        if (currentPage !== npage) {
-            setCurrentPage(currentPage + 1);
-        }
-    }
     const { productId } = useParams();
 
     // Call Api
@@ -53,9 +19,7 @@ function ProductDetails() {
     const getData = () => {
         getProductDetails(productId)
             .then((data) => {
-                // console.log(data);
                 setData(data);
-                setSearchedData(data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -64,33 +28,15 @@ function ProductDetails() {
             });
     };
 
-    const handleDelete = (id) => {
-        setDeleteId(id);
-        handleDeleteShow();
-    };
-
-    const handleDeleteConfirm = async () => {
-        deleteProductDetails(deleteId)
-            .then(() => {
-                toast.success('ProductDetails has been deleted');
-                handleClose();
-                getData();
-            })
-            .catch((error) => {
-                toast.error('Failed to delete ProductDetails', error);
-            });
-    };
-
-    const handleClose = () => {
-        setDeleteShow(false);
-    };
-
-    const handleDeleteShow = () => setDeleteShow(true);
-
     return (
         <section className="section">
             <div className="section-header">
-                <h1>ProductDetails</h1>
+                <div className="section-header-back">
+                    <Link to={`/product`} className="btn btn-icon">
+                        <i className="fas fa-arrow-left" />
+                    </Link>
+                </div>
+                <h1>Product Details</h1>
                 <div className="section-header-button">
                     <Link to="/product/detail/create" className="btn btn-primary">
                         Add New
@@ -101,111 +47,94 @@ function ProductDetails() {
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">ProductDetails</Link>
+                        <Link to="#">Product Details</Link>
                     </div>
-                    <div className="breadcrumb-item">All ProductDetails</div>
+                    <div className="breadcrumb-item">All Product Details</div>
                 </div>
             </div>
             <div className="section-body">
                 <div className="row mt-4">
                     <div className="col-12">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>All ProductDetails</h4>
-                            </div>
-
-                            <div className="card-body">
-                                {loading ? (
-                                    <div>Loading...</div>
-                                ) : (
-                                    <>
-                                        <div className="float-left">
-                                            <select className="form-control selectric">
-                                                <option>Action For Selected</option>
-                                            </select>
-                                        </div>
-                                        <Search setSearch={setSearch} />
-                                        <div className="clearfix mb-3" />
-                                        <div className="table-responsive">
-                                            <table className="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Id</th>
-                                                        <th>Image</th>
-                                                        <th>Products</th>
-                                                        <th>Ingredient</th>
-                                                        <th>Usage</th>
-                                                        <th>UsageInstructions</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {records.map((item, index) => (
-                                                        <tr key={item.id}>
-                                                            <td>{index + firstIndex + 1}</td>
-                                                            <td>
-                                                                <img
-                                                                    src={item.imagesSrc[0]}
-                                                                    style={{ width: '100px', height: 'auto' }}
-                                                                    alt={item.image}
-                                                                />
-                                                            </td>
-                                                            <td>{item.product.name}</td>
-                                                            <td>{item.ingredient}</td>
-                                                            <td>{item.usage}</td>
-                                                            <td>{item.usageInstructions}</td>
-                                                            <td colSpan={2}>
-                                                                <Link
-                                                                    to={`/product/detail/edit/${item.id}`}
-                                                                    className="btn btn-primary"
-                                                                    title="Edit"
-                                                                >
-                                                                    <i class="fas fa-pencil-alt"></i>
-                                                                </Link>
-                                                                &nbsp;
-                                                                {/* <button
-                                                                    className="btn btn-danger"
-                                                                    onClick={() => handleDelete(item.id)}
-                                                                    title="Delete"
-                                                                >
-                                                                    <i class="fas fa-trash"></i>
-                                                                </button> */}
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <Pagination
-                                            prePage={prePage}
-                                            nextPage={nextPage}
-                                            changeCPage={changeCPage}
-                                            currentPage={currentPage}
-                                            numbers={numbers}
-                                        />
-                                    </>
-                                )}
-                            </div>
-                        </div>
+                        {loading ? (
+                            <div>Loading...</div>
+                        ) : (
+                            data.map((item, index) => (
+                                <Card className="mb-4" key={item.id}>
+                                    <Card.Header as="h5">Product Detail {item.id}</Card.Header>
+                                    <Card.Body>
+                                        <Row>
+                                            <Col md={4}>
+                                                <img
+                                                    src={item.imagesSrc[0]}
+                                                    style={{ width: '100%', height: 'auto' }}
+                                                    alt={`Product Detail ${index + 1} Image 1`}
+                                                />
+                                            </Col>
+                                            <Col md={4}>
+                                                <img
+                                                    src={item.imagesSrc[1]}
+                                                    style={{ width: '100%', height: 'auto' }}
+                                                    alt={`Product Detail ${index + 1} Image 2`}
+                                                />
+                                            </Col>
+                                            <Col md={4}>
+                                                <img
+                                                    src={item.imagesSrc[2]}
+                                                    style={{ width: '100%', height: 'auto' }}
+                                                    alt={`Product Detail ${index + 1} Image 3`}
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Row className="mt-3">
+                                            <Col md={12}>
+                                                <h6>Ingredient:</h6>
+                                                <p>{item.ingredient}</p>
+                                            </Col>
+                                            <Col md={12}>
+                                                <h6>Usage:</h6>
+                                                <p>{item.usage}</p>
+                                            </Col>
+                                            <Col md={12}>
+                                                <h6>Usage Instructions:</h6>
+                                                <p>{item.usageInstructions}</p>
+                                            </Col>
+                                            <Col md={12}>
+                                                <h6>Description:</h6>
+                                                <p>{item.description}</p>
+                                            </Col>
+                                            <Col md={12}>
+                                                <h6>SideEffects:</h6>
+                                                <p>{item.sideEffects}</p>
+                                            </Col>
+                                            <Col md={12}>
+                                                <h6>Precautions:</h6>
+                                                <p>{item.precautions}</p>
+                                            </Col>
+                                            <Col md={12}>
+                                                <h6>Storage:</h6>
+                                                <p>{item.storage}</p>
+                                            </Col>
+                                        </Row>
+                                        <Row className="row mb-4">
+                                            <Col>
+                                                <div className="col-md-6 offset-md-3">
+                                                    <Link
+                                                        to={`/product/detail/edit/${item.id}`}
+                                                        className="btn btn-primary btn-block"
+                                                        title="Edit"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
-
-            <Modal show={deleteShow} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirm Delete</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this ProductDetails?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Cancel
-                    </Button>
-                    <Button variant="danger" onClick={handleDeleteConfirm}>
-                        Delete
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
             <ToastContainer />
         </section>
     );

@@ -59,15 +59,18 @@ function EditProductDetails() {
         try {
             await updateProductDetails(
                 data.id,
-                data.categoryChildId,
-                data.name,
+                data.ingredient,
+                data.usage,
+                data.usageInstructions,
                 data.description,
-                data.price,
-                data.manufacturer,
+                data.sideEffects,
+                data.precautions,
+                data.storage,
+                data.productId,
                 data.imagesProductDetailFile,
             );
             toast.success('ProductDetails updated successfully');
-            navigate('/ProductDetails');
+            navigate(`/Product/Detail/${data.id}`);
         } catch (error) {
             toast.error('Failed to update ProductDetails');
             console.error('Update error:', error);
@@ -82,59 +85,39 @@ function EditProductDetails() {
         });
     };
 
-    const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            let imagesProductDetailFile = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = (x) => {
-                setData({
-                    ...data,
-                    imagesProductDetailFile,
-                    imageSrc: x.target.result,
-                });
-            };
-            reader.readAsDataURL(imagesProductDetailFile);
-        } else {
-            setData({
-                ...data,
-                imagesProductDetailFile: null,
-                imageSrc: defaultImage,
-            });
-        }
-    };
     return (
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <Link to="/ProductDetails" className="btn btn-icon">
+                    <Link to={`/Product/Detail/${id}`} className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
                     </Link>
                 </div>
-                <h1>Edit ProductDetails</h1>
+                <h1>Edit Product Details</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
                     </div>
                     <div className="breadcrumb-item">
-                        <Link to="#">ProductDetailss</Link>
+                        <Link to="#">Product Details</Link>
                     </div>
-                    <div className="breadcrumb-item">Edit ProductDetails</div>
+                    <div className="breadcrumb-item">Edit Product Details</div>
                 </div>
             </div>
             <div className="section-body">
-                <h2 className="section-title">Edit ProductDetails</h2>
-                <p className="section-lead">On this page you can edit ProductDetails details.</p>
+                <h2 className="section-title">Edit Product Details</h2>
+                <p className="section-lead">On this page you can edit Product Details details.</p>
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Edit ProductDetails Details</h4>
+                                <h4>Edit Product Details Details</h4>
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleUpdate}>
-                                    <div className="row mb-4">
+                                    <div className="row mb-3">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Id</label>
+                                            <label className="form-label">ID</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -144,7 +127,7 @@ function EditProductDetails() {
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Ingredient</label>
+                                            <label className="form-label">Ingredient</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -152,26 +135,11 @@ function EditProductDetails() {
                                                 onChange={(e) => setData({ ...data, ingredient: e.target.value })}
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Product</label>
-                                            <select
-                                                className="form-control selectric"
-                                                value={data.productId}
-                                                onChange={(e) => setData({ ...data, productId: e.target.value })}
-                                            >
-                                                <option>Select productId</option>
-                                                {products.map((product) => (
-                                                    <option key={product.id} value={product.id}>
-                                                        {product.name}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
                                     </div>
 
-                                    <div className="row mb-4">
+                                    <div className="row mb-3">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Usage</label>
+                                            <label className="form-label">Usage</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -180,7 +148,7 @@ function EditProductDetails() {
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">UsageInstructions</label>
+                                            <label className="form-label">Usage Instructions</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -191,9 +159,10 @@ function EditProductDetails() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="row mb-4">
+
+                                    <div className="row mb-3">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Description</label>
+                                            <label className="form-label">Description</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -202,7 +171,7 @@ function EditProductDetails() {
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">SideEffects</label>
+                                            <label className="form-label">Side Effects</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -211,9 +180,10 @@ function EditProductDetails() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="row mb-4">
+
+                                    <div className="row mb-3">
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Precautions</label>
+                                            <label className="form-label">Precautions</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -222,7 +192,7 @@ function EditProductDetails() {
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Storage</label>
+                                            <label className="form-label">Storage</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -231,32 +201,55 @@ function EditProductDetails() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="form-group row mb-4">
-                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
-                                            imagesProductDetailFile
-                                        </label>
-                                        <div>
-                                            <img
-                                                src={data.imageSrc}
-                                                alt="Product"
-                                                style={{ maxWidth: 200, maxHeight: 150, marginBottom: 10 }}
-                                            />
+
+                                    <div className="row mb-3">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">CategoryChildId</label>
+                                            <select
+                                                className="form-control selectric"
+                                                value={data.productId}
+                                                onChange={(e) => setData({ ...data, productId: e.target.value })}
+                                            >
+                                                <option value="">Select Product</option>
+                                                {products.map((product) => (
+                                                    <option key={product.id} value={product.id}>
+                                                        {product.name}
+                                                    </option>
+                                                ))}
+                                            </select>
                                         </div>
-                                        <div className="col-sm-12 col-md-7">
+                                    </div>
+
+                                    <div className="row mb-3">
+                                        <div className="col-md-6">
+                                            <label className="form-label">Product Image</label>
                                             <input
                                                 type="file"
                                                 multiple
                                                 accept="image/*"
                                                 className="form-control"
-                                                onChange={handleImageChange}
+                                                onChange={handleImagesChange}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <img
+                                                src={data.imageSrc}
+                                                alt="Product"
+                                                className="img-fluid"
+                                                style={{ maxHeight: '150px' }}
                                             />
                                         </div>
                                     </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6 offset-md-3">
-                                            <button className="btn btn-primary btn-block" type="submit">
-                                                Create ProductDetails
+
+                                    <div className="row mb-3">
+                                        <div className="col-md-6">
+                                            <button type="submit" className="btn btn-primary me-2">
+                                                Update Product Details
                                             </button>
+                                            &nbsp; &nbsp;
+                                            <Link to={`/Product/Detail/${id}`} className="btn btn-danger">
+                                                Cancel
+                                            </Link>
                                         </div>
                                     </div>
                                 </form>

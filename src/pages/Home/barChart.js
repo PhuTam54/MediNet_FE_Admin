@@ -18,7 +18,7 @@ const BarChart = () => {
                     throw new Error('Failed to fetch chart data');
                 }
                 const jsonData = await response.json();
-                const filteredData = jsonData.filter(order => order.status === 4);
+                const filteredData = jsonData.filter((order) => order.status === 4);
 
                 const processData = (data, format, unit, totalUnits, fixedLabels) => {
                     const latestOrderDate = data.reduce((latestDate, item) => {
@@ -121,39 +121,29 @@ const BarChart = () => {
     };
 
     return (
-        <section className="section">
-            <div className="section-header">
-                <h1>BarChart</h1>
-                <div className="section-header-breadcrumb">
-                    <div className="breadcrumb-item active">
-                        <Link to="/">Dashboard</Link>
-                    </div>
-                    <div className="breadcrumb-item">
-                        <Link to="#">BarChart</Link>
-                    </div>
-                    <div className="breadcrumb-item">All BarChart</div>
-                </div>
-            </div>
-            <div className="col-lg-8">
-                <div className="card">
-                    <div className="card-header">
-                        <h4>Order Count and Revenue</h4>
-                    </div>
-                    <div className="card-body">
-                        <div>
-                            <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)}>
-                                <option value="Date">Date</option>
-                                <option value="Month">Month</option>
-                                <option value="Year">Year</option>
-                            </select>
+        <div className="section-body">
+            <div className="row mt-4">
+                <div className="col-12">
+                    <div className="card">
+                        <div className="card-header">
+                            <h4>Order Count and Revenue</h4>
                         </div>
-                        <div>
-                            <Bar data={data} height={400} options={options} />
+                        <div className="card-body">
+                            <div>
+                                <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)}>
+                                    <option value="Date">Date</option>
+                                    <option value="Month">Month</option>
+                                    <option value="Year">Year</option>
+                                </select>
+                            </div>
+                            <div>
+                                <Bar data={data} height={400} options={options} />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
 

@@ -192,11 +192,11 @@ function Profile() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="card-footer text-right">
+                                {/* <div className="card-footer text-right">
                                     <button type="submit" className="btn btn-primary">
                                         Update Profile
                                     </button>
-                                </div>
+                                </div> */}
                             </form>
                         </div>
                     </div>

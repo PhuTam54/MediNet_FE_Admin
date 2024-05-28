@@ -25,7 +25,6 @@ function Product() {
     const getData = async () => {
         try {
             const productData = await getProduct();
-            console.log(productData);
             const categoryData = await getCategoryChilds();
             setData(productData);
             setSearchedData(productData);

@@ -25,21 +25,6 @@ function SidebarAdmin() {
                                         Ecommerce Dashboard
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link className="nav-link" to="/barChart">
-                                        Chart
-                                    </Link>
-                                </li>
-                                {/* <li>
-                                    <Link className="nav-link" to="/doughnutChart">
-                                        DoughnutChart
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="nav-link" to="/lineChart">
-                                        LineChart
-                                    </Link>
-                                </li> */}
                             </ul>
                         </li>
 

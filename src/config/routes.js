@@ -1,13 +1,6 @@
 const routes = {
     admin: '/',
     barChart: '/barChart',
-    doughnutChart: '/doughnutChart',
-    lineChart: '/lineChart',
-    pieChart: '/pieChart',
-
-    cart: '/carts',
-    createCart: '/carts/create',
-    editCart: '/carts/edit/:id',
 
     //      clinics
     clinics: '/clinics',
@@ -76,7 +69,7 @@ const routes = {
 
     favoriteProducts: '/favorite',
 
-    detailProduct: '/product/detail/:id',
+    detailProduct: '/product/detail/:productId',
     createProductDetails: '/product/detail/create',
     editProductDetails: '/product/detail/edit/:id',
     //      Orders

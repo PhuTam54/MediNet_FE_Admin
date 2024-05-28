@@ -52,7 +52,7 @@ function Courses() {
     const getData = () => {
         getCourses()
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 setData(data);
                 setSearchedData(data);
                 setLoading(false);

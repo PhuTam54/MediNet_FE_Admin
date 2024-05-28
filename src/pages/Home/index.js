@@ -1,5 +1,6 @@
 import Order from './Order';
 import Product from './Product';
+import BarChart from './barChart';
 import React, { useState, useEffect } from 'react';
 import { getOrders } from '~/services/Orders/orderService';
 import { getProduct } from '~/services/Products/productService';
@@ -40,7 +41,6 @@ function HomeAdmin() {
     const getProductData = () => {
         getProduct()
             .then((data) => {
-                // const firstTenData = data.slice(0, 5);
                 setProducts(data);
             })
             .catch((error) => {
@@ -50,7 +50,6 @@ function HomeAdmin() {
     const getCustomerData = () => {
         getCustomers()
             .then((data) => {
-                // const firstTenData = data.slice(0, 5);
                 setCustomers(data);
             })
             .catch((error) => {
@@ -60,7 +59,6 @@ function HomeAdmin() {
     const getEmployeeData = () => {
         getEmployees()
             .then((data) => {
-                // const firstTenData = data;
                 setEmployees(data);
             })
             .catch((error) => {
@@ -70,7 +68,6 @@ function HomeAdmin() {
     const getClinicData = () => {
         getClinics()
             .then((data) => {
-                // const firstTenData = data;
                 setClinics(data);
             })
             .catch((error) => {
@@ -93,15 +90,15 @@ function HomeAdmin() {
                                 </div>
                                 <div className="card-stats-item">
                                     <div className="card-stats-item-count">
-                                        {orders.filter((order) => order.status === 2).length}
+                                        {orders.filter((order) => order.status === 1).length}
                                     </div>
-                                    <div className="card-stats-item-label"> Shipping</div>
+                                    <div className="card-stats-item-label"> Confirmed</div>
                                 </div>
                                 <div className="card-stats-item">
                                     <div className="card-stats-item-count">
-                                        {orders.filter((order) => order.status === 3).length}
+                                        {orders.filter((order) => order.status === 2).length}
                                     </div>
-                                    <div className="card-stats-item-label">Shipped</div>
+                                    <div className="card-stats-item-label">Shipping</div>
                                 </div>
                                 <div className="card-stats-item">
                                     <div className="card-stats-item-count">
@@ -126,9 +123,9 @@ function HomeAdmin() {
                                     className="card-header card-stats-items card-stats-item-count"
                                     style={{ fontWeight: 700, fontSize: 20 }}
                                 >
-                                    {orders.filter((order) => order.status === 1).length}
+                                    {orders.filter((order) => order.status === 3).length}
                                 </div>
-                                <div className="card-stats-item-label">Confirmed</div>
+                                <div className="card-stats-item-label">Shipped</div>
                             </div>
                             <div className="card-wrap ml-5">
                                 <div
@@ -203,6 +200,7 @@ function HomeAdmin() {
                     </div>
                 </div>
             </div>
+            <BarChart />
             <Order />
             <Product />
         </section>

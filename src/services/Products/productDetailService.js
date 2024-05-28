@@ -2,7 +2,7 @@ import { get, post, put, del } from '~/utils/httpRequest';
 
 export const getProductDetails = async (productId) => {
     try {
-        const response = await get(`/ProductDetails/`);
+        const response = await get(`ProductDetails/productId?productId=${productId}`);
         return response;
     } catch (error) {
         console.error('Error fetching ProductDetails data:', error);

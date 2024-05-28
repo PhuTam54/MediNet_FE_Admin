@@ -1,41 +1,24 @@
-import images from '~/assets/img/';
-import { useNavigate, useParams, Link } from 'react-router-dom';
-import { editFeedbacks } from '~/services/Orders/feedbackService';
 import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { editFeedbacks } from '~/services/Orders/feedbackService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './detail.css';
 
 function FeedbackDetail() {
-    const [customers, setCustomers] = useState([]);
-    const [products, setProducts] = useState([]);
-
-    const [data, setData] = useState({
-        id: '',
-        description: '',
-        customerId: '',
-        productId: '',
-    });
+    const [customer, setCustomer] = useState({});
+    const [product, setProduct] = useState({});
+    const [feedback, setFeedback] = useState({});
 
     const { id } = useParams();
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const feedbackData = await editFeedbacks(id);
-                setData({
-                    id: feedbackData.id,
-                    description: feedbackData.description,
-                    customerId: feedbackData.customerId,
-                    productId: feedbackData.productId,
-                });
-                console.log(feedbackData);
-                const productData = feedbackData.product;
-                setProducts([productData]);
-
-                const customerData = feedbackData.customer;
-                setCustomers([customerData]);
+                setFeedback(feedbackData);
+                setCustomer(feedbackData.customer);
+                setProduct(feedbackData.product);
             } catch (error) {
                 console.error('Error fetching Feedback data:', error);
             }
@@ -43,15 +26,23 @@ function FeedbackDetail() {
         fetchData();
     }, [id]);
 
+    const renderStars = () => {
+        const stars = [];
+        for (let i = 0; i < feedback.vote; i++) {
+            stars.push(<i key={i} className="fas fa-star text-warning"></i>);
+        }
+        return stars;
+    };
+
     return (
         <section className="section">
             <div className="section-header">
                 <div className="section-header-back">
-                    <Link to="/product" className="btn btn-icon">
+                    <Link to={`/product`} className="btn btn-icon">
                         <i className="fas fa-arrow-left" />
                     </Link>
                 </div>
-                <h1>Feedbacks Details</h1>
+                <h1>Feedback Details</h1>
                 <div className="section-header-breadcrumb">
                     <div className="breadcrumb-item active">
                         <Link to="#">Dashboard</Link>
@@ -59,7 +50,7 @@ function FeedbackDetail() {
                     <div className="breadcrumb-item">
                         <Link to="#">Feedbacks</Link>
                     </div>
-                    <div className="breadcrumb-item">Feedbacks Details</div>
+                    <div className="breadcrumb-item">Feedback Details</div>
                 </div>
             </div>
             <div className="section-body">
@@ -68,60 +59,38 @@ function FeedbackDetail() {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="invoice-title">
-                                    <h2>Feedbacks #{data.id}</h2>
+                                    <h2>Feedback #{feedback.id}</h2>
                                 </div>
                                 <hr />
                                 <div className="row">
                                     <div className="col-md-6">
                                         <address>
-                                            <strong className="fontSize">Billed To:</strong>
-                                            <p className="fontSize">
-                                                User: {customers.map((customer) => customer.username)}
-                                            </p>
-                                            <p className="fontSize">
-                                                Email: {customers.map((customer) => customer.email)}
-                                            </p>
-                                            <p className="fontSize"> Vote: {data.vote} </p>
-                                            <p className="fontSize"> Description: {data.description} </p>
+                                            <strong>Feedback To:</strong>
+                                            <p>User: {customer.username}</p>
+                                            <p>Email: {customer.email}</p>
+                                            <p>Vote: {renderStars()}</p>
+                                            <img
+                                                src={feedback.imagesSrc}
+                                                alt={feedback.name}
+                                                style={{ maxWidth: '150px' }}
+                                            />
+                                            <p>Description: {feedback.description}</p>
                                         </address>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row mt-4">
-                            <div className="col-md-12">
-                                <div className="section-title">Order Summary</div>
-                                <p className="section-lead">All items here cannot be deleted.</p>
-                                <div className="table-responsive">
-                                    <table className="table table-striped table-hover table-md">
-                                        <tbody>
-                                            <tr>
-                                                <th data-width={40}>#</th>
-                                                <th>Products</th>
-                                                <th>Name</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>Subtotal</th>
-                                            </tr>
-                                            {products.map((product, index) => (
-                                                <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>
-                                                        <img
-                                                            src={`https://medinetprj.azurewebsites.net/${product.image}`}
-                                                            style={{ width: '100px', height: 'auto' }}
-                                                            alt={product.name}
-                                                        />
-                                                    </td>
-                                                    <td>{product.name}</td>
-                                                    <td>${product.price}</td>
-                                                    <td>{data.quantity}</td>
-                                                    {/* <td>${item.subtotal}</td> */}
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                    <div className="col-md-6">
+                                        <div className="product-details">
+                                            <h3>Product Details</h3>
+                                            <p>Name: {product.name}</p>
+                                            <img
+                                                src={`https://medinetprj.azurewebsites.net/` + product.image}
+                                                alt={product.name}
+                                                style={{ maxWidth: '150px' }}
+                                            />
+                                            <p>Manufacturer: {product.manufacturer}</p>
+                                            <p>Price: ${product.price}</p>
+                                            <p>Description: {product.description}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -48,7 +48,7 @@ const Product = () => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4>Best-selling Products</h4>
+                            <h4>Feature Products</h4>
                             <div className="card-header-action">
                                 <Link to="/Product" className="btn btn-danger">
                                     View More <i className="fas fa-chevron-right" />

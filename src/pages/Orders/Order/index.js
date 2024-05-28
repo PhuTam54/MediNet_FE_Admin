@@ -69,7 +69,6 @@ function Orders() {
     const getData = () => {
         getOrders()
             .then((data) => {
-                // console.log(data);
                 setData(data);
                 setFilteredData(data);
                 setLoading(false);
@@ -107,6 +106,11 @@ function Orders() {
         setStatus(event.target.value);
     };
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().slice(0, 19).replace('T', ' ');
+    };
+
     return (
         <section className="section">
             <div className="section-header">
@@ -136,7 +140,7 @@ function Orders() {
                                         <div className="float-left">
                                             <select
                                                 className="form-control selectric"
-                                                value={data.status}
+                                                value={status}
                                                 onChange={handleStatusChange}
                                             >
                                                 <option value="">All</option>
@@ -173,7 +177,7 @@ function Orders() {
                                                             <td>{item.name}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.tel}</td>
-                                                            <td>{item.orderDate}</td>
+                                                            <td>{formatDate(item.orderDate)}</td>
                                                             <td>{item.payment_method}</td>
                                                             <td>
                                                                 {item.status === 0 && (
@@ -197,16 +201,13 @@ function Orders() {
                                                                     <div className="badge badge-danger">Cancel</div>
                                                                 )}
                                                             </td>
-                                                            {/* <td>{item.userId}</td>
-                                                            <td>{item.cartIds}</td> */}
-
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Orders/detail/${item.id}`}
                                                                     className="btn btn-info"
                                                                     title="Details"
                                                                 >
-                                                                    <i class="far fa-eye"></i>
+                                                                    <i className="far fa-eye"></i>
                                                                 </Link>
                                                             </td>
                                                         </tr>

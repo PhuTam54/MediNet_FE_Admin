@@ -6,9 +6,6 @@ import AdminLayout from '~/layouts/AdminLayouts/AdminLayout';
 // Pages
 import HomeAdmin from '~/pages/Home';
 import BarChart from '~/pages/Home/barChart';
-import DoughnutChart from '~/pages/Home/doughnutChart';
-import LineChart from '~/pages/Home/lineChart';
-import PieChart from '~/pages/Home/pieChart';
 
 //      Clinics
 import Clinics from '~/pages/Clinics/Clinic/index';
@@ -115,9 +112,6 @@ export const publicRoutes = [
     //      Home
     { path: config.routes.admin, component: HomeAdmin, layout: AdminLayout },
     { path: config.routes.barChart, component: BarChart, layout: AdminLayout },
-    { path: config.routes.doughnutChart, component: DoughnutChart, layout: AdminLayout },
-    { path: config.routes.lineChart, component: LineChart, layout: AdminLayout },
-    { path: config.routes.pieChart, component: PieChart, layout: AdminLayout },
 
     //      Clinics
     { path: config.routes.clinics, component: Clinics, layout: AdminLayout },
