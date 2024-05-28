@@ -121,16 +121,16 @@ function HomeAdmin() {
                             <div className="card-wrap">
                                 <div
                                     className="card-header card-stats-items card-stats-item-count"
-                                    style={{ fontWeight: 700, fontSize: 20 }}
+                                    style={{ fontWeight: 700, fontSize: 20, margin: '-2px solid red' }}
                                 >
                                     {orders.filter((order) => order.status === 3).length}
                                 </div>
                                 <div className="card-stats-item-label">Shipped</div>
                             </div>
-                            <div className="card-wrap ml-5">
+                            <div className="card-wrap">
                                 <div
                                     className="card-header card-stats-items card-stats-item-count"
-                                    style={{ fontWeight: 700, fontSize: 20 }}
+                                    style={{ fontWeight: 700, fontSize: 20}}
                                 >
                                     {orders.filter((order) => order.status === 5).length}
                                 </div>
