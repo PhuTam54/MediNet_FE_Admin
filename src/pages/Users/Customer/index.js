@@ -132,11 +132,8 @@ function Customers() {
                                                         <th>Img</th>
                                                         <th>Username</th>
                                                         <th>Email</th>
-                                                        {/* <th>Date_Of_Birth</th>
                                                         <th>Phone</th>
-                                                        <th>Password</th>
-                                                        <th>Address</th> */}
-                                                        <th>Actions</th>
+                                                        <th>Address</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -146,18 +143,15 @@ function Customers() {
                                                             <td>
                                                                 <img
                                                                     src={item.imageSrc}
-                                                                    // src={`https://medinetprj.azurewebsites.net/${item.image}`}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />
                                                             </td>
                                                             <td>{item.username}</td>
                                                             <td>{item.email}</td>
-                                                            {/* <td>{item.date_Of_Birth}</td>
                                                             <td>{item.phoneNumber}</td>
-                                                            <td>{item.password}</td>
-                                                            <td>{item.address}</td> */}
-                                                            <td colSpan={2}>
+                                                            <td>{item.address}</td>
+                                                            {/* <td colSpan={2}>
                                                                 <Link
                                                                     to={`/Customers/edit/${item.id}`}
                                                                     className="btn btn-primary"
@@ -173,7 +167,7 @@ function Customers() {
                                                                 >
                                                                     <i class="fas fa-trash"></i>
                                                                 </button>
-                                                            </td>
+                                                            </td> */}
                                                         </tr>
                                                     ))}
                                                 </tbody>
