@@ -46,7 +46,7 @@ function EditCourses() {
                     medicineSalesTraining: coursesData.medicineSalesTraining,
                     medicalExaminationTraining: coursesData.medicalExaminationTraining,
                     employeeId: coursesData.employeeId,
-                    imageSrc: coursesData.image || defaultImage,
+                    imageSrc: coursesData.imageSrc || defaultImage,
                     imagesCourseFile: null,
                 });
 
@@ -136,21 +136,22 @@ function EditCourses() {
                                 <form onSubmit={handleUpdate}>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Id</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                disabled
+                                                value={data.id}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Title</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
                                                 value={data.title}
                                                 onChange={(e) => setData({ ...data, title: e.target.value })}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Price</label>
-                                            <input
-                                                type="number"
-                                                className="form-control"
-                                                value={data.price}
-                                                onChange={(e) => setData({ ...data, price: e.target.value })}
                                             />
                                         </div>
                                     </div>
@@ -216,6 +217,34 @@ function EditCourses() {
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Price</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                value={data.price}
+                                                onChange={(e) => setData({ ...data, price: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Employees</label>
+                                            <select
+                                                className="form-control selectric"
+                                                value={data.employeeId}
+                                                onChange={(e) => setData({ ...data, employeeId: e.target.value })}
+                                            >
+                                                <option>Select employees</option>
+                                                {employees
+                                                    .filter((category) => category.role === 4)
+                                                    .map((employee) => (
+                                                        <option key={employee.id} value={employee.id}>
+                                                            {employee.username}
+                                                        </option>
+                                                    ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="row mb-4">
+                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">
                                                 Medicine Sales Training
                                             </label>
@@ -249,25 +278,6 @@ function EditCourses() {
                                             >
                                                 <option value="true">True</option>
                                                 <option value="false">False</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="row mb-4">
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">Employees</label>
-                                            <select
-                                                className="form-control selectric"
-                                                value={data.employeeId}
-                                                onChange={(e) => setData({ ...data, employeeId: e.target.value })}
-                                            >
-                                                <option>Select employees</option>
-                                                {employees
-                                                    .filter((category) => category.role === 4)
-                                                    .map((employee) => (
-                                                        <option key={employee.id} value={employee.id}>
-                                                            {employee.username}
-                                                        </option>
-                                                    ))}
                                             </select>
                                         </div>
                                     </div>

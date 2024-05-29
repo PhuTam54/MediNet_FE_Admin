@@ -34,7 +34,7 @@ function EditProduct() {
                     description: productData.description,
                     price: productData.price,
                     manufacturer: productData.manufacturer,
-                    imageSrc: productData.image || defaultImage,
+                    imageSrc: productData.imageSrc || defaultImage,
                     imageFile: null,
                 });
 
@@ -121,6 +121,16 @@ function EditProduct() {
                                 <form onSubmit={handleUpdate}>
                                     <div className="row mb-4">
                                         <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">Id</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                disabled
+                                                value={data.id}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Name</label>
                                             <input
                                                 type="text"
@@ -128,21 +138,6 @@ function EditProduct() {
                                                 value={data.name}
                                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                             />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label className="col-form-label text-md-right">CategoryChildId</label>
-                                            <select
-                                                className="form-control selectric"
-                                                value={data.categoryChildId}
-                                                onChange={(e) => setData({ ...data, categoryChildId: e.target.value })}
-                                            >
-                                                <option>Select CategoryChildId</option>
-                                                {categoryChilds.map((categoryChild) => (
-                                                    <option key={categoryChild.id} value={categoryChild.id}>
-                                                        {categoryChild.name}
-                                                    </option>
-                                                ))}
-                                            </select>
                                         </div>
                                     </div>
 
@@ -167,6 +162,21 @@ function EditProduct() {
                                         </div>
                                     </div>
                                     <div className="row mb-4">
+                                        <div className="col-md-6">
+                                            <label className="col-form-label text-md-right">CategoryChildId</label>
+                                            <select
+                                                className="form-control selectric"
+                                                value={data.categoryChildId}
+                                                onChange={(e) => setData({ ...data, categoryChildId: e.target.value })}
+                                            >
+                                                <option>Select CategoryChildId</option>
+                                                {categoryChilds.map((categoryChild) => (
+                                                    <option key={categoryChild.id} value={categoryChild.id}>
+                                                        {categoryChild.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
                                         <div className="col-md-6">
                                             <label className="col-form-label text-md-right">Manufacturer</label>
                                             <input

@@ -113,6 +113,20 @@ function EditBlogs() {
                                 <form onSubmit={handleUpdate}>
                                     <div className="form-group row mb-4">
                                         <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Id
+                                        </label>
+                                        <div className="col-sm-12 col-md-7">
+                                            <input
+                                                type="text"
+                                                disabled
+                                                className="form-control"
+                                                value={data.id}
+                                                onChange={(e) => setData({ ...data, id: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-4">
+                                        <label className="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                             Title
                                         </label>
                                         <div className="col-sm-12 col-md-7">
@@ -214,7 +228,7 @@ function EditBlogs() {
                                     <div className="form-group row mb-4">
                                         <div className="col-sm-12 col-md-7 offset-md-3">
                                             <button className="btn btn-primary" type="submit">
-                                                Create Blogs
+                                                Update Blogs
                                             </button>
                                         </div>
                                     </div>
