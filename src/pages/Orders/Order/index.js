@@ -13,10 +13,12 @@ function Orders() {
     const [deleteShow, setDeleteShow] = useState(false);
     const [deleteId, setDeleteId] = useState('');
 
-    //search and status filter
+    //search, status, name, and date filters
     const [search, setSearch] = useState('');
     const [status, setStatus] = useState('');
     const [name, setName] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
@@ -35,8 +37,16 @@ function Orders() {
         if (name !== '') {
             filteredData = filteredData.filter((item) => item.name.toString() === status);
         }
+        if (startDate) {
+            const start = new Date(startDate);
+            filteredData = filteredData.filter((item) => new Date(item.orderDate) >= start);
+        }
+        if (endDate) {
+            const end = new Date(endDate);
+            filteredData = filteredData.filter((item) => new Date(item.orderDate) <= end);
+        }
         setFilteredData(filteredData);
-    }, [search, status, data, name]);
+    }, [search, status, data, name, startDate, endDate]);
 
     //Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -108,7 +118,15 @@ function Orders() {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toISOString().slice(0, 19).replace('T', ' ');
+        return date.toLocaleString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+        });
     };
 
     return (
@@ -153,6 +171,24 @@ function Orders() {
                                             </select>
                                         </div>
                                         <Search setSearch={setSearch} />
+                                        <div className="float-left ml-2">
+                                            <input
+                                                type="date"
+                                                title="Start Date"
+                                                className="form-control"
+                                                value={startDate}
+                                                onChange={(e) => setStartDate(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="float-left ml-2">
+                                            <input
+                                                type="date"
+                                                title="End Date"
+                                                className="form-control"
+                                                value={endDate}
+                                                onChange={(e) => setEndDate(e.target.value)}
+                                            />
+                                        </div>
                                         <div className="clearfix mb-3" />
                                         <div className="table-responsive">
                                             <table className="table table-striped">
@@ -160,7 +196,6 @@ function Orders() {
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>OrderCode</th>
-                                                        <th>Name</th>
                                                         <th>Email</th>
                                                         <th>TelePhone</th>
                                                         <th>OrderDate</th>
@@ -174,7 +209,6 @@ function Orders() {
                                                         <tr key={item.id}>
                                                             <td>{index + firstIndex + 1}</td>
                                                             <td>{item.orderCode}</td>
-                                                            <td>{item.name}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.tel}</td>
                                                             <td>{formatDate(item.orderDate)}</td>
