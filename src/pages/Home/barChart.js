@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
-ChartJS.register(BarElement, CategoryScale, LinearScale);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip);
 
 const BarChart = () => {
     const [chartData, setChartData] = useState(null);
@@ -112,6 +112,21 @@ const BarChart = () => {
             },
         },
         plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        const label = context.dataset.label || '';
+                        const value = context.raw;
+                        return `${label}: ${value}`;
+                    },
+                    afterLabel: function(context) {
+                        if (context.dataset.label === 'Revenue') {
+                            return `$`;
+                        }
+                        return '';
+                    }
+                }
+            },
             legend: {
                 labels: {
                     fontSize: 25,
