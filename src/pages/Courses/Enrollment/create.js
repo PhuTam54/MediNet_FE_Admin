@@ -18,11 +18,11 @@ function CreateEnrollments() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const courseData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Courses');
+                const courseData = await fetch('https://medinetaptech.azurewebsites.net/api/v1/Courses');
                 const courseJson = await courseData.json();
                 setCourses(courseJson);
 
-                const employeeData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Employees');
+                const employeeData = await fetch('https://medinetaptech.azurewebsites.net/api/v1/Employees');
                 const employeeJson = await employeeData.json();
                 setEmployees(employeeJson);
             } catch (error) {

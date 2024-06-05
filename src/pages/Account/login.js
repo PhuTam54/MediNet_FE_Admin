@@ -21,7 +21,7 @@ function Login() {
         if (validate()) {
             try {
                 const response = await httpRequest.post(
-                    'https://medinetprj.azurewebsites.net/api/v1/LoginRegister/Login',
+                    'https://medinetaptech.azurewebsites.net/api/v1/LoginRegister/Login',
                     {
                         email: email,
                         password: password,

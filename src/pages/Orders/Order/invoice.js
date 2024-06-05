@@ -128,7 +128,7 @@ function Invoice() {
                                                     <td>{index + 1}</td>
                                                     <td>
                                                         <img
-                                                            src={`https://medinetprj.azurewebsites.net/${item.product.image}`}
+                                                            src={`https://medinetaptech.azurewebsites.net/${item.product.image}`}
                                                             style={{ width: '100px', height: 'auto' }}
                                                             alt={item.image}
                                                         />

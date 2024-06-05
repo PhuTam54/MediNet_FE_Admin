@@ -38,7 +38,7 @@ function EditProduct() {
                     imageFile: null,
                 });
 
-                const categoryChildData = await fetch('https://medinetprj.azurewebsites.net/api/v1/CategoryChilds');
+                const categoryChildData = await fetch('https://medinetaptech.azurewebsites.net/api/v1/CategoryChilds');
                 const categoryChildJson = await categoryChildData.json();
                 setCategoryChild(categoryChildJson);
             } catch (error) {

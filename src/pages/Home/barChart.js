@@ -13,7 +13,7 @@ const BarChart = () => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await fetch('https://medinetprj.azurewebsites.net/api/v1/Orders');
+                const response = await fetch('https://medinetaptech.azurewebsites.net/api/v1/Orders');
                 if (!response.ok) {
                     throw new Error('Failed to fetch chart data');
                 }
@@ -114,18 +114,18 @@ const BarChart = () => {
         plugins: {
             tooltip: {
                 callbacks: {
-                    label: function(context) {
+                    label: function (context) {
                         const label = context.dataset.label || '';
                         const value = context.raw;
                         return `${label}: ${value}`;
                     },
-                    afterLabel: function(context) {
+                    afterLabel: function (context) {
                         if (context.dataset.label === 'Revenue') {
                             return `$`;
                         }
                         return '';
-                    }
-                }
+                    },
+                },
             },
             legend: {
                 labels: {

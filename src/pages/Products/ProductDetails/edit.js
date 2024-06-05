@@ -43,7 +43,7 @@ function EditProductDetails() {
                     imagesProductDetailFile: null,
                 });
 
-                const productData = await fetch('https://medinetprj.azurewebsites.net/api/v1/products');
+                const productData = await fetch('https://medinetaptech.azurewebsites.net/api/v1/products');
                 const productJson = await productData.json();
                 setProducts(productJson);
             } catch (error) {

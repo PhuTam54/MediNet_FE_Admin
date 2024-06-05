@@ -196,7 +196,7 @@ function Product() {
                                                                     ? item.inStocks[0].stockQuantity
                                                                     : '0'}
                                                             </td>
-                                                            <td>{item.price}$</td>
+                                                            <td>${item.price}</td>
                                                             <td colSpan={2}>
                                                                 <Link
                                                                     to={`/product/detail/${item.id}`}

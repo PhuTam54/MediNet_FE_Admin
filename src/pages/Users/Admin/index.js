@@ -143,7 +143,7 @@ function Admins() {
                                                             <td>
                                                                 <img
                                                                     src={item.imageSrc}
-                                                                    // src={`https://medinetprj.azurewebsites.net/${item.image}`}
+                                                                    // src={`https://medinetaptech.azurewebsites.net/${item.image}`}
                                                                     style={{ width: '100px', height: 'auto' }}
                                                                     alt={item.image}
                                                                 />

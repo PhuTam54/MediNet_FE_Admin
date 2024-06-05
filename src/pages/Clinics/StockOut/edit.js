@@ -32,11 +32,11 @@ function EditStockOuts() {
                     dateOut: StockOutsData.dateOut,
                     reason: StockOutsData.reason,
                 });
-                const clinicsData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Clinics');
+                const clinicsData = await fetch('https://medinetaptech.azurewebsites.net/api/v1/Clinics');
                 const clinicsJson = await clinicsData.json();
                 setClinics(clinicsJson);
 
-                const productsData = await fetch('https://medinetprj.azurewebsites.net/api/v1/Products');
+                const productsData = await fetch('https://medinetaptech.azurewebsites.net/api/v1/Products');
                 const productsJson = await productsData.json();
                 setProducts(productsJson);
             } catch (error) {

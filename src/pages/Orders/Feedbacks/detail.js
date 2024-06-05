@@ -82,7 +82,7 @@ function FeedbackDetail() {
                                             <h3>Product Details</h3>
                                             <p>Name: {product.name}</p>
                                             <img
-                                                src={`https://medinetprj.azurewebsites.net/` + product.image}
+                                                src={`https://medinetaptech.azurewebsites.net/` + product.image}
                                                 alt={product.name}
                                                 style={{ maxWidth: '150px' }}
                                             />
